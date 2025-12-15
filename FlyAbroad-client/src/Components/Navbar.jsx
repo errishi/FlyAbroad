@@ -38,7 +38,7 @@ export default function Navbar() {
               <img
                 alt="Your Company"
                 src="/FlyAbroad-new.svg"
-                className="h-18 w-auto"
+                className="lg:h-18 md:h-12 h-12 lg:mr-0 md:mr-0 sm:mr-0 mr-12 w-auto"
               />
             </div>
             <div className="hidden sm:ml-6 sm:block">

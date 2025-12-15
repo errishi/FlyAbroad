@@ -1,8 +1,23 @@
 import React from 'react'
+import Header from '../Components/Home/Header';
+import PopularCourse from '../Components/Home/PopularCourse';
+import Category from '../Components/Home/Category';
+import Benefit from '../Components/Home/Benefit';
+import Training from '../Components/Home/Training';
+import GiftCard from '../Components/Home/GiftCard';
+import Exclusive from '../Components/Home/Exclusive';
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <Header />
+      <PopularCourse />
+      <Category />
+      <Benefit />
+      <Training />
+      <GiftCard />
+      <Exclusive />
+    </div>
   )
 }
 
