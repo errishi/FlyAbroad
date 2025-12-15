@@ -16,6 +16,10 @@ body{
     text-transform: capitalize !important;
 }
 
+#social-media > li{
+    color: #0B7077;
+}
+
 #social-media #instagram:hover{
     color: #b905c9 !important;
 }
@@ -33,9 +37,9 @@ body{
 }
 
 .css-5h82ro-MuiInputBase-root-MuiInput-root::after{
-    border-bottom: 2px solid #FD661F !important;
+    border-bottom: 2px solid #0B7077 !important;
 }
 
 .css-1ew92b2-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
-    color:#FD661F !important;
+    color:#0B7077 !important;
 }

@@ -51,7 +51,7 @@ export default function Navbar() {
                     to={item.href}
                     aria-current={isCurrent ? 'page' : undefined}
                     className={classNames(
-                      isCurrent ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
+                      isCurrent ? 'bg-gray-950/50 text-white' : 'text-gray-200 hover:bg-white/5 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
                   >
@@ -64,7 +64,7 @@ export default function Navbar() {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button
               type="button"
-              className="relative rounded-full p-1 cursor-pointer text-gray-300 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
+              className="relative rounded-full p-1 cursor-pointer text-gray-200 hover:text-white focus:outline-2 focus:outline-offset-2 focus:outline-indigo-500"
             >
               <span className="absolute -inset-1.5" />
               <span className="sr-only">View notifications</span>
