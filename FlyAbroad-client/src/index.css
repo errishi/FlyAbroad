@@ -16,6 +16,20 @@ body{
     text-transform: capitalize !important;
 }
 
+/* -------------------- Home ----------------------- */
+
+#home-header{
+    width: 100%;
+    height: 100%;
+    background-image: url('/header-bg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0 0 30px 30px;
+}
+
+
+/* ---------------- Footer -------------- */
+
 #social-media > li{
     color: #0B7077;
 }
