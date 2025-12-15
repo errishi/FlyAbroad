@@ -11,7 +11,7 @@ body{
 }
 
 #search-button Button{
-    background-color: #5A2D82 !important;
+    background-color: #FD661F !important;
     height: 40px !important;
     text-transform: capitalize !important;
 }
@@ -33,9 +33,9 @@ body{
 }
 
 .css-5h82ro-MuiInputBase-root-MuiInput-root::after{
-    border-bottom: 2px solid #5A2D82 !important;
+    border-bottom: 2px solid #FD661F !important;
 }
 
 .css-1ew92b2-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
-    color:#5A2D82 !important;
+    color:#FD661F !important;
 }

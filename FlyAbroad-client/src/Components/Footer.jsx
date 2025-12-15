@@ -8,55 +8,55 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 
 const Footer = () => {
     return (
-        <div className='bg-[#2E3192]/40 p-8'>
+        <div className='bg-[#0B7077]/25 p-8'>
             <div className='flex justify-between lg:flex-row md:flex-row flex-col items-center'>
             <div className='lg:w-[30%] md:w-[30%] w-full'>
                 <img src="/flyAbroad.svg" className='lg:w-[230px] w-[150px]' alt="company logo" />
-                <p className='text-gray-700 text-[14px] lg:text-[17px]'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa, minus?</p>
+                <p className='text-[#0B7077] text-[14px] lg:text-[17px]'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa, minus?</p>
             </div>
             <div className='flex justify-around gap-4 lg:gap-0 md:gap-0 lg:flex-row md:flex-row flex-col w-full py-5'>
                 <div className='w-fit'>
-                    <h3 className='text-xl font-medium my-4 text-[#001d3d]'>Solutions</h3>
+                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Solutions</h3>
                     <ul className='gap-3 flex flex-col'>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
                     </ul>
                 </div>
                 <div className='w-fit'>
-                    <h3 className='text-xl font-medium my-4 text-[#001d3d]'>Solutions</h3>
+                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Solutions</h3>
                     <ul className='gap-3 flex flex-col'>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
                     </ul>
                 </div>
                 <div className='w-fit'>
-                    <h3 className='text-xl font-medium my-4 text-[#001d3d]'>Solutions</h3>
+                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Solutions</h3>
                     <ul className='gap-3 flex flex-col'>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
                     </ul>
                 </div>
                 <div className='w-fit'>
-                    <h3 className='text-xl font-medium my-4 text-[#001d3d]'>Solutions</h3>
+                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Solutions</h3>
                     <ul className='gap-3 flex flex-col'>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Marketing</li>
-                        <li className='hover:text-[#d6463c] text-gray-700 transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Marketing</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Analytics</li>
                     </ul>
                 </div>
             </div>
@@ -64,8 +64,8 @@ const Footer = () => {
             <hr className='text-gray-400 border my-7' />
             <div className='flex justify-between lg:flex-row md:flex-row flex-col'>
                 <div>
-                    <h2 className='font-semibold text-[#001d3d]'>Subscribe to our newsletter</h2>
-                    <p className='text-gray-700 text-[14px] lg:text-[17px] w-full md:w-80 lg:w-full'>The latest news, articles, and resources, sent to your inbox weekly.</p>
+                    <h2 className='font-semibold text-[#0A033C]'>Subscribe to our newsletter</h2>
+                    <p className='text-[#0B7077] text-[14px] lg:text-[17px] w-full md:w-80 lg:w-full'>The latest news, articles, and resources, sent to your inbox weekly.</p>
                 </div>
                 <div id='search-button' className='flex gap-5 mt-3 lg:mt-0 md:mt-0'>
                     <TextField id="standard-basic" label="Enter your email" variant="standard" />
