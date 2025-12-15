@@ -1,12 +1,13 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
+  { name: 'Careers', href: '/career', current: false },
   { name: 'About', href: '/about', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Blog', href: '/blog', current: false },
+  { name: 'Contact', href: '/contact', current: false },
 ]
 
 function classNames(...classes) {
@@ -14,10 +15,12 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const location = useLocation();
+
   return (
     <Disclosure
       as="nav"
-      className="relative bg-[#2E3192]/70 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10"
+      className="relative bg-[#0B7077]/60 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10"
     >
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-0">
         <div className="relative flex h-16 items-center justify-between">
@@ -34,25 +37,27 @@ export default function Navbar() {
             <div className="flex shrink-0 items-center">
               <img
                 alt="Your Company"
-                src="/flyAbroad(B-W).svg"
-                className="h-11 w-auto"
+                src="/FlyAbroad-new.svg"
+                className="h-18 w-auto"
               />
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4 my-50">
-                {navigation.map((item) => (
+                {navigation.map((item) => {
+                  const isCurrent = location.pathname === item.href;
+                return(
                   <Link
                     key={item.name}
                     to={item.href}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={isCurrent ? 'page' : undefined}
                     className={classNames(
-                      item.current ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
+                      isCurrent ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
                       'rounded-md px-3 py-2 text-sm font-medium',
                     )}
                   >
                     {item.name}
                   </Link>
-                ))}
+                )})}
               </div>
             </div>
           </div>

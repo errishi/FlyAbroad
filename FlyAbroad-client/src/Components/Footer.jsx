@@ -11,7 +11,7 @@ const Footer = () => {
         <div className='bg-[#0B7077]/25 p-8'>
             <div className='flex justify-between lg:flex-row md:flex-row flex-col items-center'>
             <div className='lg:w-[30%] md:w-[30%] w-full'>
-                <img src="/flyAbroad.svg" className='lg:w-[230px] w-[150px]' alt="company logo" />
+                <img src="/FlyAbroad-new.svg" className='lg:w-[230px] w-[150px]' alt="company logo" />
                 <p className='text-[#0B7077] text-[14px] lg:text-[17px]'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsa, minus?</p>
             </div>
             <div className='flex justify-around gap-4 lg:gap-0 md:gap-0 lg:flex-row md:flex-row flex-col w-full py-5'>
