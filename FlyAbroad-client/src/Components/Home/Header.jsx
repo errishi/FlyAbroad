@@ -23,6 +23,10 @@ const Header = () => {
           <img src="./src/assets/volume.png" className='absolute lg:top-[35%] md:top-[25%] top-125 lg:right-10 md:right-7 lg:w-30 md:w-30 w-20' alt="Volume" />
         </div>
       </div>
+      <div className='hidden lg:block md:block'>
+        <img src="/explore-more-btn.svg" className='absolute z-2 w-30 lg:left-[49.6%] md:left-[42%] md:bottom-4 lg:-bottom-1' alt="explore button" />
+        <img src="/Ellipse.svg" className='absolute -z-1 w-38 lg:left-[48.5%] md:left-[40%] lg:-bottom-5 md:bottom-0' alt="explore button" />
+      </div>
     </div>
   )
 }
