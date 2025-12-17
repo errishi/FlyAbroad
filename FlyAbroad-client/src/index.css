@@ -2,6 +2,11 @@
 
 @import "tailwindcss";
 
+@theme{
+    --breakpoint-xs: 20rem;
+    --breakpoint-smL: 23.75rem;
+}
+
 *{
     font-family: "Outfit", sans-serif !important;
     scroll-behavior: smooth !important;
