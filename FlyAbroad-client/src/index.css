@@ -4,10 +4,12 @@
 
 *{
     font-family: "Outfit", sans-serif !important;
+    scroll-behavior: smooth !important;
+    scrollbar-width: none !important;
 }
 
 body{
-    background-color: #F9FAFC;
+    background-color: #F5F5F5;
 }
 
 #search-button Button{
