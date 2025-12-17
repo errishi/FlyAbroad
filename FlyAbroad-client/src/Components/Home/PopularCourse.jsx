@@ -1,5 +1,6 @@
 import React from 'react'
 import SecondaryButton from '../SecondaryButton';
+import CourseCard from './CourseCard';
 
 const categories = [
   { name: 'All Programme', category: 'all', current: true },
@@ -19,9 +20,17 @@ const PopularCourse = () => {
       <div className='flex overflow-x-scroll lg:overflow-x-hidden lg:gap-6 md:gap-6 gap-4 lg:justify-center md:justify-center w-full h-auto my-10'>
         {categories.map((item)=>{
           return(
-            <SecondaryButton name={item.name} isCurrent={item.current} />
+            <div>
+              <SecondaryButton name={item.name} isCurrent={item.current} />
+            </div>
           )
         })}
+      </div>
+      <div className='flex gap-5 lg:flex-row md:flex-row flex-col'>
+        <CourseCard title={"Product Management Basic - Course"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={380} studentsEnroll={40} mrp={500} image={"/image-1.svg"} />
+        <CourseCard title={"BM Data Science Professional Certificate"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={678} mrp={899} studentsEnroll={14} image={"/image-2.svg"} />
+        <CourseCard title={"The Science of Well-Being"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={129} mrp={300} studentsEnroll={238} image={"/image-3.svg"} />
+        <CourseCard title={"Python for Everybody Specialization"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={459} mrp={699} studentsEnroll={328} image={"/image-4.svg"} />
       </div>
     </div>
   )
