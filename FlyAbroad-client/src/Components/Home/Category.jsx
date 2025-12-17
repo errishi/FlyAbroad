@@ -1,6 +1,6 @@
 import React from 'react'
 import CategoryCard from './CategoryCard';
-import SecondaryButton from '../SecondaryButton';
+import PrimaryButton from '../PrimaryButton';
 
 const Category = () => {
   return (
@@ -17,7 +17,7 @@ const Category = () => {
         <CategoryCard title={"Nutrition"} description={"One powerful online software suite that combines"} image={"/category-nutrition.svg"} />
       </div>
       <div className='text-center -mt-5'>
-        <SecondaryButton name={"View All"} />
+        <PrimaryButton name={"View All"} />
       </div>
     </div>
   )
