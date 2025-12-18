@@ -3,9 +3,9 @@ import PrimaryButton from '../PrimaryButton';
 
 const CourseCard = ({image, studentsEnroll, title, description, price, discount, mrp }) => {
     return (
-        <div className='lg:w-90 w-auto rounded-2xl overflow-clip relative bg-white'>
+        <div className='lg:w-90 md:w-83 h-auto w-auto rounded-2xl overflow-clip relative bg-white'>
             <img src={image} className='w-full' alt="course image" />
-            <div className='flex items-center absolute lg:top-40 xs:top-34 smL:top-45 lg:left-8 xs:left-8 smL:left-18 gap-3 bg-gray-100 px-3 py-1.5 rounded-full'>
+            <div className='flex items-center absolute lg:top-40 xs:top-34 smL:top-45 md:top-42 lg:left-8 xs:left-8 smL:left-18 md:left-13 gap-3 bg-gray-100 px-3 py-1.5 rounded-full'>
                 <img src="/Group-profile.svg" className='lg:w-auto md:w-auto xs:w-19' alt="enrolled profile" />
                 <p className='text-sm lg:text-[16px]'>+ {studentsEnroll} Students</p>
             </div>

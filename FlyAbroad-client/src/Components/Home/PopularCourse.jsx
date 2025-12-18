@@ -26,7 +26,7 @@ const PopularCourse = () => {
           )
         })}
       </div>
-      <div className='flex gap-5 lg:flex-row md:flex-row flex-col'>
+      <div className='flex gap-5 lg:flex-nowrap flex-wrap justify-center'>
         <CourseCard title={"Product Management Basic - Course"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={380} studentsEnroll={40} mrp={500} image={"/image-1.svg"} />
         <CourseCard title={"BM Data Science Professional Certificate"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={678} mrp={899} studentsEnroll={14} image={"/image-2.svg"} />
         <CourseCard title={"The Science of Well-Being"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={129} mrp={300} studentsEnroll={238} image={"/image-3.svg"} />
