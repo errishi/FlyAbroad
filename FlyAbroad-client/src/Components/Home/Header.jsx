@@ -17,13 +17,13 @@ const Header = () => {
             <img src="/Button.svg" className='lg:h-10 md:h-9 sm:h-8 h-7' alt="review" />
           </div>
         </div>
-        <div className='w-auto h-auto flex'>
-          <img src="./src/assets/assisted-student.svg" className='absolute lg:top-[65%] md:top-[60%] top-175 lg:right-100 md:right-60 right-10 lg:w-50 md:w-40 w-35' alt="Students" />
+        <div className='w-auto h-auto flex relative'>
+          <img src="./src/assets/assisted-student.svg" className='absolute lg:top-[75%] md:top-[70%] top-63 lg:right-100 md:right-60 right-5 lg:w-50 md:w-40 w-35' alt="Students" />
           <img src="./src/assets/student.png" className='lg:mr-15 md:mr-15 m-auto -mb-5 lg:w-100 w-80' alt="student" />
-          <img src="./src/assets/volume.png" className='absolute lg:top-[35%] md:top-[25%] top-125 lg:right-10 md:right-7 lg:w-30 md:w-30 w-20' alt="Volume" />
+          <img src="./src/assets/volume.png" className='absolute lg:top-[25%] md:top-[25%] top-12 lg:right-10 md:-right-5 lg:w-30 md:w-30 w-20' alt="Volume" />
         </div>
       </div>
-      <div className='hidden lg:block md:block'>
+      <div className='hidden lg:block'>
         <img src="/explore-more-btn.svg" className='absolute z-2 w-30 lg:left-[46%] md:left-[42%] md:bottom-4 lg:-bottom-1' alt="explore button" />
         <img src="/Ellipse.svg" className='absolute -z-1 w-38 lg:left-[44.8%] md:left-[40%] lg:-bottom-5 md:bottom-0' alt="explore button" />
       </div>
