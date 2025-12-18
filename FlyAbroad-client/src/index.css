@@ -34,6 +34,12 @@ body{
     border-radius: 0 0 30px 30px;
 }
 
+#giftCard{
+    background-image: url('/giftCardBG.png');
+    background-size: cover !important;
+    background-repeat: no-repeat;
+    border-radius: 30px !important;
+}
 
 /* ---------------- Footer -------------- */
 
