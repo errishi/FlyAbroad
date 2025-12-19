@@ -4,7 +4,7 @@ import LoginButton from './LoginButton';
 
 const LoginForm = () => {
     return (
-        <div className='flex lg:flex-row md:flex-row flex-col lg:m-auto mx-10 shadow-xl w-fit m-auto rounded-2xl overflow-clip text-white lg:top-[10%] lg:left-1/6 top-6 md:top-10 z-10 fixed'>
+        <div className='flex lg:flex-row md:flex-row flex-col lg:m-auto mx-10 shadow-xl w-fit m-auto rounded-2xl overflow-clip text-white lg:top-[10%] lg:left-1/6 top-3 md:top-10 z-10 fixed'>
             <img src="/login-student.jpg" className='lg:w-120 md:w-120 w-auto' alt="student" />
             <div className='bg-[#1f9aa3ee] lg:w-130 md:w-130 w-full p-10'>
                 <div className='flex justify-evenly border-b-2 lg:w-80 md:w-80 w-auto m-auto pb-3 mb-10'>
@@ -16,6 +16,9 @@ const LoginForm = () => {
                     <TextField fullWidth id="outlined-basic" color='white' label="Email Address" variant="outlined" />
                     <TextField fullWidth id="outlined-basic" color='white' label="Enter Password" variant="outlined" />
                     <LoginButton name={"Login"} />
+                    <div className='text-center'>
+                        <p className='text-[14px]'>Don't have an account ? &nbsp;<span className='text-[18px] cursor-pointer underline text-orange-600'>signup</span></p>
+                    </div>
                 </form>
             </div>
         </div>
