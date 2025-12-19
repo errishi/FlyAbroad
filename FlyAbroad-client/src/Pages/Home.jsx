@@ -16,7 +16,6 @@ const Home = () => {
       <Category />
       <Benefit />
       <Training />
-      <LoginForm />
       <GiftCard />
       <Exclusive />
     </div>
