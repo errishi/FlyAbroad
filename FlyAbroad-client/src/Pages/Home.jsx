@@ -6,6 +6,7 @@ import Benefit from '../Components/Home/Benefit';
 import Training from '../Components/Home/Training';
 import GiftCard from '../Components/Home/GiftCard';
 import Exclusive from '../Components/Home/Exclusive';
+import LoginForm from '../Components/Auth/LoginForm';
 
 const Home = () => {
   return (
