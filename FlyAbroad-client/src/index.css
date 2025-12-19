@@ -41,6 +41,12 @@ body{
     border-radius: 30px !important;
 }
 
+/* -----------------------login---------------------- */
+.css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
+    color: white !important;
+    padding: 14px 13px !important;
+}
+
 /* ---------------- Footer -------------- */
 
 #social-media > li{
