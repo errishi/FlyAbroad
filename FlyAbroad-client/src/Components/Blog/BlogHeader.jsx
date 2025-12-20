@@ -10,7 +10,7 @@ const BlogHeader = () => {
             <p className='text-gray-700 drop-shadow-lg lg:mt-3 md:mt-3 mt-1.5 lg:text-[16px] text-[14px]'>Discover our latest articles covering industry updates & expert advice.</p>
         </div>
         <div className='w-fit lg:mt-0 md:mt-0 mt-3'>
-            <BlogButton />
+            <BlogButton name={"View All"} />
         </div>
     </div>
   )
