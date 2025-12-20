@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from './Components/Navbar';
 import Home from './Pages/Home';
 import { Route, Routes } from 'react-router-dom';
@@ -7,11 +7,14 @@ import Footer from './Components/Footer';
 import Career from './Pages/Career';
 import Blog from './Pages/Blog';
 import Contact from './Pages/Contact';
+import LoginForm from './Components/Auth/LoginForm';
 
 const App = () => {
+  const [currentAuth, setCurrentAuth] = useState(false);
   return (
     <div>
-      <Navbar />
+      <Navbar setCurrentAuth={setCurrentAuth} />
+      {currentAuth ? <LoginForm setCurrentAuth={setCurrentAuth} /> : <></>}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
