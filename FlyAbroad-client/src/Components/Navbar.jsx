@@ -1,6 +1,9 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link, useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
+import AuthButton from './Auth/AuthButton';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -10,12 +13,14 @@ const navigation = [
   { name: 'Contact', href: '/contact', current: false },
 ]
 
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Navbar() {
+export default function Navbar({setCurrentAuth}) {
   const location = useLocation();
+  const [user, setUser] = useState(false);
 
   return (
     <Disclosure
@@ -61,6 +66,7 @@ export default function Navbar() {
               </div>
             </div>
           </div>
+          {user ? (
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button
               type="button"
@@ -70,7 +76,7 @@ export default function Navbar() {
               <span className="sr-only">View notifications</span>
               <BellIcon aria-hidden="true" className="size-6" />
             </button>
-
+              
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
               <MenuButton className="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
@@ -114,6 +120,11 @@ export default function Navbar() {
               </MenuItems>
             </Menu>
           </div>
+          ) : (
+          <div onClick={()=>setCurrentAuth(true)} className='cursor-pointer hover:opacity-90'>
+            <AuthButton />
+          </div>
+          )}
         </div>
       </div>
 
