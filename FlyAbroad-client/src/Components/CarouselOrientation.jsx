@@ -52,10 +52,10 @@ const CarouselOrientation = () => {
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.play}
     >
-      <CarouselContent className="-mt-1 lg:h-80 h-auto lg:w-650">
+      <CarouselContent className="-mt-1 lg:h-80 h-auto lg:w-650 md:w-450">
         {slider.map((item, index) => (
           <CarouselItem key={index} className="pt-1 md:basis-1/2">
-            <div className="p-1">
+            <div className="p-1 cursor-pointer">
               <ExclusiveCarousel title={item.title} description={item.description} price={item.price} mrp={item.mrp} studentsEnroll={item.studentsEnroll} image={item.image} />
             </div>
           </CarouselItem>
