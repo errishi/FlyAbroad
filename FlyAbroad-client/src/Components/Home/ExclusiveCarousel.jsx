@@ -1,5 +1,4 @@
 import React from 'react'
-import PrimaryButton from '../PrimaryButton';
 
 const ExclusiveCarousel = ({ image, studentsEnroll, title, description, price, discount, mrp }) => {
     return (
