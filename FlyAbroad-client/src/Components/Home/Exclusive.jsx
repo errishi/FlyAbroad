@@ -2,6 +2,7 @@ import React from 'react'
 import ExclusiveCarousel from './ExclusiveCarousel';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import CarouselOrientation from '../CarouselOrientation';
 
 const Exclusive = () => {
   return (
@@ -11,14 +12,8 @@ const Exclusive = () => {
         <img src="/category-Vector.svg" className='m-auto lg:pl-70 md:pl-50 pl-30 lg:pt-2 pt-1 md:w-80 lg:w-100 w-50' alt="vector" />
         <p className='lg:w-135 md:w-120 lg:text-[16px] text-[14px] m-auto text-center my-6 text-gray-500'>FlyAbroad is one powerful online software suite that combines all the tools needed to run a successful school or office.</p>
       </div>
-      <div className='flex gap-5 items-center lg:flex-row md:flex-row flex-row relative mt-20'>
-        <span className='cursor-pointer absolute z-10 top-[43%]'>
-          <ArrowBackIosNewIcon/>
-        </span>
-        <ExclusiveCarousel title={"Product Management Basic - Course"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={380} studentsEnroll={40} mrp={500} image={"/image-1.svg"} />
-        <span className='cursor-pointer absolute z-10 right-1 top-[43%]'>
-          <ArrowForwardIosIcon/>
-        </span>
+      <div className='flex gap-5 items-center lg:flex-row md:flex-row mx-5 flex-row relative mt-20'>
+        <CarouselOrientation />
       </div>
     </div>
   )
