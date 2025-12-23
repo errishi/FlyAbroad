@@ -11,7 +11,9 @@ const ContactHeader = () => {
         {userRole ? <img src="/student-icon.svg" className='w-15 m-auto my-10' alt="image" /> :
         <img src="/building.svg" className='w-15 m-auto my-10' alt="image" />}
         <h1 className='lg:text-7xl md:text-5xl text-2xl font-bold'>Contact for {userRole ? "students" : "institutions"}</h1>
+        {userRole ? <p className='lg:my-10 my-5 lg:text-xl text-[15px]'>How can we help you?</p> :
         <p className='lg:my-10 my-5 lg:text-xl text-[15px]'>Trusted by institutions worldwide. Discover how we can help your institution's recruitment goals!</p>
+        }
         <div className='flex justify-center items-center lg:flex-row md:flex-row flex-wrap lg:gap-8 gap-5'>
             <div onClick={()=>setUserRole(false)}>
                 {userRole ? 
