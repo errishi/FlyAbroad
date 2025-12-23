@@ -15,7 +15,7 @@ const ContactHeader = ({setUser}) => {
         <img src="/contact-image.svg" className='lg:w-200 md:w-150 w-120 absolute lg:top-35 md:top-35 top-40 lg:-left-80 md:-left-60 -left-50 -z-3 ' alt="image" />
         {userRole ? <img src="/student-icon.svg" className='w-15 m-auto my-10' alt="image" /> :
         <img src="/building.svg" className='w-15 m-auto my-10' alt="image" />}
-        <h1 className='lg:text-7xl md:text-5xl text-2xl font-bold'>Contact for {userRole ? "students" : "institutions"}</h1>
+        <h1 className='lg:text-7xl md:text-5xl text-2xl font-bold drop-shadow-lg'>Contact for {userRole ? "students" : "institutions"}</h1>
         {userRole ? <p className='lg:my-10 my-5 lg:text-xl text-[15px]'>How can we help you?</p> :
         <p className='lg:my-10 my-5 lg:text-xl text-[15px]'>Trusted by institutions worldwide. Discover how we can help your institution's recruitment goals!</p>
         }

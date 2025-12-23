@@ -10,7 +10,7 @@ const Header = () => {
             <p>Never stop learning</p>
           </div>
           <div className='lg:w-150 md:w-90 w-auto mt-4'>
-            <h1 className='lg:text-6xl text-4xl font-bold text-[#09585e]'>Grow up your skills by online courses with FlyAbroad</h1>
+            <h1 className='lg:text-6xl text-4xl font-bold text-[#09585e] drop-shadow-lg'>Grow up your skills by online courses with FlyAbroad</h1>
           </div>
           <div className='mt-7 flex flex-row sm:gap-5 md:justify-start justify-between items-center'>
             <PrimaryButton name={"Explore Path"} url={""} />
