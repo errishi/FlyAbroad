@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SecondaryButton from '../SecondaryButton';
 import PrimaryButton from '../PrimaryButton';
 
-const ContactHeader = () => {
+const ContactHeader = ({setUser}) => {
     const [userRole, setUserRole] = useState(true);
+
+    useEffect(() => {
+      setUser(userRole);    
+    }, [userRole])
+    
 
   return (
     <div className='lg:px-15 md:px-10 px-7 py-10 overflow-clip relative bg-linear-to-t from-gray-100 lg:via-transparent md:via-transparent to-transparent'>

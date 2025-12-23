@@ -1,14 +1,21 @@
 import ContactHeader from '@/Components/ContactUs/ContactHeader';
-import FAQ from '@/Components/ContactUs/FAQ';
-import GetInTouch from '@/Components/ContactUs/GetInTouch';
-import React from 'react'
+import React, { useState } from 'react'
+import ForStudent from '../Components/ContactUs/ForStudent';
+import ForInstitute from '@/Components/ContactUs/ForInstitute';
 
 const Contact = () => {
+  const [data, setData] = useState("");
+
+  const userHandler = (child_data) => {
+    setData(child_data);
+  }
+
   return (
     <div className='text-center'>
-      <ContactHeader />
-      <FAQ />
-      <GetInTouch />
+      <ContactHeader setUser={userHandler} />
+      {
+        data ? <ForStudent /> : <ForInstitute />
+      }
     </div>
   )
 }
