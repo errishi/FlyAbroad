@@ -47,7 +47,7 @@ body{
 
 /* -----------------------login---------------------- */
 .css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input {
-    color: white !important;
+    color: white;
     padding: 14px 13px !important;
 }
 
