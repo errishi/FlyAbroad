@@ -3,7 +3,7 @@ import PrimaryButton from '../PrimaryButton';
 
 const Header = () => {
   return (
-    <div id='home-header' className='lg:px-15 md:px-10 px-7 py-5'>
+    <div id='home-header' className='lg:px-15 md:px-10 px-7 py-5 relative'>
       <div className='flex justify-between lg:flex-row md:flex-row flex-col w-full h-full'>
         <div className='w-auto h-auto'>
           <div className='bg-white rounded-md w-fit px-4 py-1 mt-25'>
@@ -23,9 +23,9 @@ const Header = () => {
           <img src="./src/assets/volume.png" className='absolute lg:top-[25%] md:top-[25%] top-12 lg:right-10 md:-right-5 lg:w-30 md:w-30 w-20' alt="Volume" />
         </div>
       </div>
-      <div className='hidden lg:block'>
-        <img src="/explore-more-btn.svg" className='absolute z-2 w-30 lg:left-[46%] md:left-[42%] md:bottom-4 lg:-bottom-1' alt="explore button" />
-        <img src="/Ellipse.svg" className='absolute -z-1 w-38 lg:left-[44.8%] md:left-[40%] lg:-bottom-5 md:bottom-0' alt="explore button" />
+      <div className='hidden lg:block w-100 h-auto absolute lg:left-[46%] md:left-[42%] md:bottom-4 lg:-bottom-15'>
+        <img src="/explore-more-btn.svg" className='z-2 w-30' alt="explore button" />
+        <img src="/Ellipse.svg" className='absolute -z-1 w-35 lg:-left-[2.5%] md:left-[40%] lg:-bottom-3 md:bottom-0' alt="explore button" />
       </div>
     </div>
   )
