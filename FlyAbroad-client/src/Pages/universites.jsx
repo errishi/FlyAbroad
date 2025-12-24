@@ -424,7 +424,7 @@ export default function App() {
           <div className="flex items-center gap-4 overflow-x-auto no-scrollbar py-6">
             <button 
               onClick={() => setSelectedCategories([])}
-              className={`flex flex-col items-center gap-2 min-w-[100px] p-4 rounded-2xl transition-all ${selectedCategories.length === 0 ? 'bg-[#0B7077] text-white shadow-lg' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
+              className={`flex flex-col items-center gap-2 min-w-25 p-4 rounded-2xl transition-all ${selectedCategories.length === 0 ? 'bg-[#0B7077] text-white shadow-lg' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
             >
               <div className="p-2 rounded-xl bg-white/20">
                 <School className="h-6 w-6" />
@@ -438,7 +438,7 @@ export default function App() {
                 <button 
                   key={cat.id}
                   onClick={() => toggle(selectedCategories, setSelectedCategories, cat.id)}
-                  className={`flex flex-col items-center gap-2 min-w-[100px] p-4 rounded-2xl transition-all ${isActive ? 'bg-[#0B7077] text-white shadow-lg' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
+                  className={`flex flex-col items-center gap-2 min-w-25 p-4 rounded-2xl transition-all ${isActive ? 'bg-[#0B7077] text-white shadow-lg' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
                 >
                   <div className={`p-2 rounded-xl ${isActive ? 'bg-white/20' : 'bg-white shadow-sm'}`}>
                     <Icon className={`h-6 w-6 ${isActive ? 'text-white' : 'text-[#0B7077]'}`} />
@@ -450,7 +450,7 @@ export default function App() {
             {/* See More Icon Button */}
             <button 
               onClick={() => setIsSidebarOpen(true)}
-              className="flex flex-col items-center gap-2 min-w-[100px] p-4 rounded-2xl transition-all bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-[#0B7077]"
+              className="flex flex-col items-center gap-2 min-w-25 p-4 rounded-2xl transition-all bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-[#0B7077]"
             >
               <div className="p-2 rounded-xl bg-white shadow-sm">
                 <MoreHorizontal className="h-6 w-6" />
