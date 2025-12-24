@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import CourseItem from './Components/courses/CourseItem';
-import CourseForm from "./Components/courses/CourseForm";
 import Navbar from './Components/Navbar';
 import Home from './Pages/Home';
 import { Route, Routes } from 'react-router-dom';
