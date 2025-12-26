@@ -10,6 +10,7 @@ import Contact from './Pages/Contact';
 import LoginForm from './Components/Auth/LoginForm';
 import Courses from './Pages/Courses'
 import UniversitiesApp from './Components/universities/UniversitiesApp';
+import NotFound from './Pages/NotFound';
 
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/contact' element={<Contact />} />
         <Route path='/courses' element={<Courses />} />
         <Route path='/university' element={<UniversitiesApp />} />
+        <Route path='/*' element={<NotFound />} />
       </Routes>
       <Footer />
     </div>
