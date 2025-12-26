@@ -10,6 +10,41 @@ const categories = [
   { name: 'Program Design', category: 'program-design', current: false },
 ]
 
+const courseData = [
+  {
+    title: "Product Management Basic - Course",
+    description: "Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia.",
+    price: 380,
+    studentsEnroll: 40,
+    mrp: 400,
+    image: "/image-1.svg"
+  },
+  {
+    title: "BM Data Science Professional Certificate",
+    description: "Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia.",
+    price: 678,
+    studentsEnroll: 14,
+    mrp: 899,
+    image: "/image-2.svg"
+  },
+  {
+    title: "The Science of Well-Being",
+    description: "Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia.",
+    price: 129,
+    studentsEnroll: 328,
+    mrp: 300,
+    image: "/image-3.svg"
+  },
+  {
+    title: "Python for Everybody Specialization",
+    description: "Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia.",
+    price: 459,
+    studentsEnroll: 40,
+    mrp: 679,
+    image: "/image-4.svg"
+  },
+]
+
 const PopularCourse = () => {
   return (
     <div className='lg:px-15 md:px-10 px-7 py-5 lg:mt-30 mt-15'>
@@ -26,11 +61,12 @@ const PopularCourse = () => {
           )
         })}
       </div>
-      <div className='flex gap-5 lg:flex-nowrap flex-wrap justify-center'>
-        <CourseCard title={"Product Management Basic - Course"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={380} studentsEnroll={40} mrp={500} image={"/image-1.svg"} />
-        <CourseCard title={"BM Data Science Professional Certificate"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={678} mrp={899} studentsEnroll={14} image={"/image-2.svg"} />
-        <CourseCard title={"The Science of Well-Being"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={129} mrp={300} studentsEnroll={238} image={"/image-3.svg"} />
-        <CourseCard title={"Python for Everybody Specialization"} description={"Product Management Masterclass, you will learn with Sarah Johnson - Head of Product Customer Platform Gojek Indonesia."} price={459} mrp={699} studentsEnroll={328} image={"/image-4.svg"} />
+      <div className='flex gap-5 lg:flex-row md:flex-row flex-col'>
+        {courseData.map((item, index)=>{
+          return(
+            <CourseCard title={item.title} description={item.description} image={item.image} price={item.price} mrp={item.mrp} studentsEnroll={item.studentsEnroll} />
+          );
+        })}
       </div>
     </div>
   )
