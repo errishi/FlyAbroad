@@ -16,9 +16,10 @@ import Universites from './Pages/Universites'
 const App = () => {
   const [currentAuth, setCurrentAuth] = useState(false);
   return (
+    <>
+    {currentAuth ? <LoginForm setCurrentAuth={setCurrentAuth} /> : <></>}
     <div>
       <Navbar setCurrentAuth={setCurrentAuth} />
-      {currentAuth ? <LoginForm setCurrentAuth={setCurrentAuth} /> : <></>}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
@@ -31,6 +32,7 @@ const App = () => {
       </Routes>
       <Footer />
     </div>
+    </>
   )
 }
 

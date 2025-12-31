@@ -149,7 +149,7 @@ const Courses = () => {
             <div key={category.name} className="mb-20">
               <div className="flex items-center mb-10">
                 <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent"></div>
-                <h4 className="lg:text-3xl md:text-3xl text-2xl font-bold text-gray-900 px-6 bg-white relative z-10">
+                <h4 className="lg:text-3xl md:text-3xl text-2xl font-bold text-gray-900 px-6 bg-white relative z-1">
                   {category.name}
                 </h4>
                 <div className="flex-1 h-px bg-linear-to-r from-transparent via-gray-300 to-transparent"></div>
