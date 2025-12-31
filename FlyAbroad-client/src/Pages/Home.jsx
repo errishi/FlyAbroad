@@ -6,6 +6,7 @@ import Benefit from '../Components/Home/Benefit';
 import Training from '../Components/Home/Training';
 import GiftCard from '../Components/Home/GiftCard';
 import Exclusive from '../Components/Home/Exclusive';
+import UniversityData from '@/Components/Home/UniversityData';
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <Header />
       <PopularCourse />
       <Category />
+      <UniversityData />
       <Benefit />
       <Training />
       <GiftCard />
