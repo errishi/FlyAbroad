@@ -11,7 +11,7 @@ const NotFound = () => {
           you're looking for is not in
           our records.</p>
       </div>
-      <div className='lg:-mt-10 md:-mt-8 my-6 z-10'>
+      <div className='lg:-mt-10 md:-mt-8 my-6 z-1'>
         <Link to={"/"}>
           <SecondaryButton name={"Back to home"} />
         </Link>
