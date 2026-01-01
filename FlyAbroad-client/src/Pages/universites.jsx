@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import Universities from "../Pages/Universities/universities.json";
 import { 
   Search, 
   MapPin, 
