@@ -9,7 +9,7 @@ import Blog from './Pages/Blog';
 import Contact from './Pages/Contact';
 import LoginForm from './Components/Auth/LoginForm';
 import Courses from './Pages/Courses'
-import UniversitiesApp from './Components/universities/UniversitiesApp';
+import UniversitiesApp from './Components/Universities/UniversitiesApp';
 
 
 const App = () => {
