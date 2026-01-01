@@ -2,6 +2,29 @@ import React from 'react'
 import CategoryCard from './CategoryCard';
 import PrimaryButton from '../PrimaryButton';
 
+const categoryData = [
+  {
+    title: "Beauty",
+    description: "One powerful online software suite that combines",
+    image: "/category-beauty.svg"
+  },
+  {
+    title: "Medical",
+    description: "One powerful online software suite that combines",
+    image: "/category-medical.svg"
+  },
+  {
+    title: "Sports",
+    description: "One powerful online software suite that combines",
+    image: "/category-sports.svg"
+  },
+  {
+    title: "Nutrition",
+    description: "One powerful online software suite that combines",
+    image: "/category-nutrition.svg"
+  },
+];
+
 const Category = () => {
   return (
     <div className='lg:px-15 md:px-10 px-7 py-5 mt-15'>
@@ -11,10 +34,13 @@ const Category = () => {
         <p className='lg:w-135 md:w-120 lg:text-[16px] text-[14px] m-auto text-center my-6 text-gray-500'>FlyAbroad is one powerful online software suite that combines all the tools needed to run a successful school or office.</p>
       </div>
       <div className='flex lg:justify-evenly gap-8 justify-center items-center lg:flex-row md:flex-row flex-wrap flex-col my-15'>
-        <CategoryCard title={"Beauty"} description={"One powerful online software suite that combines"} image={"/category-beauty.svg"} />
-        <CategoryCard title={"Medical"} description={"One powerful online software suite that combines"} image={"/category-medical.svg"} />
-        <CategoryCard title={"Sports"} description={"One powerful online software suite that combines"} image={"/category-sports.svg"} />
-        <CategoryCard title={"Nutrition"} description={"One powerful online software suite that combines"} image={"/category-nutrition.svg"} />
+        {categoryData.map((item, index)=>{
+          return(
+            <div key={index}>
+              <CategoryCard title={item.title} description={item.description} image={item.image} />
+            </div>
+          )
+        })}
       </div>
       <div className='text-center -mt-5'>
         <PrimaryButton name={"View All"} />

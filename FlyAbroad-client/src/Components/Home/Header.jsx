@@ -1,5 +1,6 @@
 import React from 'react'
 import PrimaryButton from '../PrimaryButton';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -13,7 +14,9 @@ const Header = () => {
             <h1 className='lg:text-6xl text-4xl font-bold text-[#09585e] drop-shadow-lg'>Grow up your skills by online courses with FlyAbroad</h1>
           </div>
           <div className='mt-7 flex flex-row sm:gap-5 md:justify-start justify-between items-center'>
-            <PrimaryButton name={"Explore Path"} url={""} />
+            <Link to={"/courses"}>
+              <PrimaryButton name={"Explore Path"} url={""} />
+            </Link>
             <img src="/Button.svg" className='lg:h-10 md:h-9 sm:h-8 h-7' alt="review" />
           </div>
         </div>

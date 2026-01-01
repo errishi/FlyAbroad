@@ -11,13 +11,17 @@ import LoginForm from './Components/Auth/LoginForm';
 import Courses from './Pages/Courses'
 import UniversitiesApp from './Components/Universities/UniversitiesApp';
 
+import NotFound from './Pages/NotFound';
+import Universites from './Pages/Universites'
+
 
 const App = () => {
   const [currentAuth, setCurrentAuth] = useState(false);
   return (
+    <>
+    {currentAuth ? <LoginForm setCurrentAuth={setCurrentAuth} /> : <></>}
     <div>
       <Navbar setCurrentAuth={setCurrentAuth} />
-      {currentAuth ? <LoginForm setCurrentAuth={setCurrentAuth} /> : <></>}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
@@ -25,10 +29,12 @@ const App = () => {
         <Route path='/blog' element={<Blog />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/courses' element={<Courses />} />
-        <Route path='/university' element={<UniversitiesApp />} />
+        <Route path='/university' element={<Universites />} />
+        <Route path='/*' element={<NotFound />} />
       </Routes>
       <Footer />
     </div>
+    </>
   )
 }
 

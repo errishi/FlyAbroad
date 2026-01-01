@@ -344,34 +344,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] text-slate-900">
-      {/* Navbar */}
-      <nav className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B7077] text-white">
-              <School className="h-6 w-6" />
-            </div>
-            <div>
-              <span className="text-xl font-black tracking-tighter text-[#0B7077]">RUS-UNI</span>
-            </div>
-          </div>
-          
-          <div className="hidden lg:block">
-            <div className="flex gap-6 text-sm font-bold text-slate-600">
-              <a href="#" className="text-[#0B7077]">Universities</a>
-              <a href="#" className="hover:text-[#0B7077]">Programs</a>
-              <a href="#" className="hover:text-[#0B7077]">Admissions</a>
-            </div>
-          </div>
-
-          <button 
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="flex items-center gap-2 rounded-full bg-[#0B7077] px-5 py-2 text-sm font-bold text-white transition-all hover:bg-[#085a61] lg:hidden"
-          >
-            <Filter className="h-4 w-4" /> Filters
-          </button>
-        </div>
-      </nav>
 
       {/* Hero Section with Search Bar */}
       <section className="bg-white border-b border-slate-200 py-12 lg:py-16">
@@ -404,7 +376,7 @@ export default function App() {
                     onChange={e => setSearchTerm(e.target.value)}
                   />
                 </div>
-                <button className="hidden sm:flex items-center gap-2 bg-[#0B7077] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#085a61] transition-all">
+                <button className="hidden sm:flex items-center gap-2 bg-[#FD661F] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#f57e47] cursor-pointer transition-all">
                   Search <ChevronRight className="h-4 w-4" />
                 </button>
               </div>
@@ -560,7 +532,7 @@ export default function App() {
                 <p className="mt-2 text-slate-500">Broaden your search or reset filters.</p>
               </div>
             ) : (
-              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 cursor-pointer">
                 {filteredData.map(uni => (
                   <UniversityCard key={uni.id} university={uni} />
                 ))}
@@ -570,27 +542,6 @@ export default function App() {
 
         </div>
       </main>
-
-      <footer className="mt-20 bg-slate-900 py-16 text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center md:flex-row md:justify-between border-b border-white/10 pb-12">
-            <div className="flex items-center gap-2 mb-6 md:mb-0">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B7077] text-white">
-                <School className="h-6 w-6" />
-              </div>
-              <span className="text-2xl font-black tracking-tighter">RUS-UNI</span>
-            </div>
-            <div className="flex gap-8 text-sm font-bold text-slate-400 uppercase tracking-widest">
-              <a href="#" className="hover:text-white">Directory</a>
-              <a href="#" className="hover:text-white">Privacy</a>
-              <a href="#" className="hover:text-white">Legal</a>
-            </div>
-          </div>
-          <p className="mt-12 text-center text-sm font-semibold text-slate-500">
-            © 2025 RUS-UNI International Student Portal. All data provided for informational use only.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
