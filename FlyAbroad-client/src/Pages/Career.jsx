@@ -319,7 +319,7 @@ const JobList = () => {
                 </div>
                 <button 
                   onClick={() => scrollToApply(job.title)}
-                  className={`w-full group flex items-center justify-center space-x-2 border ${BRAND_BORDER} ${BRAND_COLOR} hover:bg-[#007077] hover:text-white px-4 py-3 rounded-lg font-medium transition-all`}
+                  className="w-full group flex items-center justify-center space-x-2 bg-[#0B7077] text-white border border-[#0B7077] hover:bg-gradient-to-r hover:from-purple-900 hover:to-violet-600 hover:border-transparent px-4 py-3 rounded-lg font-medium transition-all"
                 >
                   <span>Apply Now</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
