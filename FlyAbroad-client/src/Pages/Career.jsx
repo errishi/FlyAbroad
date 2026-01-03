@@ -140,7 +140,7 @@ const Hero = () => {
       <div className={`absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full opacity-10 ${BRAND_BG} blur-3xl`}></div>
       <div className={`absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 rounded-full opacity-10 ${BRAND_BG} blur-3xl`}></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative z-1">
         <div className="text-center max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
             Build Your Career <br />
@@ -319,7 +319,7 @@ const JobList = () => {
                 </div>
                 <button 
                   onClick={() => scrollToApply(job.title)}
-                  className="w-full group flex items-center justify-center space-x-2 bg-[#0B7077] text-white border border-[#0B7077] hover:bg-linear-to-r hover:from-purple-900 hover:to-violet-600 hover:border-transparent px-4 py-3 rounded-lg font-medium transition-all"
+                  className="w-full group flex items-center justify-center space-x-2 bg-[#0B7077] text-white border border-[#0B7077] hover:bg-linear-to-r hover:from-purple-900 cursor-pointer hover:to-violet-600 hover:border-transparent px-4 py-3 rounded-lg font-medium transition-all"
                 >
                   <span>Apply Now</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -343,7 +343,7 @@ const Culture = () => {
         {/* Background Accent */}
         <div className={`absolute top-0 right-0 w-96 h-96 ${BRAND_BG} opacity-20 blur-[100px] rounded-full pointer-events-none`}></div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-3">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Life at FlyAbroad</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
