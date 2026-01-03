@@ -13,8 +13,6 @@ import {
   ChevronUp, 
   CheckCircle, 
   ArrowRight,
-  Menu,
-  X
 } from 'lucide-react';
 
 // --- Brand Configuration ---
@@ -130,51 +128,6 @@ const BENEFITS = [
 ];
 
 // --- Components ---
-
-const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <span className={`text-2xl font-bold ${BRAND_COLOR}`}>Fly<span className="text-gray-800">Abroad</span></span>
-          </div>
-          
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-600 hover:text-gray-900 font-medium">About</a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 font-medium">Services</a>
-            <a href="#" className="text-gray-600 hover:text-gray-900 font-medium">Universities</a>
-            <a href="#jobs" className={`${BRAND_BG} ${BRAND_HOVER_BG} text-white px-4 py-2 rounded-lg font-medium transition-colors`}>
-              Join Our Team
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-600">
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 py-4">
-          <div className="flex flex-col space-y-4 px-4">
-            <a href="#" className="text-gray-600 font-medium">About</a>
-            <a href="#" className="text-gray-600 font-medium">Services</a>
-            <a href="#" className="text-gray-600 font-medium">Universities</a>
-            <a href="#jobs" className={`${BRAND_COLOR} font-bold`}>Join Our Team</a>
-          </div>
-        </div>
-      )}
-    </nav>
-  );
-};
 
 const Hero = () => {
   const scrollToJobs = () => {
@@ -656,65 +609,9 @@ const FAQ = () => {
   );
 };
 
-const Footer = () => {
-  return (
-    <footer className="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          <div className="col-span-1 md:col-span-1">
-            <span className="text-2xl font-bold text-white">Fly<span className={BRAND_COLOR}>Abroad</span></span>
-            <p className="mt-4 text-sm text-gray-400">
-              Helping students achieve their global education dreams through ethical counseling and expert guidance.
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="text-white font-bold mb-4">Company</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Our Team</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white font-bold mb-4">Resources</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-white transition-colors">Student Blog</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">University Rankings</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Visa Guide</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white font-bold mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm">
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Cookie Policy</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
-          <p>&copy; {new Date().getFullYear()} FlyAbroad Consultancy. All rights reserved.</p>
-          <div className="flex space-x-4 mt-4 md:mt-0">
-            {/* Social placeholders */}
-            <div className="w-5 h-5 bg-gray-700 rounded-full hover:bg-[#007077] transition-colors cursor-pointer"></div>
-            <div className="w-5 h-5 bg-gray-700 rounded-full hover:bg-[#007077] transition-colors cursor-pointer"></div>
-            <div className="w-5 h-5 bg-gray-700 rounded-full hover:bg-[#007077] transition-colors cursor-pointer"></div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-};
-
 const App = () => {
   return (
     <div className="font-sans text-gray-900 bg-white">
-      <Header />
       <Hero />
       <Mission />
       <Benefits />
@@ -722,7 +619,6 @@ const App = () => {
       <Culture />
       <ApplicationForm />
       <FAQ />
-      <Footer />
     </div>
   );
 };
