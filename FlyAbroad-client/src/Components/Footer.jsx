@@ -44,7 +44,9 @@ const Footer = () => {
                     <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Resources</h3>
                     <ul className='gap-3 flex flex-col'>
                         <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Guides & reports</li>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Articles</li>
+                        <Link to={"/blog"}>
+                            <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Articles</li>
+                        </Link>
                         <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Case Studies</li>
                         <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Events</li>
                         <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>All Resources</li>
