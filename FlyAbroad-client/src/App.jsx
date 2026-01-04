@@ -13,6 +13,7 @@ import UniversitiesApp from './Components/Universities/UniversitiesApp';
 
 import NotFound from './Pages/NotFound';
 import Universites from './Pages/Universites'
+import ScrollToTop from './Components/ScrollToTop';
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <>
     {currentAuth ? <LoginForm setCurrentAuth={setCurrentAuth} /> : <></>}
+    <ScrollToTop />
     <div>
       <Navbar setCurrentAuth={setCurrentAuth} />
       <Routes>
