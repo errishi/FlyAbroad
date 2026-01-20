@@ -54,7 +54,7 @@ const StepsToApply = ({setCurrentAuth}) => {
                 <p className='font-semibold text-gray-500'>Campus</p>
             </li>
         </div>
-        <div onClick={()=>setCurrentAuth(true)}>
+        <div className='w-fit m-auto' onClick={()=>setCurrentAuth(true)}>
             <PrimaryButton name={"Get Started"} />
         </div>
     </div>
