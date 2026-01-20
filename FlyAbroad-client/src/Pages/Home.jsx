@@ -7,6 +7,7 @@ import Training from '../Components/Home/Training';
 import GiftCard from '../Components/Home/GiftCard';
 import Exclusive from '../Components/Home/Exclusive';
 import UniversityData from '@/Components/Home/UniversityData';
+import StepsToApply from '@/Components/Home/StepsToApply';
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <Category />
       <UniversityData />
       <Benefit />
+      <StepsToApply />
       <Training />
       <GiftCard />
       <Exclusive />

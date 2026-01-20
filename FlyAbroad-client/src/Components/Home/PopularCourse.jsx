@@ -61,7 +61,7 @@ const PopularCourse = () => {
           )
         })}
       </div>
-      <div className='flex gap-5 lg:flex-row md:flex-row flex-col'>
+      <div className='flex gap-5 justify-center lg:flex-row md:flex-row flex-col'>
         {courseData.map((item, index)=>{
           return(
             <CourseCard title={item.title} description={item.description} image={item.image} price={item.price} mrp={item.mrp} studentsEnroll={item.studentsEnroll} />
