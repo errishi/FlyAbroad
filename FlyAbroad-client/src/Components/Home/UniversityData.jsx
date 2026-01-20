@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 
 const UniversityData = () => {
   return (
-    <div className='flex justify-between lg:flex-row md:flex-row flex-col lg:px-20 lg:py-10 lg:mx-15 md:mx-10 mx-5 px-7 py-5 mt-15 rounded-xl bg-[#11828a] text-white'>
+    <div className='flex justify-between lg:flex-row md:flex-row flex-col lg:px-20 lg:py-10 lg:mx-15 md:mx-10 mx-5 px-7 py-5 mt-15 rounded-xl lg:bg-linear-to-l md:bg-linear-to-l bg-linear-to-t from-orange-400 lg:via-orange-200 md:via-orange-200 to-transparent text-white'>
         <div className='flex flex-col justify-center mt-5 lg:mt-0 md:mt-0'>
-            <h2 className='text-3xl lg:text-5xl md:text-4xl font-semibold text-center lg:text-start md:text-start'>Explore University</h2>
+            <h2 className='text-black text-3xl lg:text-5xl md:text-4xl font-semibold text-center lg:text-start md:text-start'>Explore University</h2>
+            <p className='text-black my-3 lg:text-xl md:text-xl text-md lg:text-start md:text-start text-center'>Find your perfect international university and course today.</p>
             <Link to={"/university"} className='w-fit m-auto lg:m-0 md:-0'>
                 <Button name={"University"} />
             </Link>
