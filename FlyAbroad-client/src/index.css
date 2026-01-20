@@ -21,6 +21,10 @@ body{
     background-color: #F5F5F5;
 }
 
+li{
+    list-style: none !important;
+}
+
 #search-button Button{
     background-color: #FD661F !important;
     height: 40px !important;

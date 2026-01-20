@@ -25,7 +25,7 @@ const App = () => {
     <div>
       <Navbar setCurrentAuth={setCurrentAuth} />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home setCurrentAuth={setCurrentAuth} />} />
         <Route path='/about' element={<About />} />
         <Route path='/career' element={<Career />} />
         <Route path='/blog' element={<Blog />} />
