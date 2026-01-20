@@ -9,7 +9,7 @@ import Exclusive from '../Components/Home/Exclusive';
 import UniversityData from '@/Components/Home/UniversityData';
 import StepsToApply from '@/Components/Home/StepsToApply';
 
-const Home = () => {
+const Home = ({setCurrentAuth}) => {
   return (
     <div>
       <Header />
@@ -17,7 +17,7 @@ const Home = () => {
       <Category />
       <UniversityData />
       <Benefit />
-      <StepsToApply />
+      <StepsToApply setCurrentAuth={setCurrentAuth} />
       <Training />
       <GiftCard />
       <Exclusive />
