@@ -9,8 +9,9 @@ import {
   CheckCircle, 
   ArrowRight, 
   FileText,
-  Building2,
-  Globe
+  Plane, 
+  Globe,
+  MapPin
 } from 'lucide-react';
 
 export default function App() {
@@ -22,13 +23,14 @@ export default function App() {
     phone: '',
     linkedin: '',
     portfolio: '',
-    role: 'Senior Frontend Developer',
+    role: 'Study Abroad Coordinator',
     coverLetter: '',
     resume: null
   });
   const [isDragging, setIsDragging] = useState(false);
 
-  const primaryColor = '#0B7077';
+  // Updated to the requested Teal color
+  const primaryColor = '#0B7077'; 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,20 +65,19 @@ export default function App() {
     // Simulate API call
     setTimeout(() => {
       setSubmitted(true);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 1000);
   };
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center transform transition-all duration-500 scale-100">
-          <div className="mx-auto w-20 h-20 bg-[#e6f1f2] rounded-full flex items-center justify-center mb-6">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center transform transition-all duration-500 scale-100">
+          <div className="mx-auto w-20 h-20 bg-teal-50 rounded-full flex items-center justify-center mb-6">
             <CheckCircle size={40} color={primaryColor} />
           </div>
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Application Sent!</h2>
-          <p className="text-gray-600 mb-8">
-            Thank you for applying to the <span className="font-semibold">{formData.role}</span> position. We've received your details and will get back to you within 3-5 business days.
+          <h2 className="text-3xl font-bold text-slate-800 mb-4">Application Sent!</h2>
+          <p className="text-slate-600 mb-8">
+            Your journey begins here. Thank you for applying to the <span className="font-semibold text-teal-700">{formData.role}</span> position at FlyAbroad. We'll review your details and contact you shortly.
           </p>
           <button 
             onClick={() => setSubmitted(false)}
@@ -96,48 +97,53 @@ export default function App() {
       {/* Left Sidebar / Hero Section */}
       <div 
         className="lg:w-1/3 w-full p-8 lg:p-12 flex flex-col justify-between relative overflow-hidden"
-        style={{ backgroundColor: primaryColor }}
       >
-        {/* Abstract Background Pattern */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-64 h-64 rounded-full bg-white mix-blend-overlay filter blur-3xl"></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-80 h-80 rounded-full bg-black mix-blend-overlay filter blur-3xl"></div>
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop" 
+            alt="Airplane wing in sky" 
+            className="w-full h-full object-cover"
+          />
+          {/* Gradient Overlay using the new Teal theme */}
+          <div className="absolute inset-0 bg-linear-to-b from-teal-900/90 to-teal-800/80 mix-blend-multiply"></div>
+          <div className="absolute inset-0 bg-black/20"></div>
         </div>
 
         <div className="relative z-10">
-          <div className="flex items-center gap-2 mb-12">
-            <Building2 className="text-white" size={32} />
-            <span className="text-white text-2xl font-bold tracking-tight">TechNova</span>
+          <div className="flex items-center gap-2 mb-12">+
+            <Plane className="text-white transform -rotate-45" size={32} />
+            <span className="text-white text-3xl font-bold tracking-tight">FlyAbroad</span>
           </div>
 
           <div className="mb-12">
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-              Join our mission to build the future.
+              Your career, without borders.
             </h1>
-            <p className="text-teal-100 text-lg leading-relaxed">
-              We're looking for innovative minds to help us create digital experiences that matter. Apply today and become part of a team that values creativity, precision, and growth.
+            <p className="text-teal-100 text-lg leading-relaxed font-light">
+              We help students and professionals explore the world. Join our team and help us build the pathways that connect people to their dreams abroad.
             </p>
           </div>
         </div>
 
-        <div className="relative z-10 text-teal-100 text-sm border-t border-teal-600/30 pt-8 mt-auto hidden lg:block">
+        <div className="relative z-10 text-teal-50 text-sm border-t border-white/20 pt-8 mt-auto hidden lg:block">
           <div className="flex flex-col gap-4">
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-white/10 rounded-lg">
-                <Globe size={18} />
+              <div className="p-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/10">
+                <Globe size={18} className="text-teal-200" />
               </div>
               <div>
-                <p className="font-semibold text-white">Remote Friendly</p>
-                <p>Work from anywhere in the world.</p>
+                <p className="font-semibold text-white">Global Opportunities</p>
+                <p className="opacity-80">Offices in 12 countries.</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-white/10 rounded-lg">
-                <User size={18} />
+              <div className="p-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/10">
+                <MapPin size={18} className="text-teal-200" />
               </div>
               <div>
-                <p className="font-semibold text-white">Inclusive Culture</p>
-                <p>We celebrate diversity and unique perspectives.</p>
+                <p className="font-semibold text-white">Remote First</p>
+                <p className="opacity-80">Work from anywhere.</p>
               </div>
             </div>
           </div>
@@ -145,72 +151,80 @@ export default function App() {
       </div>
 
       {/* Right Form Section */}
-      <div className="lg:w-2/3 w-full bg-gray-50 overflow-y-auto">
+      <div className="lg:w-2/3 w-full bg-slate-50 overflow-y-auto">
         <div className="max-w-3xl mx-auto p-6 lg:p-12">
           
           <form onSubmit={handleSubmit} className="space-y-8">
             
+            {/* Header for Mobile only */}
+            <div className="lg:hidden mb-6">
+               <h2 className="text-2xl font-bold text-slate-800">Apply Now</h2>
+               <p className="text-slate-500">Start your journey with FlyAbroad today.</p>
+            </div>
+
             {/* Personal Information */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                <User size={20} className="text-gray-400" />
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+              <h3 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2">
+                <div className="p-2 bg-teal-50 rounded-lg">
+                  <User size={20} className="text-teal-600" />
+                </div>
                 Personal Information
               </h3>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 block">First Name</label>
+                  <label className="text-sm font-medium text-slate-700 block">First Name</label>
                   <input
                     required
                     type="text"
                     name="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:border-transparent transition-all"
                     style={{ '--tw-ring-color': primaryColor }}
                     placeholder="Jane"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 block">Last Name</label>
+                  <label className="text-sm font-medium text-slate-700 block">Last Name</label>
                   <input
                     required
                     type="text"
                     name="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:border-transparent transition-all"
                     style={{ '--tw-ring-color': primaryColor }}
                     placeholder="Doe"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 block">Email Address</label>
+                  <label className="text-sm font-medium text-slate-700 block">Email Address</label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-3.5 text-gray-400" size={18} />
+                    <Mail className="absolute left-3 top-3.5 text-slate-400" size={18} />
                     <input
                       required
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:border-transparent transition-all"
                       style={{ '--tw-ring-color': primaryColor }}
                       placeholder="jane@example.com"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 block">Phone Number</label>
+                  <label className="text-sm font-medium text-slate-700 block">Phone Number</label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-3.5 text-gray-400" size={18} />
+                    <Phone className="absolute left-3 top-3.5 text-slate-400" size={18} />
                     <input
                       required
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:border-transparent transition-all"
                       style={{ '--tw-ring-color': primaryColor }}
                       placeholder="+1 (555) 000-0000"
                     />
@@ -220,39 +234,41 @@ export default function App() {
             </div>
 
             {/* Links & Portfolio */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                <Globe size={20} className="text-gray-400" />
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+              <h3 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2">
+                <div className="p-2 bg-teal-50 rounded-lg">
+                  <Globe size={20} className="text-teal-600" />
+                </div>
                 Web Presence
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 block">LinkedIn Profile</label>
+                  <label className="text-sm font-medium text-slate-700 block">LinkedIn Profile</label>
                   <div className="relative">
-                    <Linkedin className="absolute left-3 top-3.5 text-gray-400" size={18} />
+                    <Linkedin className="absolute left-3 top-3.5 text-slate-400" size={18} />
                     <input
                       type="url"
                       name="linkedin"
                       value={formData.linkedin}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:border-transparent transition-all"
                       style={{ '--tw-ring-color': primaryColor }}
                       placeholder="linkedin.com/in/username"
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700 block">Portfolio / GitHub</label>
+                  <label className="text-sm font-medium text-slate-700 block">Portfolio / Website</label>
                   <div className="relative">
-                    <Briefcase className="absolute left-3 top-3.5 text-gray-400" size={18} />
+                    <Briefcase className="absolute left-3 top-3.5 text-slate-400" size={18} />
                     <input
                       type="url"
                       name="portfolio"
                       value={formData.portfolio}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all"
+                      className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:border-transparent transition-all"
                       style={{ '--tw-ring-color': primaryColor }}
-                      placeholder="github.com/username"
+                      placeholder="flyabroad.com/username"
                     />
                   </div>
                 </div>
@@ -260,17 +276,18 @@ export default function App() {
             </div>
 
             {/* Resume Upload */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                <FileText size={20} className="text-gray-400" />
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+              <h3 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-2">
+                <div className="p-2 bg-teal-50 rounded-lg">
+                  <FileText size={20} className="text-teal-600" />
+                </div>
                 Resume / CV
               </h3>
               
               <div 
                 className={`border-2 border-dashed rounded-xl p-8 text-center transition-all cursor-pointer ${
-                  isDragging ? 'bg-teal-50' : 'bg-gray-50 hover:bg-gray-100'
+                  isDragging ? 'bg-teal-50 border-teal-400' : 'bg-slate-50 hover:bg-slate-100 border-slate-200'
                 }`}
-                style={{ borderColor: isDragging ? primaryColor : '#e5e7eb' }}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
@@ -285,11 +302,13 @@ export default function App() {
                 />
                 
                 {formData.resume ? (
-                  <div className="flex items-center justify-center gap-3 text-teal-800">
-                    <FileText size={32} color={primaryColor} />
+                  <div className="flex items-center justify-center gap-4 text-slate-800">
+                    <div className="p-3 bg-white rounded-lg shadow-sm">
+                      <FileText size={32} color={primaryColor} />
+                    </div>
                     <div className="text-left">
-                      <p className="font-semibold text-gray-900">{formData.resume.name}</p>
-                      <p className="text-sm text-gray-500">{(formData.resume.size / 1024 / 1024).toFixed(2)} MB</p>
+                      <p className="font-semibold text-slate-900">{formData.resume.name}</p>
+                      <p className="text-sm text-slate-500">{(formData.resume.size / 1024 / 1024).toFixed(2)} MB</p>
                     </div>
                     <button 
                       type="button"
@@ -297,34 +316,35 @@ export default function App() {
                         e.stopPropagation();
                         setFormData(prev => ({...prev, resume: null}));
                       }}
-                      className="ml-4 text-gray-400 hover:text-red-500"
+                      className="ml-2 p-2 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded-full transition-colors"
                     >
                       ×
                     </button>
                   </div>
                 ) : (
-                  <>
-                    <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center mx-auto mb-4">
-                      <Upload size={24} color={primaryColor} />
+                  <div className="py-4">
+                    <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mx-auto mb-4 border border-slate-100">
+                      <Upload size={28} color={primaryColor} />
                     </div>
-                    <p className="text-gray-900 font-medium mb-1">Click to upload or drag and drop</p>
-                    <p className="text-gray-500 text-sm">PDF, DOC, DOCX (Max 5MB)</p>
-                  </>
+                    <p className="text-slate-900 font-medium mb-1 text-lg">Upload your resume</p>
+                    <p className="text-slate-500 text-sm">Drag and drop or click to browse</p>
+                    <p className="text-slate-400 text-xs mt-2">PDF, DOC, DOCX (Max 5MB)</p>
+                  </div>
                 )}
               </div>
             </div>
 
             {/* Cover Letter */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">Cover Letter</h3>
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+              <h3 className="text-xl font-semibold text-slate-800 mb-4">Cover Letter</h3>
               <textarea
                 name="coverLetter"
                 value={formData.coverLetter}
                 onChange={handleChange}
                 rows="6"
-                className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:border-transparent transition-all resize-y"
+                className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:border-transparent transition-all resize-y"
                 style={{ '--tw-ring-color': primaryColor }}
-                placeholder="Tell us why you're a great fit for this role..."
+                placeholder="Tell us why you want to join FlyAbroad..."
               ></textarea>
             </div>
 
@@ -332,7 +352,7 @@ export default function App() {
             <div className="pt-4 pb-8">
               <button
                 type="submit"
-                className="w-full text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl hover:opacity-95 flex items-center justify-center gap-2 group"
+                className="w-full text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg shadow-teal-900/20 transition-all duration-300 hover:shadow-xl hover:shadow-teal-900/30 hover:-translate-y-1 flex items-center justify-center gap-2 group"
                 style={{ backgroundColor: primaryColor }}
               >
                 Submit Application
