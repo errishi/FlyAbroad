@@ -12,7 +12,7 @@ const UniversityData = () => {
             </Link>
         </div>
         <div className='flex flex-wrap lg:mt-0 md:mt-0 mt-10 w-auto h-auto gap-4'>
-            <img src="/university-student-image.svg" className='w-30 lg:mt-0 md:mt-0 mt-10' alt="image" />
+            {/* <img src="/university-student-image.svg" className='w-30 lg:mt-0 md:mt-0 mt-10' alt="image" /> */}
             <img src="/university-image-1.jpg" className='w-60 rounded-2xl' alt="image" />
             <img src="/university-image-2.jpg" className='w-30 h-fit rounded-xl' alt="image" />
         </div>
