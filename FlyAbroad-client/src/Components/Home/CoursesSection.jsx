@@ -76,7 +76,7 @@ const courses = [
 
 export function CoursesSection() {
   return (
-    <section className="py-24 px-6 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full opacity-40">
         <div className="absolute top-20 right-10 w-72 h-72 bg-blue-200 rounded-full blur-3xl"></div>
