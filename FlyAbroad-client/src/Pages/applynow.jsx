@@ -14,7 +14,7 @@ import {
   MapPin
 } from 'lucide-react';
 
-export default function App() {
+export default function ApplyNow() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -110,7 +110,7 @@ export default function App() {
           <div className="absolute inset-0 bg-black/20"></div>
         </div>
 
-        <div className="relative z-10">
+        <div className="relative">
           <div className="flex items-center gap-2 mb-12">+
             <Plane className="text-white transform -rotate-45" size={32} />
             <span className="text-white text-3xl font-bold tracking-tight">FlyAbroad</span>
@@ -126,7 +126,7 @@ export default function App() {
           </div>
         </div>
 
-        <div className="relative z-10 text-teal-50 text-sm border-t border-white/20 pt-8 mt-auto hidden lg:block">
+        <div className="relative text-teal-50 text-sm border-t border-white/20 pt-8 mt-auto hidden lg:block">
           <div className="flex flex-col gap-4">
             <div className="flex items-start gap-3">
               <div className="p-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/10">
@@ -352,7 +352,7 @@ export default function App() {
             <div className="pt-4 pb-8">
               <button
                 type="submit"
-                className="w-full text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg shadow-teal-900/20 transition-all duration-300 hover:shadow-xl hover:shadow-teal-900/30 hover:-translate-y-1 flex items-center justify-center gap-2 group"
+                className="w-full text-white font-bold text-lg py-4 px-8 rounded-xl shadow-lg shadow-teal-900/20 transition-all duration-300 hover:shadow-xl hover:shadow-teal-900/30 hover:-translate-y-1 flex items-center justify-center gap-2 group cursor-pointer"
                 style={{ backgroundColor: primaryColor }}
               >
                 Submit Application
