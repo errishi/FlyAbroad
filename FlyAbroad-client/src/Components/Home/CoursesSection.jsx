@@ -15,7 +15,8 @@ const courses = [
     seats: 120,
     category: "Engineering",
     growth: "+35%",
-    color: "from-blue-500 to-cyan-500",
+    color: "from-[#0e8f98] to-[#0f919b]",
+    categoryColor: "from-[#FD661F] to-[#FD661F]",
   },
   {
     id: 2,
@@ -26,7 +27,8 @@ const courses = [
     seats: 80,
     category: "Management",
     growth: "+28%",
-    color: "from-purple-500 to-pink-500",
+    color: "from-[#0e8f98] to-[#0f919b]",
+    categoryColor: "from-[#FD661F] to-[#FD661F]",
   },
   {
     id: 3,
@@ -37,7 +39,8 @@ const courses = [
     seats: 60,
     category: "Science",
     growth: "+42%",
-    color: "from-green-500 to-emerald-500",
+    color: "from-[#0e8f98] to-[#0f919b]",
+    categoryColor: "from-[#FD661F] to-[#FD661F]",
   },
   {
     id: 4,
@@ -48,7 +51,8 @@ const courses = [
     seats: 100,
     category: "Engineering",
     growth: "+18%",
-    color: "from-orange-500 to-red-500",
+    color: "from-[#0e8f98] to-[#0f919b]",
+    categoryColor: "from-[#FD661F] to-[#FD661F]",
   },
   {
     id: 5,
@@ -59,7 +63,8 @@ const courses = [
     seats: 150,
     category: "Medical",
     growth: "+22%",
-    color: "from-red-500 to-rose-500",
+    color: "from-[#0e8f98] to-[#0f919b]",
+    categoryColor: "from-[#FD661F] to-[#FD661F]",
   },
   {
     id: 6,
@@ -70,7 +75,8 @@ const courses = [
     seats: 90,
     category: "Legal",
     growth: "+15%",
-    color: "from-amber-500 to-yellow-500",
+    color: "from-[#0e8f98] to-[#0f919b]",
+    categoryColor: "from-[#FD661F] to-[#FD661F]",
   },
 ];
 
@@ -83,11 +89,11 @@ export function CoursesSection() {
         <div className="absolute bottom-20 left-10 w-72 h-72 bg-purple-200 rounded-full blur-3xl"></div>
       </div>
       
-      <div className="max-w-7xl mx-auto relative">
+      <div className="max-w-5xl mx-auto relative">
         {/* Section Header */}
         
         {/* Courses Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {courses.map((course) => (
             <Card 
               key={course.id} 
@@ -98,7 +104,7 @@ export function CoursesSection() {
               
               <CardHeader className="relative">
                 <div className="flex items-start justify-between mb-3">
-                  <Badge className={`bg-linear-to-r ${course.color} text-white border-0 shadow-lg`}>
+                  <Badge className={`bg-linear-to-r ${course.categoryColor} text-white border-0 shadow-lg`}>
                     {course.category}
                   </Badge>
                   <Badge variant="outline" className="border-gray-300">
