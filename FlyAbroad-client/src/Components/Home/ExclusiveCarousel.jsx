@@ -1,20 +1,23 @@
 import React from 'react'
 
-const ExclusiveCarousel = ({ image, studentsEnroll, title, description, price, discount, mrp }) => {
+const ExclusiveCarousel = ({ image, title, description, userName }) => {
     return (
-        <div className='lg:flex md:flex lg:w-220 md:w-190 md:mx-auto h-auto w-auto m-auto rounded-2xl overflow-clip relative bg-white'>
-            <img src={image} className='w-full md:w-[45%]' alt="course image" />
-            <div className='flex items-center absolute lg:top-40 xs:top-34 md:top-37 smL:top-38 lg:left-135 xs:left-8 md:left-115 smL:left-11 gap-3 bg-gray-100 px-3 py-1.5 rounded-full'>
-                <img src="/Group-profile.svg" className='lg:w-auto md:w-auto xs:w-19' alt="enrolled profile" />
-                <p className='text-sm lg:text-[16px]'>+ {studentsEnroll} Students</p>
-            </div>
-            <div className='p-5 mt-5 md:w-[55%]'>
-                <p className='text-sm text-gray-600'>1-28 Dec 2025</p>
-                <h2 className='font-bold text-xl text-[#0B7077]'>{title}</h2>
-                <p className='text-sm py-2 text-gray-500'>{description}</p>
-                <div className='flex lg:bg-gray-100 md:bg-gray-100 lg:px-4 md:px-4 lg:py-1.5 md:py-1.5 rounded-full lg:absolute md:absolute lg:left-55 md:left-45 md:bottom-3 lg:bottom-3 lg:flex-row md:flex-row smL:flex-row xs:flex-col justify-between lg:items-center md:items-center items-start gap-3 mt-5'>
-                    <h3 className='font-bold text-xl text-[#FD661F]'>$ {price}  &nbsp; &nbsp;<span className='text-gray-400 font-normal line-through text-sm'>$ {mrp}</span></h3>
+        <div className='px-7 py-5 my-10 lg:h-80 md:h-80 h-85 flex justify-around flex-col rounded-xl border bg-[#FD661F]/3 shadow-xl relative'>
+            <img src="/comma.svg" className='absolute right-5 top-4' alt="image" />
+            <div className='lg:mt-10 md:mt-10 mt-12'>
+                <h3 className='font-semibold lg:text-lg text-[17px]'>{title}</h3>
+                <div>
+                    <p className='mt-3 lg:text-[16px] md:text-[16px] text-[15px] lg:h-25 md:h-25 line-clamp-4'>"{description}.. </p>
+                    <span className='relative text-blue-500 cursor-pointer hover:underline transition-all'>read more</span>
                 </div>
+            </div>
+            <div className='mt-5 flex items-center gap-3'>
+                <img
+                  alt="profile image"
+                  src="/profile_image.png"
+                  className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
+                />
+                <h4 className='font-medium'>{userName}</h4>
             </div>
         </div>
     )
