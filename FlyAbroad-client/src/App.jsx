@@ -9,10 +9,13 @@ import Blog from './Pages/Blog';
 import Contact from './Pages/Contact';
 import LoginForm from './Components/Auth/LoginForm';
 import Courses from './Pages/Courses'
+import UniversitiesApp from './Components/Universities/UniversitiesApp';
+
 import NotFound from './Pages/NotFound';
 import Universites from './Pages/Universites'
 import ScrollToTop from './Components/ScrollToTop';
 import FeedbackPopUp from './Components/Home/FeedbackPopUp';
+import ApplyNow from './Pages/applynow';
 
 
 const App = () => {
@@ -49,6 +52,7 @@ const App = () => {
         <Route path='/blog' element={<Blog />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/courses' element={<Courses setCurrentAuth={setCurrentAuth} />} />
+        <Route path='/apply' element={<ApplyNow />} />
         <Route path='/university' element={<Universites />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
