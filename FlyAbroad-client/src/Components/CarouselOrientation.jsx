@@ -1,7 +1,6 @@
-import React, { useRef } from "react"
+import React from "react"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import ExclusiveCarousel from "./Home/ExclusiveCarousel";
-import Autoplay from "embla-carousel-autoplay";
 
 const slider = [
   {
@@ -33,23 +32,12 @@ const slider = [
 ]
 
 const CarouselOrientation = () => {
-  const plugin = useRef(
-    Autoplay({
-      delay: 3000,
-      stopOnInteraction: true
-    })
-  );
-
   return (
     <Carousel
-      // plugins={[plugin.current]}
       opts={{
         align: "start"
       }}
-      // orientation="horizontal"
       className="w-full lg:px-8"
-      // onMouseEnter={plugin.current.stop}
-      // onMouseLeave={plugin.current.play}
     >
       <CarouselContent className="-mt-1 lg:w-auto md:w-auto w-80">
         {slider.map((item, index) => (
