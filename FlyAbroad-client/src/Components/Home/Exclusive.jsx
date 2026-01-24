@@ -1,7 +1,7 @@
 import React from 'react'
 import CarouselOrientation from '../CarouselOrientation';
 
-const Exclusive = () => {
+const Exclusive = ({setReadFeedback, sendData}) => {
   return (
     <div className='lg:px-15 md:px-10 px-7 py-5 mt-20 lg:mb-0 md:mb-10 mb-12'>
       <div>
@@ -10,7 +10,7 @@ const Exclusive = () => {
         <p className='lg:w-135 md:w-120 lg:text-lg text-[16px] m-auto text-center my-6 text-gray-500'>Real experiences from students who are shaping the future</p>
       </div>
       <div className=''>
-        <CarouselOrientation />
+        <CarouselOrientation setReadFeedback={setReadFeedback} sendData={sendData} />
       </div>
     </div>
   )

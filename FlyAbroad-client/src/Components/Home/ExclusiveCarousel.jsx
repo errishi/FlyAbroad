@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ExclusiveCarousel = ({ image, title, description, userName }) => {
+const ExclusiveCarousel = ({ image, title, description, userName, setReadFeedback }) => {
     return (
         <div className='px-7 py-5 my-10 lg:h-80 md:h-80 h-85 flex justify-around flex-col rounded-xl border bg-[#FD661F]/3 shadow-xl relative'>
             <img src="/comma.svg" className='absolute right-5 top-4' alt="image" />
@@ -8,7 +8,7 @@ const ExclusiveCarousel = ({ image, title, description, userName }) => {
                 <h3 className='font-semibold lg:text-lg text-[17px]'>{title}</h3>
                 <div>
                     <p className='mt-3 lg:text-[16px] md:text-[16px] text-[15px] lg:h-25 md:h-25 line-clamp-4'>"{description}.. </p>
-                    <span className='relative text-blue-500 cursor-pointer hover:underline transition-all'>read more</span>
+                    <span onClick={()=>setReadFeedback(true)} className='relative text-blue-500 cursor-pointer hover:underline transition-all'>read more</span>
                 </div>
             </div>
             <div className='mt-5 flex items-center gap-3'>

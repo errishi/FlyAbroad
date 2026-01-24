@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from './Components/Navbar';
 import Home from './Pages/Home';
 import { Route, Routes } from 'react-router-dom';
@@ -12,18 +12,38 @@ import Courses from './Pages/Courses'
 import NotFound from './Pages/NotFound';
 import Universites from './Pages/Universites'
 import ScrollToTop from './Components/ScrollToTop';
+import FeedbackPopUp from './Components/Home/FeedbackPopUp';
 
 
 const App = () => {
   const [currentAuth, setCurrentAuth] = useState(false);
+  const [readFeedback, setReadFeedback] = useState(false);
+  const [feedbackData, setFeedbackData] = useState([]);
+
+  const handleFeedbackData = (array) => {
+    setFeedbackData(array);
+  }
+
+  useEffect(() => {
+    if(readFeedback){
+      document.body.style.overflow = "hidden"
+    }
+    return () => {
+      if(!readFeedback){
+        document.body.style.overflow = "block"
+      }
+    }
+  }, [])
+  
   return (
     <>
     {currentAuth ? <LoginForm setCurrentAuth={setCurrentAuth} /> : <></>}
+    {readFeedback ? <FeedbackPopUp setReadFeedback={setReadFeedback} title={feedbackData.title} userName={feedbackData.name} description={feedbackData.description} /> : <></>}
     <ScrollToTop />
     <div>
       <Navbar setCurrentAuth={setCurrentAuth} />
       <Routes>
-        <Route path='/' element={<Home setCurrentAuth={setCurrentAuth} />} />
+        <Route path='/' element={<Home sendData={handleFeedbackData} setReadFeedback={setReadFeedback} setCurrentAuth={setCurrentAuth} />} />
         <Route path='/about' element={<About />} />
         <Route path='/career' element={<Career />} />
         <Route path='/blog' element={<Blog />} />
