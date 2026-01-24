@@ -33,7 +33,7 @@ const Category = () => {
         <img src="/category-Vector.svg" className='m-auto lg:pl-70 md:pl-50 pl-30 lg:pt-2 pt-1 md:w-80 lg:w-100 w-50' alt="vector" />
         <p className='lg:w-170 md:w-120 lg:text-lg md:text-lg text-[16px] m-auto text-center my-6 text-gray-500'>FlyAbroad is one powerful online software suite that combines all the tools needed to run a successful school or office.</p>
       </div>
-      <div className='flex lg:justify-evenly gap-8 justify-center items-center lg:flex-row md:flex-row flex-wrap flex-col my-15'>
+      <div className='flex lg:justify-evenly lg:gap-0 gap-3 justify-center items-center lg:flex-row md:flex-row flex-wrap flex-col my-15'>
         {categoryData.map((item, index)=>{
           return(
             <div key={index}>

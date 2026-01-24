@@ -11,8 +11,8 @@ const StepsToApply = ({setCurrentAuth}) => {
             </div>
             <p className='lg:text-lg text-[16px] text-gray-500 my-3 lg:w-210 m-auto'>FlyAbroad offers a one stop solution to all the steps you require in order to explore, shortlist and get started for your journey abroad an even beyond that.</p>
         </div>
-        <div className='flex mb-15 relative overflow-x-scroll lg:gap-0 md:gap-0 gap-7 flex-start justify-center lg:mx-0 md:mx-0 mx-15 lg:items-center lg:flex-row md:flex-row flex-col mt-12'>
-            <div className='absolute lg:top-[40%] md:top-[40%] top-2 lg:left-auto md:left-auto left-15 lg:h-1.5 md:h-1.5 h-[95%] lg:w-[80%] md:w-[90%] w-1.5 -z-1 bg-yellow-300'></div>
+        <div className='flex mb-15 relative overflow-x-scroll lg:gap-0 md:gap-0 gap-7 flex-start justify-evenly lg:mx-0 md:mx-0 mx-15 lg:items-center lg:flex-row md:flex-row flex-col mt-12'>
+            <div className='absolute lg:top-[40%] md:top-[40%] top-2 lg:left-auto md:left-auto left-15 lg:h-1.5 md:h-1.5 h-[95%] lg:w-[85%] md:w-[90%] w-1.5 -z-1 bg-yellow-300'></div>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
                 <img src="/Discover.svg" className='w-30' alt="discover" />
                 <p className='font-semibold text-gray-500'>Discover</p>
