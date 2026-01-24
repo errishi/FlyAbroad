@@ -14,43 +14,43 @@ const StepsToApply = ({setCurrentAuth}) => {
         <div className='flex mb-15 relative overflow-x-scroll lg:gap-0 md:gap-0 gap-7 flex-start justify-evenly lg:mx-0 md:mx-0 mx-15 lg:items-center lg:flex-row md:flex-row flex-col mt-12'>
             <div className='absolute lg:top-[40%] md:top-[40%] top-2 lg:left-auto md:left-auto left-15 lg:h-1.5 md:h-1.5 h-[95%] lg:w-[85%] md:w-[90%] w-1.5 -z-1 bg-yellow-300'></div>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/Discover.svg" className='w-30' alt="discover" />
+                <img src="/Discover.svg" className='w-30 hover:scale-105 transition-all' alt="discover" />
                 <p className='font-semibold text-gray-500'>Discover</p>
             </li>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/Counselling.svg" className='w-30' alt="counselor" />
+                <img src="/Counselling.svg" className='w-30 hover:scale-105 transition-all' alt="counselor" />
                 <p className='font-semibold text-gray-500'>Counselling</p>
             </li>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/shortlisting.svg" className='w-30' alt="shortlist" />
+                <img src="/shortlisting.svg" className='w-30 hover:scale-105 transition-all' alt="shortlist" />
                 <p className='font-semibold text-gray-500'>Shortlist</p>
             </li>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/exam.svg" className='w-30' alt="exam" />
+                <img src="/exam.svg" className='w-30 hover:scale-105 transition-all' alt="exam" />
                 <p className='font-semibold text-gray-500'>Exam</p>
             </li>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/application.svg" className='w-30' alt="application form" />
+                <img src="/application.svg" className='w-30 hover:scale-105 transition-all' alt="application form" />
                 <p className='font-semibold text-gray-500'>Application</p>
             </li>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/offer letter.svg" className='w-30' alt="application form" />
+                <img src="/offer letter.svg" className='w-30 hover:scale-105 transition-all' alt="application form" />
                 <p className='font-semibold text-gray-500'>Offer Letter</p>
             </li>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/finance.svg" className='w-30' alt="fee" />
+                <img src="/finance.svg" className='w-30 hover:scale-105 transition-all' alt="fee" />
                 <p className='font-semibold text-gray-500'>Finance</p>
             </li>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/visa.svg" className='w-30' alt="visa" />
+                <img src="/visa.svg" className='w-30 hover:scale-105 transition-all' alt="visa" />
                 <p className='font-semibold text-gray-500'>Visa</p>
             </li>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/travel.svg" className='w-30' alt="travel" />
+                <img src="/travel.svg" className='w-30 hover:scale-105 transition-all' alt="travel" />
                 <p className='font-semibold text-gray-500'>Travel</p>
             </li>
             <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/campus.svg" className='w-30' alt="Campus" />
+                <img src="/campus.svg" className='w-30 hover:scale-105 transition-all' alt="Campus" />
                 <p className='font-semibold text-gray-500'>Campus</p>
             </li>
         </div>

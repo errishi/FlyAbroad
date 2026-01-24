@@ -9,7 +9,6 @@ const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Careers', href: '/career', current: false },
   { name: 'About', href: '/about', current: false },
-  { name: 'Blog', href: '/blog', current: false },
   { name: 'Contact', href: '/contact', current: false },
   { name: 'Apply Now', href: '/apply', current: false },
 ]

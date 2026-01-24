@@ -9,8 +9,6 @@ import Blog from './Pages/Blog';
 import Contact from './Pages/Contact';
 import LoginForm from './Components/Auth/LoginForm';
 import Courses from './Pages/Courses'
-import UniversitiesApp from './Components/Universities/UniversitiesApp';
-
 import NotFound from './Pages/NotFound';
 import Universites from './Pages/Universites'
 import ScrollToTop from './Components/ScrollToTop';
