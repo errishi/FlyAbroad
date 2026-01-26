@@ -13,7 +13,7 @@ const FeedbackPopUp = ({title, description, userName, setReadFeedback}) => {
             <div className='lg:mt-15 md:mt-15 mt-12'>
                 <h3 className='font-semibold lg:text-lg text-[17px]'>{title}</h3>
                 <div>
-                    <p className='mt-3 lg:text-[16px] md:text-[16px] text-[15px]'>"{description}</p>
+                    <p className='mt-3 font-medium lg:text-[16px] md:text-[16px] text-[15px]'>"{description}"</p>
                 </div>
             </div>
             <div className='mt-5 flex items-center gap-3'>
