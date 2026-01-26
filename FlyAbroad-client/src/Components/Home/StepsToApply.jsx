@@ -6,7 +6,7 @@ const StepsToApply = ({setCurrentAuth}) => {
     <div className='lg:px-15 md:px-10 px-7 py-5 mt-20 text-center'>
         <div className='text-center w-full'>
             <div className='relative lg:w-210 md:w-160 m-auto'>
-                <h3 className='lg:text-4xl text-2xl font-semibold'>Ready to study abroad? Let’s get started!</h3>
+                <h3 className='lg:text-4xl text-2xl font-semibold text-[#0B7077] drop-shadow-lg'>Ready to study abroad? Let’s get started!</h3>
                 <img src="/kite.svg" className='lg:w-15 w-12 absolute lg:top-0 md:top-0 top-8 lg:right-4 md:right-10 smL:right-12 xs:right-10' alt="kite-icon" />
             </div>
             <p className='lg:text-lg text-[16px] text-gray-500 my-3 lg:w-210 m-auto'>FlyAbroad offers a one stop solution to all the steps you require in order to explore, shortlist and get started for your journey abroad an even beyond that.</p>
