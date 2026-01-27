@@ -12,7 +12,7 @@ const Footer = () => {
         <div className='bg-[#0B7077]/25 p-8'>
             <div className='flex justify-between lg:flex-row md:flex-row flex-col items-center'>
             <div className='lg:w-[40%] md:w-[30%] w-full'>
-                <img src="/UneFly-new.svg" className='lg:w-[230px] w-[150px]' alt="company logo" />
+                <img src="/logo.svg" className='lg:w-[230px] w-[150px]' alt="company logo" />
                 <p className='text-[#0B7077] text-[14px] lg:text-[17px]'>Unlock a borderless future with <b>UneFly</b>. We transform your global education dreams into reality through personalized mentorship and expert resources, serving as your trusted partner for international success.</p>
             </div>
             <div className='flex justify-around gap-4 lg:gap-0 md:gap-0 lg:flex-row md:flex-row flex-col w-full py-5'>
