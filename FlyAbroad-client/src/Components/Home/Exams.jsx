@@ -114,21 +114,22 @@ const ExamGuides = () => {
   ];
 
   return (
-    <div className="w-full bg-white p-4 font-sans">
-      
+    <div className="w-full p-4 font-sans lg:mt-30 mt-15">
+      <h1 className='text-center font-bold lg:text-5xl md:text-4xl text-2xl drop-shadow-lg mb-5'>Exams</h1>
+
       {/* Scroll Container Wrapper */}
       <div className="relative group/container max-w-4xl mx-auto">
         
         {/* List */}
         <div 
           ref={scrollContainerRef}
-          className="flex overflow-x-auto gap-8 pb-4 scrollbar-hide scroll-smooth no-scrollbar items-center"
+          className="flex gap-8 pb-4 scrollbar-hide scroll-smooth no-scrollbar items-center"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {exams.map((exam) => (
             <div 
               key={exam.id} 
-              className="flex flex-col items-center min-w-25 cursor-pointer group/item"
+              className="flex flex-col items-center min-w-25 py-5 cursor-pointer group/item"
             >
               {/* Circle Card */}
               <div className={`w-28 h-28 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.08)] 
@@ -149,7 +150,7 @@ const ExamGuides = () => {
         </div>
 
         {/* Navigation Arrow (Right) - Applied #0B7077 on hover */}
-        <button 
+        {/* <button 
           onClick={scrollRight}
           className="absolute right-0 top-1/2 -translate-y-8 translate-x-1/2 
                      w-12 h-12 bg-white rounded-full shadow-lg border border-gray-100
@@ -159,15 +160,15 @@ const ExamGuides = () => {
           aria-label="Scroll right"
         >
           <ChevronRight className="w-6 h-6" />
-        </button>
+        </button> */}
 
         {/* Gradient Fade */}
-        <div className="absolute right-0 top-0 bottom-0 w-16 bg-linear-to-l from-white to-transparent pointer-events-none z-0 hidden md:block"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-16 pointer-events-none z-0 hidden md:block"></div>
       </div>
     </div>
   );
 };
 
-export default function App() {
+export default function Exams() {
   return <ExamGuides />;
 }

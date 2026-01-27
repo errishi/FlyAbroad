@@ -152,7 +152,7 @@ const PageContainer = ({ children }) => (
 );
 //Main Application Component
 
-export default function App() {
+export default function Destination() {
   const [view, setView] = useState('countries'); // 'countries', 'universities', 'courses'
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedUniversity, setSelectedUniversity] = useState(null);
