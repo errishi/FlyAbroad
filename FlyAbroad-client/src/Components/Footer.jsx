@@ -12,15 +12,15 @@ const Footer = () => {
         <div className='bg-[#0B7077]/25 p-8'>
             <div className='flex justify-between lg:flex-row md:flex-row flex-col items-center'>
             <div className='lg:w-[40%] md:w-[30%] w-full'>
-                <img src="/FlyAbroad-new.svg" className='lg:w-[230px] w-[150px]' alt="company logo" />
-                <p className='text-[#0B7077] text-[14px] lg:text-[17px]'>Unlock a borderless future with <b>FlyAbroad</b>. We transform your global education dreams into reality through personalized mentorship and expert resources, serving as your trusted partner for international success.</p>
+                <img src="/UneFly-new.svg" className='lg:w-[230px] w-[150px]' alt="company logo" />
+                <p className='text-[#0B7077] text-[14px] lg:text-[17px]'>Unlock a borderless future with <b>UneFly</b>. We transform your global education dreams into reality through personalized mentorship and expert resources, serving as your trusted partner for international success.</p>
             </div>
             <div className='flex justify-around gap-4 lg:gap-0 md:gap-0 lg:flex-row md:flex-row flex-col w-full py-5'>
                 <div className='w-fit'>
                     <h3 className='text-xl font-medium my-4 text-[#0A033C]'>About Us</h3>
                     <ul className='gap-3 flex flex-col'>
                         <Link to={"/about"}>
-                            <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>About FlyAbroad</li>
+                            <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>About UneFly</li>
                         </Link>
                         <Link to={"/career"}>
                             <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Careers</li>
@@ -77,7 +77,7 @@ const Footer = () => {
             <hr className='text-gray-400 border my-7' />
             <div className='flex justify-between lg:flex-row md:flex-row flex-col text-center lg:text-start md:text-start'>
                 <div>
-                    <p className='text-gray-700 text-[14px] mb-3'> &copy; {new Date().getFullYear()} FlyAbroad, Inc. All rights reserved. </p>
+                    <p className='text-gray-700 text-[14px] mb-3'> &copy; {new Date().getFullYear()} UneFly, Inc. All rights reserved. </p>
                 </div>
                 <div className='m-auto lg:m-0 md:m-0'>
                     <ul id='social-media' className='flex gap-4'>

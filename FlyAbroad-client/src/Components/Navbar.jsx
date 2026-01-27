@@ -42,8 +42,8 @@ export default function Navbar({setCurrentAuth}) {
             <div className="flex shrink-0 items-center">
               <img
                 alt="Your Company"
-                src="/FlyAbroad-new.svg"
-                className="lg:h-18 md:h-12 h-12 w-auto"
+                src="/logo.svg"
+                className="lg:h-14 md:h-12 h-12 w-auto"
               />
             </div>
             <div className="hidden sm:ml-6 sm:block">
