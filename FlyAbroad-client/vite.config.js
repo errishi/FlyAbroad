@@ -7,8 +7,9 @@ import path from "path"
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    react()
+    react(),
   ],
+  base: '/', // keep '/' for root domain,
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
