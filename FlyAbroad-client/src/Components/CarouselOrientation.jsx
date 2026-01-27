@@ -6,7 +6,7 @@ const slider = [
   {
     id:1,
     name:"Irfan",
-    title: "My MBBS dream becomes real with FlyAbroad.",
+    title: "My MBBS dream becomes real with UneFly.",
     description: "World-class medical education with excellent clinical exposure. The teaching hospital provides invaluable practical experience. Couldn't have asked for better training."
   },
   {
@@ -18,19 +18,19 @@ const slider = [
   {
     id:3,
     name:"Emily Rodriguez",
-    title: "Special thanks to FlyAbroad.",
+    title: "Special thanks to UneFly.",
     description: "Great academic programs and excellent placement support. The library and labs are well-equipped. Campus life is vibrant with many clubs and activities."
   },
   {
     id:4,
     name:"David Patel",
-    title: "FlyAbroad made my Dream real.",
+    title: "UneFly made my Dream real.",
     description: "Outstanding faculty and state-of-the-art facilities. The hands-on learning approach and industry connections have prepared me well for my career."
   },
   {
     id:5,
     name:"Shreya Mishra",
-    title: "Thanks FlyAbroad.",
+    title: "Thanks UneFly.",
     description: "Excellent law program with great moot court opportunities. The faculty includes renowned legal experts, and the placement cell is very supportive."
   },
 

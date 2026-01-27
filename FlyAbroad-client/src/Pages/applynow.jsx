@@ -77,7 +77,7 @@ export default function ApplyNow() {
           </div>
           <h2 className="text-3xl font-bold text-slate-800 mb-4">Application Sent!</h2>
           <p className="text-slate-600 mb-8">
-            Your journey begins here. Thank you for applying to the <span className="font-semibold text-teal-700">{formData.role}</span> position at FlyAbroad. We'll review your details and contact you shortly.
+            Your journey begins here. Thank you for applying to the <span className="font-semibold text-teal-700">{formData.role}</span> position at UneFly. We'll review your details and contact you shortly.
           </p>
           <button 
             onClick={() => setSubmitted(false)}
@@ -113,7 +113,7 @@ export default function ApplyNow() {
         <div className="relative">
           <div className="flex items-center gap-2 mb-12">+
             <Plane className="text-white transform -rotate-45" size={32} />
-            <span className="text-white text-3xl font-bold tracking-tight">FlyAbroad</span>
+            <span className="text-white text-3xl font-bold tracking-tight">UneFly</span>
           </div>
 
           <div className="mb-12">
@@ -159,7 +159,7 @@ export default function ApplyNow() {
             {/* Header for Mobile only */}
             <div className="lg:hidden mb-6">
                <h2 className="text-2xl font-bold text-slate-800">Apply Now</h2>
-               <p className="text-slate-500">Start your journey with FlyAbroad today.</p>
+               <p className="text-slate-500">Start your journey with UneFly today.</p>
             </div>
 
             {/* Personal Information */}
@@ -268,7 +268,7 @@ export default function ApplyNow() {
                       onChange={handleChange}
                       className="w-full pl-10 pr-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:border-transparent transition-all"
                       style={{ '--tw-ring-color': primaryColor }}
-                      placeholder="flyabroad.com/username"
+                      placeholder="unefly.com/username"
                     />
                   </div>
                 </div>
@@ -344,7 +344,7 @@ export default function ApplyNow() {
                 rows="6"
                 className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:border-transparent transition-all resize-y"
                 style={{ '--tw-ring-color': primaryColor }}
-                placeholder="Tell us why you want to join FlyAbroad..."
+                placeholder="Tell us why you want to join UneFly..."
               ></textarea>
             </div>
 
