@@ -5,6 +5,8 @@ import Category from '../Components/Home/Category';
 import Exclusive from '../Components/Home/Exclusive';
 import UniversityData from '@/Components/Home/UniversityData';
 import StepsToApply from '@/Components/Home/StepsToApply';
+import Exams from '@/Components/Home/Exams';
+import Destination from '@/Components/Home/Destination';
 import StorySection from '@/Components/Home/StorySection';
 import Countries from '@/Components/Home/Countries';
 
@@ -12,6 +14,8 @@ const Home = ({setCurrentAuth, setReadFeedback, sendData}) => {
   return (
     <div>
       <Header />
+      <Destination />
+      {/* <Exams /> */}
       <PopularCourse />
       <Category />
       <UniversityData />
