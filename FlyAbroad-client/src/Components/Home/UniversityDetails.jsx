@@ -22,13 +22,13 @@ const UniversityDetails = () => {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Hero Section */}
-            < div className="relative h-[400px]" >
+            < div className="relative h-100" >
                 <ImageWithFallback
                     src={university.image}
                     alt={university.name}
                     className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/30"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/70 to-black/30"></div>
 
                 <div className="absolute inset-0 flex items-end">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">

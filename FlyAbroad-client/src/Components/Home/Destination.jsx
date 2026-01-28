@@ -134,7 +134,7 @@ export default function Destination() {
             />
             
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-90" />
 
             {/* Content Content */}
             <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
