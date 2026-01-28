@@ -14,6 +14,7 @@ import Universites from './Pages/Universites'
 import ScrollToTop from './Components/ScrollToTop';
 import FeedbackPopUp from './Components/Home/FeedbackPopUp';
 import ApplyNow from './Pages/applynow';
+import UniversityDetails from './Components/Home/UniversityDetails';
 
 
 const App = () => {
@@ -52,6 +53,7 @@ const App = () => {
         <Route path='/courses' element={<Courses setCurrentAuth={setCurrentAuth} />} />
         <Route path='/apply' element={<ApplyNow />} />
         <Route path='/university' element={<Universites />} />
+        <Route path={'/university/:id'} element={<UniversityDetails />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
       <Footer />

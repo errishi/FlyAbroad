@@ -8,9 +8,8 @@ import AuthButton from './Auth/AuthButton';
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Careers', href: '/career', current: false },
-  { name: 'Universities', href: '/contact', current: false },
+  { name: 'Universities', href: '/university', current: false },
   { name: 'Explore Countries', href: '#', current: false },
-  { name: 'Apply Now', href: '/apply', current: false },
 ]
 
 
