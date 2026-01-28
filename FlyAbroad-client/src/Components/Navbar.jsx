@@ -8,9 +8,8 @@ import AuthButton from './Auth/AuthButton';
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Careers', href: '/career', current: false },
-  { name: 'About', href: '/about', current: false },
-  { name: 'Blog', href: '/blog', current: false },
-  { name: 'Contact', href: '/contact', current: false },
+  { name: 'Universities', href: '/contact', current: false },
+  { name: 'Explore Countries', href: '#', current: false },
   { name: 'Apply Now', href: '/apply', current: false },
 ]
 
@@ -41,11 +40,13 @@ export default function Navbar({setCurrentAuth}) {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <img
-                alt="Your Company"
-                src="/FlyAbroad-new.svg"
-                className="lg:h-18 md:h-12 h-12 w-auto"
-              />
+              <Link to='/'>
+                <img
+                  alt="Your Company"
+                  src="/logo.svg"
+                  className="lg:h-14 md:h-12 h-12 w-auto"
+                />
+              </Link>
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4 my-50">

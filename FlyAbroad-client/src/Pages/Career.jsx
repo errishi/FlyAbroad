@@ -180,7 +180,7 @@ const Mission = () => {
               More Than Just Admissions. <br />We Build Futures.
             </h2>
             <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-              At FlyAbroad, we believe that education has no borders. We aren't just processing visa applications; we are mentoring the next generation of global leaders. We pride ourselves on <strong>transparency</strong>, <strong>ethical counseling</strong>, and a relentless focus on <strong>student success</strong>.
+              At UneFly, we believe that education has no borders. We aren't just processing visa applications; we are mentoring the next generation of global leaders. We pride ourselves on <strong>transparency</strong>, <strong>ethical counseling</strong>, and a relentless focus on <strong>student success</strong>.
             </p>
             <ul className="space-y-4">
               <li className="flex items-start">
@@ -345,7 +345,7 @@ const Culture = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-3">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Life at FlyAbroad</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Life at UneFly</h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
             We work hard, celebrate wins, and support each other. Here's what the team has to say.
           </p>

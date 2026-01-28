@@ -4,11 +4,11 @@ import React, { useState } from 'react'
 const FAQS = [
   {
     question: "What is the status of my application?",
-    answer: "FlyAbroad can unfortunately not tell you the status of your application, as you apply for courses directly through the university. Most universities will list information on the length of time it takes for them to respond to an application on their website. It often takes several weeks for an application to be processed, so you will need to be patient."
+    answer: "UneFly can unfortunately not tell you the status of your application, as you apply for courses directly through the university. Most universities will list information on the length of time it takes for them to respond to an application on their website. It often takes several weeks for an application to be processed, so you will need to be patient."
   },
   {
     question: "How can I contact a university?",
-    answer: "FlyAbroad helps you send all your requests and questions directly to the university you are interested in. On many FlyAbroad programme pages there is a blue ‘Request free information’ form on the right hand side which you can use to contact the university directly. After filling in the form, it will be submitted straight to the university.If the programme does not have a ‘Request free information’ form, then use the direct link on the programme page you are viewing to go to the official programme webpage.If you click on the button, you will be taken straight to the university’s website, where you can find specific information related to your course of interest and look for contact information, if still needed.Not all pages contain these buttons.If this is the case, you can usually find a link to the university’s web pages in the “More” tab of the FlyAbroad programme page."
+    answer: "UneFly helps you send all your requests and questions directly to the university you are interested in. On many UneFly programme pages there is a blue ‘Request free information’ form on the right hand side which you can use to contact the university directly. After filling in the form, it will be submitted straight to the university.If the programme does not have a ‘Request free information’ form, then use the direct link on the programme page you are viewing to go to the official programme webpage.If you click on the button, you will be taken straight to the university’s website, where you can find specific information related to your course of interest and look for contact information, if still needed.Not all pages contain these buttons.If this is the case, you can usually find a link to the university’s web pages in the “More” tab of the UneFly programme page."
   },
   {
     question: "How can I get / find a scholarship?",
@@ -16,7 +16,7 @@ const FAQS = [
   },
   {
     question: "Where can I find an application form?",
-    answer: "You cannot apply for courses through the FlyAbroad website; you apply for a course directly through your chosen university. Usually, you can find the application forms on the programme website. If you have questions regarding this, get directly in contact with the respective university."
+    answer: "You cannot apply for courses through the UneFly website; you apply for a course directly through your chosen university. Usually, you can find the application forms on the programme website. If you have questions regarding this, get directly in contact with the respective university."
   },
   {
     question: "Is my English good enough to study abroad?",

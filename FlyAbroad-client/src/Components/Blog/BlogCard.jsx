@@ -1,6 +1,5 @@
 import React from 'react'
-import BlogButton from './BlogButton';
-import PrimaryButton from '../PrimaryButton';
+import StoryButton from '../StoryButton';
 
 const BlogCard = ({title, description, link, image, date}) => {
   return (
@@ -14,7 +13,7 @@ const BlogCard = ({title, description, link, image, date}) => {
             <p className='my-2 text-[14px] overflow-y-hidden h-20'>{description}</p>
         </div>
         <div className='w-fit my-4'>
-            <PrimaryButton name={"Learn more"} />
+            <StoryButton />
         </div>
     </div>
   )
