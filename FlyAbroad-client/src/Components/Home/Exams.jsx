@@ -4,7 +4,7 @@ import { ChevronRight } from 'lucide-react';
 const ExamGuides = () => {
   const scrollContainerRef = useRef(null);
 
-  const scrollRight = () => {
+  const _scrollRight = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
     }
