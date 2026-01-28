@@ -6,6 +6,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import XIcon from '@mui/icons-material/X';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import { Link } from 'react-router-dom';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import LocationPinIcon from '@mui/icons-material/LocationPin';
 
 const Footer = () => {
     return (
@@ -17,7 +20,7 @@ const Footer = () => {
             </div>
             <div className='flex justify-around gap-4 lg:gap-0 md:gap-0 lg:flex-row md:flex-row flex-col w-full py-5'>
                 <div className='w-fit'>
-                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>About Us</h3>
+                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Quick Links</h3>
                     <ul className='gap-3 flex flex-col'>
                         <Link to={"/about"}>
                             <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>About UneFly</li>
@@ -25,59 +28,48 @@ const Footer = () => {
                         <Link to={"/career"}>
                             <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Careers</li>
                         </Link>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Newsroom</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Apply Now</li>
                         <Link to={"/contact"}>
                             <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Contact Us</li>
                         </Link>
                     </ul>
                 </div>
                 <div className='w-fit'>
-                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>For Institutions</h3>
+                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Study Destinations</h3>
                     <ul className='gap-3 flex flex-col'>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Recruitment & Marketing</li>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Data & Insights</li>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Consulting</li>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Partner Assistance</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Study in Russia</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Study in UK</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Study in USA</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Study in Canada</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Study in Germany</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Study in Ireland</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Study in Newzealand</li>
+                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Study in Australia</li>
                     </ul>
                 </div>
                 <div className='w-fit'>
-                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Resources</h3>
-                    <ul className='gap-3 flex flex-col'>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Guides & reports</li>
-                        <Link to={"/blog"}>
-                            <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Articles</li>
-                        </Link>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Case Studies</li>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Events</li>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>All Resources</li>
-                    </ul>
-                </div>
-                <div className='w-fit'>
-                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Legal</h3>
-                    <ul className='gap-3 flex flex-col'>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Privacy & Policy</li>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Terms & Conditions</li>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Disclaimer</li>
-                        <li className='hover:text-[#FD661F] text-[#0B7077] transition-all cursor-pointer'>Cookies</li>
+                    <h3 className='text-xl font-medium my-4 text-[#0A033C]'>Contact Us</h3>
+                    <ul className='gap-3 flex flex-col w-70'>
+                        <li className='hover:text-[#FD661F] flex gap-2 text-[#0B7077] transition-all cursor-pointer'>
+                        <MailOutlineIcon />
+                        <p>info@unefly.com</p>
+                        </li>
+                        <li className='hover:text-[#FD661F] flex gap-2 text-[#0B7077] transition-all cursor-pointer'>
+                        <LocalPhoneIcon />
+                        <p>+7 (925) 349-03-20</p>
+                        </li>
+                        <li className='hover:text-[#FD661F] flex gap-2 text-[#0B7077] transition-all cursor-pointer'>
+                        <LocationPinIcon />
+                        <p>Millionschikova Street, Dom13K1. Moscow - Russia</p>
+                        </li>
                     </ul>
                 </div>
             </div>
             </div>
             <hr className='text-gray-400 border my-7' />
-            <div className='flex justify-between lg:flex-row md:flex-row flex-col'>
+            <div className='flex justify-center lg:flex-row md:flex-row flex-col text-center lg:text-start md:text-start'>
                 <div>
-                    <h2 className='font-semibold text-[#0A033C]'>Subscribe to our newsletter</h2>
-                    <p className='text-[#0B7077] text-[14px] lg:text-[17px] w-full md:w-80 lg:w-full'>The latest news, articles, and resources, sent to your inbox weekly.</p>
-                </div>
-                <div id='search-button' className='flex gap-5 mt-3 lg:mt-0 md:mt-0'>
-                    <TextField id="standard-basic" label="Enter your email" variant="standard" />
-                    <Button variant="contained">Submit</Button>
-                </div>
-            </div>
-            <hr className='text-gray-400 border my-7' />
-            <div className='flex justify-between lg:flex-row md:flex-row flex-col text-center lg:text-start md:text-start'>
-                <div>
-                    <p className='text-gray-700 text-[14px] mb-3'> &copy; {new Date().getFullYear()} UneFly, Inc. All rights reserved. </p>
+                    <p className='text-gray-700 text-[14px] mb-3'> &copy; {new Date().getFullYear()} UneFly. All rights reserved. </p>
                 </div>
                 <div className='m-auto lg:m-0 md:m-0'>
                     <ul id='social-media' className='flex gap-4'>
