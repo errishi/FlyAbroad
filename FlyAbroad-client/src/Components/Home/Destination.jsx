@@ -71,7 +71,7 @@ const COUNTRIES = [
   },
 ];
 
-export default function App() {
+export default function Destination() {
   const [activeCategory, setActiveCategory] = useState('engineering');
   const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -88,7 +88,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 font-sans text-slate-800 selection:bg-green-200">
+    <div className="min-h-screen mt-20 bg-gray-100 font-sans text-slate-800 selection:bg-green-200">
       
       {/* Decorative Background Element (Subtle grid) */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
@@ -103,7 +103,7 @@ export default function App() {
             Top Countries to Study Abroad
             {/* Decorative Arrow SVG using the custom green */}
             <svg 
-              className="absolute -bottom-6 right-0 w-24 h-12 md:w-32 md:h-16 transform rotate-3 translate-x-8 md:translate-x-12" 
+              className="absolute -bottom-10 right-5 w-24 h-12 md:w-32 md:h-16 transform rotate-3 translate-x-8 md:translate-x-12" 
               viewBox="0 0 100 50" 
               fill="none" 
               stroke={PRIMARY_COLOR} 
@@ -117,29 +117,6 @@ export default function App() {
           <p className="text-gray-600 text-lg md:text-xl pt-4">
             Pack your bags to get top-notch education beyond borders in the USA, UK, Canada, Australia, Ireland, New Zealand, and more!
           </p>
-        </div>
-
-        {/* --- Filter Tabs --- */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`
-                flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 shadow-sm
-                ${activeCategory === cat.id 
-                  ? 'text-white shadow-md transform scale-105' 
-                  : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'}
-              `}
-              style={{ 
-                backgroundColor: activeCategory === cat.id ? PRIMARY_COLOR : undefined,
-                borderColor: activeCategory === cat.id ? PRIMARY_COLOR : undefined
-              }}
-            >
-              {cat.icon}
-              {cat.label}
-            </button>
-          ))}
         </div>
 
         {/* --- Main Content Area --- */}
@@ -251,11 +228,6 @@ export default function App() {
           </div>
 
         </div>
-      </div>
-      
-      {/* Footer / Attribution for demo purposes */}
-      <div className="w-full py-6 text-center text-gray-400 text-sm">
-        <p>© 2024 Study Abroad Portal. Images via Unsplash.</p>
       </div>
 
       <style>{`
