@@ -38,7 +38,7 @@ const COUNTRIES = [
     id: 4,
     name: 'Australia',
     description: 'Study in a paradise of beaches and bushland with a globally recognized education system.',
-    image: 'https://images.unsplash.com/photo-1523482580672-01e6f086552c?q=80&w=2530&auto=format&fit=crop', // Sydney Opera House
+    image: '/australia-image.png', // Sydney Opera House
     category: 'medical'
   },
   {
@@ -123,7 +123,7 @@ export default function Destination() {
         <div className="w-full flex flex-col items-center gap-8">
           
           {/* 1. Featured Card (The Big Image) */}
-          <div className="relative w-full max-w-4xl h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-2xl group transition-all duration-500 bg-gray-900">
+          <div className="relative w-full max-w-4xl h-100 md:h-125 rounded-3xl overflow-hidden shadow-2xl group transition-all duration-500 bg-gray-900">
             {/* Background Image with animation key */}
             <img 
               key={selectedCountry.id}
@@ -149,7 +149,7 @@ export default function Destination() {
                  </p>
 
                 <button 
-                  className="group relative inline-flex items-center gap-2 px-8 py-3 rounded-full text-white font-bold text-lg transition-transform duration-300 hover:scale-105 shadow-lg active:scale-95"
+                  className="group relative cursor-pointer inline-flex items-center gap-2 px-8 py-3 rounded-full text-white font-bold text-lg transition-transform duration-300 hover:scale-105 shadow-lg active:scale-95"
                   style={{ backgroundColor: PRIMARY_COLOR }}
                 >
                   Explore
@@ -164,7 +164,7 @@ export default function Destination() {
           </div>
 
           {/* 2. Thumbnails Carousel */}
-          <div className="w-full max-w-6xl overflow-x-auto pb-4 scrollbar-hide">
+          <div className="w-full max-w-6xl overflow-x-auto pb-4 pt-5 scrollbar-hide">
             <div className="flex justify-start md:justify-center gap-4 px-4 min-w-max">
               {COUNTRIES.map((country) => {
                 const isSelected = selectedCountry.id === country.id;
