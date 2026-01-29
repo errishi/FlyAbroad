@@ -16,7 +16,6 @@ const Home = ({setCurrentAuth, setReadFeedback, sendData}) => {
       <Header />
       <Destination />
       <ChooseUneFly />
-      {/* <Exams /> */}
       <UniversityData />
       <VideoTestimonialPage />
       <StepsToApply setCurrentAuth={setCurrentAuth} />
