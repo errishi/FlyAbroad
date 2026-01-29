@@ -91,7 +91,7 @@ const UniversityModal = ({ university, onClose }) => {
   );
 };
 
-export default function App() {
+export default function Logos() {
   const [mounted, setMounted] = useState(false);
   const [selectedUni, setSelectedUni] = useState(null);
 
