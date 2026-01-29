@@ -1,13 +1,15 @@
 import React from 'react'
 import PrimaryButton from '../PrimaryButton';
 import { Link } from 'react-router-dom';
+import { Globe } from 'lucide-react';
 
 const Header = () => {
   return (
-    <div id='home-header' className='lg:px-15 md:px-10 px-7 py-5 relative'>
+    <div id='home-header' className='lg:px-15 md:px-10 px-7 py-5 lg:h-150 h-auto relative'>
       <div className='flex justify-between lg:flex-row md:flex-row flex-col w-full h-full'>
         <div className='w-auto h-auto'>
-          <div className='bg-white rounded-md w-fit px-4 py-1 mt-35'>
+          <div className='bg-white flex items-center gap-2 rounded-md w-fit px-4 py-1 lg:mt-35 mt-15'>
+            <Globe className="size-4" />
             <p>Study at World's Top Universities</p>
           </div>
           <div className='lg:w-180 md:w-100 w-auto mt-10'>

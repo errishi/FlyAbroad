@@ -1,5 +1,6 @@
 import React, { useState, _useEffect } from 'react';
 import { ArrowRight, Plane, GraduationCap, Stethoscope, Briefcase, Globe, Plus } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 
 const PRIMARY_COLOR = '#0B7707'; 
@@ -24,14 +25,14 @@ const COUNTRIES = [
     id: 2,
     name: 'United Kingdom',
     description: 'Home to some of the oldest and most prestigious universities in the world.',
-    image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2670&auto=format&fit=crop', // London
+    image: '/uk-image.png', // London
     category: 'business'
   },
   {
     id: 3,
     name: 'Germany',
     description: 'A hub for innovation and engineering with tuition-free public universities.',
-    image: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=2670&auto=format&fit=crop', // German Architecture
+    image: '/germany-image.png', // German Architecture
     category: 'engineering'
   },
   {
@@ -45,28 +46,28 @@ const COUNTRIES = [
     id: 5,
     name: 'United States',
     description: 'The land of opportunity, offering a diverse range of programs and cultural experiences.',
-    image: 'https://images.unsplash.com/photo-1508433957232-3107f5fd5995?q=80&w=2686&auto=format&fit=crop', // NYC
+    image: '/usa-image.png', // NYC
     category: 'business'
   },
   {
     id: 6,
     name: 'Canada',
     description: 'Known for its friendly locals, stunning nature, and high standard of living.',
-    image: 'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=2611&auto=format&fit=crop', // Lake Louise
+    image: '/canada-image.png', // Lake Louise
     category: 'medical'
   },
   {
     id: 7,
     name: 'New Zealand',
     description: 'A safe and welcoming country with a practical teaching style and hands-on learning.',
-    image: 'https://images.unsplash.com/photo-1507699622177-388891077021?q=80&w=2671&auto=format&fit=crop', // NZ Landscape
+    image: '/newzealand-image.png', // NZ Landscape
     category: 'others'
   },
   {
     id: 8,
     name: 'Russia',
     description: 'Rich history and strong scientific traditions in mathematics and physics.',
-    image: 'https://images.unsplash.com/photo-1513326738677-b964603b136d?q=80&w=2449&auto=format&fit=crop', // Moscow
+    image: '/russia-image.png', // Moscow
     category: 'engineering'
   },
 ];
@@ -100,10 +101,10 @@ export default function Destination() {
         {/* --- Header Section --- */}
         <div className="text-center max-w-3xl mb-10 space-y-4">
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight relative inline-block">
-            Top Countries to Study Abroad
+            Top Countries to Study <span className='text-[#FD661F]'>Abroad</span>
             {/* Decorative Arrow SVG using the custom green */}
             <svg 
-              className="absolute -bottom-10 right-5 w-24 h-12 md:w-32 md:h-16 transform rotate-3 translate-x-8 md:translate-x-12" 
+              className="absolute lg:-bottom-10 md:-bottom-10 -bottom-8 lg:right-5 md:right-5 right-30 w-24 h-12 md:w-32 md:h-16 transform rotate-3 translate-x-8 md:translate-x-12" 
               viewBox="0 0 100 50" 
               fill="none" 
               stroke={PRIMARY_COLOR} 
@@ -133,7 +134,7 @@ export default function Destination() {
             />
             
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-90" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-90" />
 
             {/* Content Content */}
             <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
@@ -148,7 +149,8 @@ export default function Destination() {
                    {selectedCountry.description}
                  </p>
 
-                <button 
+                <Link
+                  to={`/university?country=${selectedCountry.name}`} 
                   className="group relative cursor-pointer inline-flex items-center gap-2 px-8 py-3 rounded-full text-white font-bold text-lg transition-transform duration-300 hover:scale-105 shadow-lg active:scale-95"
                   style={{ backgroundColor: PRIMARY_COLOR }}
                 >
@@ -158,7 +160,7 @@ export default function Destination() {
                   {/* Button Glow Effect */}
                   <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-50 blur-md transition-opacity duration-300" 
                        style={{ backgroundColor: PRIMARY_COLOR }}></div>
-                </button>
+                </Link>
               </div>
             </div>
           </div>
