@@ -7,6 +7,7 @@ import Exams from '@/Components/Home/Exams';
 import Destination from '@/Components/Home/Destination';
 import StorySection from '@/Components/Home/StorySection';
 import ChooseUneFly from '@/Components/Home/ChooseUneFly';
+import Logos from '@/Components/Home/Logos';
 
 const Home = ({setCurrentAuth, setReadFeedback, sendData}) => {
   return (
@@ -14,6 +15,7 @@ const Home = ({setCurrentAuth, setReadFeedback, sendData}) => {
       <Header />
       <Exams />
       <Destination />
+      {/* <Logos /> */}
       <ChooseUneFly />
       <UniversityData />
       <StepsToApply setCurrentAuth={setCurrentAuth} />
