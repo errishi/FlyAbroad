@@ -134,7 +134,7 @@ const ExamCard = ({ exam, isSelected, onClick }) => {
   return (
     <div 
       onClick={onClick}
-      className={`flex flex-col items-center min-w-[120px] py-6 cursor-pointer group transition-all duration-300 transform ${isSelected ? 'scale-110' : 'hover:-translate-y-1'}`}
+      className={`flex flex-col items-center min-w-30 py-6 cursor-pointer group transition-all duration-300 transform ${isSelected ? 'scale-110' : 'hover:-translate-y-1'}`}
     >
       <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-3 transition-all duration-300 
         ${isSelected 
@@ -189,10 +189,10 @@ const ExamGuides = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans selection:bg-[#0B7077]/20">
+    <div className="min-h-screen mt-20 text-slate-800 font-sans selection:bg-[#0B7077]/20">
       {/* Header Section */}
       <header className="max-w-6xl mx-auto pt-16 px-6 pb-12 text-center">
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 drop-shadow-sm">
+        <h1 className="md:text-4xl lg:text-5xl text-3xl font-extrabold tracking-tight text-slate-900 mb-6 drop-shadow-sm">
           Everything You Need to <span className="text-[#0B7077]">Succeed</span>
         </h1>
         <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">

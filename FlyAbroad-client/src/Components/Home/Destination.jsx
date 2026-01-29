@@ -89,7 +89,7 @@ export default function Destination() {
   };
 
   return (
-    <div className="min-h-screen mt-20 bg-gray-100 font-sans text-slate-800 selection:bg-green-200">
+    <div className="min-h-screen bg-gray-100 font-sans text-slate-800 selection:bg-green-200">
       
       {/* Decorative Background Element (Subtle grid) */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
