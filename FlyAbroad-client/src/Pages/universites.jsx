@@ -270,7 +270,7 @@ export default function App() {
                 <p className="mt-2 text-slate-500">Broaden your search or reset filters.</p>
               </div>
             ) : (
-              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 cursor-pointer">
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 cursor-pointer">
                 {filteredData.map(uni => (
                   <Link
                     key={uni.id}

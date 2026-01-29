@@ -67,7 +67,7 @@ const COUNTRIES = [
     id: 8,
     name: 'Russia',
     description: 'Rich history and strong scientific traditions in mathematics and physics.',
-    image: 'https://images.unsplash.com/photo-1513326738677-b964603b136d?q=80&w=2449&auto=format&fit=crop', // Moscow
+    image: '/russia-image.png', // Moscow
     category: 'engineering'
   },
 ];
@@ -104,7 +104,7 @@ export default function Destination() {
             Top Countries to Study <span className='text-[#FD661F]'>Abroad</span>
             {/* Decorative Arrow SVG using the custom green */}
             <svg 
-              className="absolute -bottom-10 right-5 w-24 h-12 md:w-32 md:h-16 transform rotate-3 translate-x-8 md:translate-x-12" 
+              className="absolute lg:-bottom-10 md:-bottom-10 -bottom-8 lg:right-5 md:right-5 right-30 w-24 h-12 md:w-32 md:h-16 transform rotate-3 translate-x-8 md:translate-x-12" 
               viewBox="0 0 100 50" 
               fill="none" 
               stroke={PRIMARY_COLOR} 

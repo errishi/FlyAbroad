@@ -11,28 +11,36 @@ const StepsToApply = ({setCurrentAuth}) => {
             </div>
             <p className='lg:text-lg text-[16px] text-gray-500 my-3 lg:w-210 m-auto'>Four simple steps to start your international education journey</p>
         </div>
-        <div className='flex mb-15 relative overflow-x-scroll lg:gap-0 md:gap-0 gap-7 flex-start justify-evenly lg:mx-0 md:mx-0 mx-15 lg:items-center lg:flex-row md:flex-row flex-col mt-12'>
-            <div className='absolute lg:top-[30%] md:top-[30%] top-2 lg:left-auto md:left-auto left-15 lg:h-1.5 md:h-1.5 h-[95%] lg:w-[70%] md:w-[90%] w-1.5 -z-1 bg-yellow-300'></div>
-            <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
-                <img src="/create-profile.svg" className='w-25 hover:scale-105 transition-all' alt="profile" />
-                <p className='font-semibold text-gray-500'>Create Profile</p>
-                <p className='text-gray-500 w-60'>Sign up and complete your academic profile</p>
-            </li>
-            <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
+        <div className='flex mb-15 relative overflow-x-scroll lg:gap-0 md:gap-0 gap-7 flex-start justify-evenly lg:mx-0 md:mx-0 mx-5 lg:items-center lg:flex-row md:flex-row flex-col mt-12'>
+            <div className='absolute lg:top-[30%] md:top-[30%] top-2 lg:left-auto md:left-auto left-10 lg:h-1.5 md:h-1.5 h-[95%] lg:w-[70%] md:w-[80%] w-1.5 -z-1 bg-yellow-300'></div>
+            <div className='text-center mx-2 flex lg:flex-col md:flex-col flex-row items-center w-auto'>
+                <img src="/create-profile.svg" className='lg:w-25 md:w-25 w-17 hover:scale-105 transition-all' alt="profile" />
+                <div>
+                    <p className='font-semibold text-gray-500'>Create Profile</p>
+                    <p className='text-gray-500 lg:w-60 md:w-auto text-sm'>Sign up and complete your academic profile</p>
+                </div>
+            </div>
+            <div className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
                 <img src="/Counselling.svg" className='w-30 hover:scale-105 transition-all' alt="counselor" />
-                <p className='font-semibold text-gray-500'>Choose University</p>
-                <p className='text-gray-500 w-60'>Browse and shortlist universities and courses</p>
-            </li>
-            <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
+                <div>
+                    <p className='font-semibold text-gray-500'>Choose University</p>
+                    <p className='text-gray-500 lg:w-60 md:w-auto text-sm'>Browse and shortlist universities and courses</p>
+                </div>
+            </div>
+            <div className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
                 <img src="/application.svg" className='w-30 hover:scale-105 transition-all' alt="application form" />
-                <p className='font-semibold text-gray-500'>Apply</p>
-                <p className='text-gray-500 w-60'>Submit applications with our guided process</p>
-            </li>
-            <li className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
+                <div>
+                    <p className='font-semibold text-gray-500'>Apply</p>
+                    <p className='text-gray-500 lg:w-60 md:w-auto text-sm'>Submit applications with our guided process</p>
+                </div>
+            </div>
+            <div className='text-center flex lg:flex-col md:flex-col flex-row items-center'>
                 <img src="/campus.svg" className='w-30 hover:scale-105 transition-all' alt="Campus" />
-                <p className='font-semibold text-gray-500'>Get Admitted</p>
-                <p className='text-gray-500 w-60'>Receive admission and prepare for departure</p>
-            </li>
+                <div>
+                    <p className='font-semibold text-gray-500'>Get Admitted</p>
+                    <p className='text-gray-500 lg:w-60 md:w-auto text-sm'>Receive admission and prepare for departure</p>
+                </div>
+            </div>
         </div>
         <div className='w-fit m-auto' onClick={()=>setCurrentAuth(true)}>
             <PrimaryButton name={"Get Started"} />
