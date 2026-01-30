@@ -9,6 +9,8 @@ import StorySection from '@/Components/Home/StorySection';
 import ChooseUneFly from '@/Components/Home/ChooseUneFly';
 import Logos from '@/Components/Home/Logos';
 import Faq from '@/Components/Home/Faq';
+import VideoTestimonialPage from '@/Components/Home/VideoTestimonialPage';
+import CTA from '@/Components/Home/CTA';
 
 const Home = ({setCurrentAuth, setReadFeedback, sendData}) => {
   return (
@@ -19,10 +21,12 @@ const Home = ({setCurrentAuth, setReadFeedback, sendData}) => {
       <Logos />
       <ChooseUneFly />
       <UniversityData />
+      <VideoTestimonialPage />
       <StepsToApply setCurrentAuth={setCurrentAuth} />
       <StorySection />
       <Exclusive sendData={sendData} setReadFeedback={setReadFeedback} />
       <Faq />
+      <CTA />
     </div>
   )
 }
