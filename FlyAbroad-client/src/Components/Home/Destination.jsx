@@ -73,7 +73,7 @@ const COUNTRIES = [
 ];
 
 export default function Destination() {
-  const [activeCategory, setActiveCategory] = useState('engineering');
+  const [_activeCategory, _setActiveCategory] = useState('engineering');
   const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
   const [isAnimating, setIsAnimating] = useState(false);
 
