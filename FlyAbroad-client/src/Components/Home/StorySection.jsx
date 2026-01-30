@@ -6,16 +6,19 @@ import { Link } from 'react-router-dom';
 
 const blogs = [
     {
+        id:"uirgfhw45t34grtberth5",
         title: "Russell Group Universities List (UK) 2026",
         description: "Russell Group Universities List (UK) 2026 represents 24 elite, research-intensive institutions including Oxford, Cambridge, and Imperial renowned for academic excellence and a 94% graduate employability rate. These 'UK Ivy League' members attract over 90,000 international students annually by offering world-leading facilities, 1-year Master's programs, and a clear pathway to the 2-year Post-Study Work (PSW) visa.",
         image: "/blog-post-1.jpg"
     },
     {
+        id:"q3fw844hwugw948t4g48g",
         title: "Russell Group Universities List (UK) 2026",
         description: "Russell Group Universities List (UK) 2026 represents 24 elite, research-intensive institutions including Oxford, Cambridge, and Imperial renowned for academic excellence and a 94% graduate employability rate. These 'UK Ivy League' members attract over 90,000 international students annually by offering world-leading facilities, 1-year Master's programs, and a clear pathway to the 2-year Post-Study Work (PSW) visa.",
         image: "/blog-post-2.jpg"
     },
     {
+        id:"kjwergiuerhg84y5t3yt83r93",
         title: "Russell Group Universities List (UK) 2026",
         description: "Russell Group Universities List (UK) 2026 represents 24 elite, research-intensive institutions including Oxford, Cambridge, and Imperial renowned for academic excellence and a 94% graduate employability rate. These 'UK Ivy League' members attract over 90,000 international students annually by offering world-leading facilities, 1-year Master's programs, and a clear pathway to the 2-year Post-Study Work (PSW) visa.",
         image: "/blog-post-3.jpg"
@@ -33,7 +36,7 @@ const StorySection = () => {
         <div className='flex justify-center lg:flex-row md:flex-row flex-col gap-5 mt-15'>
             {blogs.map((item, index)=>{
                 return (
-                    <StoryCard title={item.title} description={item.description} image={item.image} />
+                    <StoryCard key={index} title={item.title} description={item.description} image={item.image} />
                 )
             })}
         </div>
