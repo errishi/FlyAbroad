@@ -32,16 +32,16 @@ const UniversityDropdown = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-50 pt-20 font-sans">
-      <div className="relative inline-block text-left w-full max-w-xs px-4">
+    <div className="flex flex-col items-center justify-start font-sans">
+      <div className="relative inline-block text-left w-full max-w-xs">
         {/* Dropdown Toggle Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center justify-between w-full px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-xl shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          className="flex items-center cursor-pointer text-gray-200 hover:bg-white/5 hover:text-white justify-between w-full lg:ml-0 md:ml-0 -ml-4 lg:px-3 px-1 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-[#0B7077] transition-all duration-200"
         >
           <div className="flex items-center gap-2">
-            <GraduationCap className="w-4 h-4 text-blue-600" />
-            <span>Explore Universities</span>
+            <GraduationCap className="w-4 h-4 text-white" />
+            <span>Explore Countries</span>
           </div>
           <ChevronDown 
             className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} 
@@ -59,7 +59,7 @@ const UniversityDropdown = () => {
               {/* Section 1: Top Destinations */}
               <div className="space-y-6">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-1 h-6 bg-blue-600 rounded-full" />
+                  <div className="w-1 h-6 bg-[#0B7077] rounded-full" />
                   <h3 className="text-lg font-bold text-gray-900 tracking-tight">Study Abroad</h3>
                 </div>
                 <div className="grid grid-cols-1 gap-y-3">

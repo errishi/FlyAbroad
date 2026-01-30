@@ -25,7 +25,7 @@ const UniversityModal = ({ university, onClose }) => {
   if (!university) return null;
 
   return (
-    <div className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md transition-all duration-300">
+    <div className="fixed inset-0 z-10 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md transition-all duration-300">
       <div 
         className="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden relative animate-in zoom-in-95 fade-in duration-300"
         onClick={(e) => e.stopPropagation()}
@@ -38,7 +38,7 @@ const UniversityModal = ({ university, onClose }) => {
           <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
         </button>
 
-        <div className="h-44 bg-linear-to-br from-[#0B7077] via-[#0D8B94] to-[#085a60] relative overflow-hidden">
+        <div className="h-35 bg-linear-to-br from-[#0B7077] via-[#0D8B94] to-[#085a60] relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
               <defs>

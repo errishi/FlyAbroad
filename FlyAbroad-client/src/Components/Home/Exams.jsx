@@ -205,7 +205,7 @@ const ExamGuides = () => {
         {showLeftArrow && (
           <button 
             onClick={() => scroll('left')}
-            className="absolute left-2 top-1/2 -translate-y-12 z-20 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-slate-400 hover:text-[#0B7077] hover:bg-slate-50 transition-all border border-slate-100"
+            className="absolute left-2 top-1/2 -translate-y-12 z-2 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-slate-400 hover:text-[#0B7077] hover:bg-slate-50 transition-all border border-slate-100"
           >
             <ChevronLeft size={24} />
           </button>
@@ -228,7 +228,7 @@ const ExamGuides = () => {
         {showRightArrow && (
           <button 
             onClick={() => scroll('right')}
-            className="absolute right-2 top-1/2 -translate-y-12 z-20 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-slate-400 hover:text-[#0B7077] hover:bg-slate-50 transition-all border border-slate-100"
+            className="absolute right-2 top-1/2 -translate-y-12 z-2 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-slate-400 hover:text-[#0B7077] hover:bg-slate-50 transition-all border border-slate-100"
           >
             <ChevronRight size={24} />
           </button>

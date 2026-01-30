@@ -61,7 +61,7 @@ const FAQ_DATA = [
   }
 ];
 
-export default function App() {
+export default function Faq() {
   const [searchQuery, setSearchQuery] = useState('');
   const [openItem, setOpenItem] = useState(null);
 
@@ -77,7 +77,7 @@ export default function App() {
   }, [searchQuery]);
 
   return (
-    <div className="min-h-screen bg-white py-12 px-4 font-sans text-slate-800">
+    <div className="min-h-screen bg-white py-18 px-4 font-sans text-slate-800">
       <div className="max-w-3xl mx-auto">
         
         {/* Simplified Search Header */}
@@ -110,7 +110,7 @@ export default function App() {
               >
                 <button
                   onClick={() => toggleAccordion(faq.id)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
+                  className="w-full px-6 py-5 cursor-pointer flex items-center justify-between text-left focus:outline-none"
                 >
                   <span className={`font-semibold transition-colors duration-200 ${openItem === faq.id ? 'text-[#0B7707]' : 'text-slate-800'}`}>
                     {faq.question}
