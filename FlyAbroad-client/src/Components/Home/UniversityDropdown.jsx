@@ -54,7 +54,7 @@ const UniversityDropdown = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 p-4 md:p-8 gap-8 relative">
               
               {/* Vertical Divider (visible on md screens and up) */}
-              <div className="hidden md:block absolute left-1/2 top-8 bottom-8 w-[1px] bg-gray-100 -translate-x-1/2" />
+              <div className="hidden md:block absolute left-1/2 top-8 bottom-8 w-px bg-gray-100 -translate-x-1/2" />
 
               {/* Section 1: Top Destinations */}
               <div className="space-y-6">
@@ -69,7 +69,7 @@ const UniversityDropdown = () => {
                       href={`#${country.toLowerCase()}`}
                       className="group flex items-center text-[15px] text-gray-600 hover:text-blue-600 transition-colors py-1"
                     >
-                      <span className="w-0 group-hover:w-2 h-[2px] bg-blue-600 mr-0 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100" />
+                      <span className="w-0 group-hover:w-2 h-0.5 bg-blue-600 mr-0 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100" />
                       {country}
                     </a>
                   ))}
@@ -89,7 +89,7 @@ const UniversityDropdown = () => {
                       href={`#${country.toLowerCase()}`}
                       className="group flex items-center text-[15px] text-gray-600 hover:text-emerald-600 transition-colors py-1"
                     >
-                      <span className="w-0 group-hover:w-2 h-[2px] bg-emerald-500 mr-0 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100" />
+                      <span className="w-0 group-hover:w-2 h-0.5 bg-emerald-500 mr-0 group-hover:mr-2 transition-all duration-300 opacity-0 group-hover:opacity-100" />
                       {country}
                     </a>
                   ))}
