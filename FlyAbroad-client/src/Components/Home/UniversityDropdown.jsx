@@ -39,9 +39,8 @@ const UniversityDropdown = () => {
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center cursor-pointer text-gray-200 hover:bg-white/5 hover:text-white justify-between w-full lg:ml-0 md:ml-0 -ml-4 lg:px-3 px-1 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-[#0B7077] transition-all duration-200"
         >
-          <div className="flex items-center gap-2">
-            <GraduationCap className="w-4 h-4 text-white" />
-            <span>Explore Countries</span>
+          <div className="flex items-center gap-2 px-1 lg:px-0 md:px-0">
+            <span className='text-sm font-medium'>Explore Countries</span>
           </div>
           <ChevronDown 
             className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} 
@@ -50,7 +49,7 @@ const UniversityDropdown = () => {
 
         {/* Dropdown Content */}
         {isOpen && (
-          <div className="absolute left-1/2 -translate-x-1/2 mt-4 w-[90vw] max-w-2xl bg-white border border-gray-100 rounded-2xl shadow-2xl z-50 overflow-hidden ring-1 ring-black ring-opacity-5 animate-in fade-in zoom-in duration-200 origin-top">
+          <div className="absolute md:-left-1/2 lg:left-1/2 left-1/2 -translate-x-1/2 mt-4 w-[90vw] max-w-2xl bg-white border border-gray-100 rounded-2xl shadow-2xl z-50 overflow-hidden ring-1 ring-black ring-opacity-5 animate-in fade-in zoom-in duration-200 origin-top">
             <div className="grid grid-cols-1 md:grid-cols-2 p-4 md:p-8 gap-8 relative">
               
               {/* Vertical Divider (visible on md screens and up) */}
