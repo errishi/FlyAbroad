@@ -1,5 +1,6 @@
-import { DollarSign, MapPin, Shield } from 'lucide-react';
+import { ArrowRight, DollarSign, MapPin, Shield, Star, Users } from 'lucide-react';
 import React from 'react'
+import { ImageWithFallback } from '../ImageWithFallback';
 
 const Badge = ({ children, variant = "default" }) => {
   const variants = {
@@ -13,51 +14,62 @@ const Badge = ({ children, variant = "default" }) => {
   );
 };
 
-const UniversityCard = ({ university }) => (
-  <div className="group relative flex flex-col rounded-2xl border-2 border-transparent bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-[#0B7077] hover:shadow-xl overflow-hidden">
-    <div className="relative h-44 w-full overflow-hidden bg-slate-100">
-      <img
-        src={university.image}
-        alt={university.name}
-        className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
-        onError={(e) => { e.target.src = "https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg"; }}
-      />
-      <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-    </div>
+const UniversityCard = ({ university }) => {
+  return (
+    <div className='rounded-2xl overflow-hidden'>
+      <div className="relative h-48 overflow-hidden">
+        <ImageWithFallback
+          src={university.image}
+          alt={university.name}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        />
+        <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-[#FD661F] shadow-md">
+          {/* #{university.ranking} */}
+          <p>ranking ?</p>
+        </div>
+      </div>
 
-    <div className="flex flex-1 flex-col p-5">
-      <div className="mb-2">
-        <h3 className="line-clamp-2 text-md font-extrabold leading-tight text-slate-900 group-hover:text-[#0B7077]">
+      <div className="p-6 rounded-2xl overflow-clip">
+        <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-[#FD661F]/80 transition-colors">
           {university.name}
         </h3>
-        <div className="mt-2 flex items-center gap-1 text-sm text-slate-500">
-          <MapPin className="h-3.5 w-3.5 text-[#0B7077]" />
-          <span className="truncate">{university.city}, {university.region},</span>
-        </div>
-        <span className="truncate text-sm text-slate-500 ml-5">{university.country}</span>
-      </div>
 
-      <div className="mb-4 mt-2 flex flex-wrap gap-1.5">
-        {university.categories.map((cat) => (
-          <Badge key={cat}>{cat}</Badge>
-        ))}
-        {university.tags.map((tag) => (
-          <Badge key={tag} variant="accent">{tag}</Badge>
-        ))}
-      </div>
-
-      <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4 text-xs font-semibold">
-        <div className="flex items-center gap-1.5 text-slate-600">
-          <DollarSign className="h-3.5 w-3.5 text-[#0B7077]" />
-          <span className="capitalize">{university.costLevel}</span>
+        <div className="flex items-center gap-2 text-gray-600 mb-3">
+          <MapPin className="size-4" />
+          <span className="text-sm">{university.city}, {university.country}</span>
         </div>
-        <div className="flex items-center gap-1.5 text-slate-600">
-          <Shield className="h-3.5 w-3.5 text-[#0B7077]" />
-          <span className="capitalize">{university.safetyLevel}</span>
+
+        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+          {university.description}
+        </p>
+
+        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+          <div className="flex items-center gap-4 text-sm text-gray-600">
+            <div className="flex items-center gap-1">
+              <Users className="size-4" />
+              {/* <span>{(university.studentCount / 1000).toFixed(0)}K</span> */}
+              <p>12k</p>
+            </div>
+            <div className="flex items-center gap-1">
+              <Star className="size-4 text-yellow-500 fill-yellow-500" />
+              <span>{university.type}</span>
+            </div>
+          </div>
+          <ArrowRight className="size-5 text-[#09585e] group-hover:translate-x-1 transition-transform" />
+        </div>
+
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <div className="text-sm text-gray-600 mb-1">
+            Available Programs
+          </div>
+          <div className="text-sm font-semibold text-gray-900">
+            {/* {university.courses.length} {university.courses.length === 1 ? 'Course' : 'Courses'} */}
+            <p>10+</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default UniversityCard;
