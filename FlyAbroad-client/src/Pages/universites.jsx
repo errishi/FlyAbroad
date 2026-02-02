@@ -173,88 +173,7 @@ export default function App() {
       </section>
 
       <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[260px_1fr]">
-          
-          {/* Sidebar Filters */}
-          <aside className={`${isSidebarOpen ? 'block' : 'hidden'} fixed inset-0 z-50 bg-white p-6 lg:relative lg:z-0 lg:block lg:bg-transparent lg:p-0 overflow-y-auto`}>
-            <div className="flex items-center justify-between lg:hidden mb-6">
-              <h2 className="text-xl font-bold">Refine Results</h2>
-              <button onClick={() => setIsSidebarOpen(false)} className="rounded-lg p-2 bg-slate-100 text-slate-600">✕</button>
-            </div>
-
-            <div className="space-y-8">
-              <div>
-                <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-slate-400">Field of Study (Advanced)</h3>
-                <div className="grid grid-cols-1 gap-2">
-                  {CATEGORY_OPTIONS.map(opt => (
-                    <label key={opt.id} className="flex cursor-pointer items-center gap-3 text-sm text-slate-600 hover:text-[#0B7077]">
-                      <input 
-                        type="checkbox" 
-                        className="h-4 w-4 rounded border-slate-300 text-[#0B7077] focus:ring-[#0B7077]"
-                        checked={selectedCategories.includes(opt.id)}
-                        onChange={() => toggle(selectedCategories, setSelectedCategories, opt.id)}
-                      />
-                      <span className="capitalize">{opt.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-slate-400">Institutional Tags</h3>
-                <div className="flex flex-wrap gap-2">
-                  {TAG_OPTIONS.map(opt => (
-                    <button 
-                      key={opt}
-                      onClick={() => toggle(selectedTags, setSelectedTags, opt)}
-                      className={`rounded-full border px-3 py-1 text-xs font-bold capitalize transition-all ${selectedTags.includes(opt) ? 'border-[#0B7077] bg-[#0B7077] text-white' : 'border-slate-200 text-slate-500 hover:border-[#0B7077]'}`}
-                    >
-                      {opt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <h3 className="mb-4 text-xs font-black uppercase tracking-widest text-slate-400">Tuition Range</h3>
-                <div className="flex gap-2">
-                  {COST_LEVELS.map(opt => (
-                    <button 
-                      key={opt}
-                      onClick={() => setSelectedCost(selectedCost === opt ? null : opt)}
-                      className={`flex-1 rounded-lg border py-2 text-xs font-bold capitalize transition-all ${selectedCost === opt ? 'border-[#0B7077] bg-[#0B7077]/10 text-[#0B7077]' : 'border-slate-200 text-slate-400 hover:border-[#0B7077]'}`}
-                    >
-                      {opt}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="p-5 rounded-2xl bg-[#0B7077]/5 border border-[#0B7077]/10">
-                <div className="flex items-center gap-2 mb-2">
-                  <Info className="h-4 w-4 text-[#0B7077]" />
-                  <span className="text-xs font-bold text-[#0B7077]">Safety Note</span>
-                </div>
-                <p className="text-[11px] leading-relaxed text-[#0B7077]/70">
-                  Data updated for 2025. All "Safest" tags are verified against regional security indexes.
-                </p>
-              </div>
-
-              <button 
-                onClick={() => {
-                  setSelectedCategories([]);
-                  setSelectedTags([]);
-                  setSelectedCost(null);
-                  setSelectedSafety(null);
-                  setSearchTerm("");
-                }}
-                className="w-full rounded-xl border border-slate-200 py-3 text-xs font-bold text-slate-400 hover:bg-slate-50 transition-colors"
-              >
-                Clear All Filters
-              </button>
-            </div>
-          </aside>
-
+        <div>
           {/* Results Grid */}
           <section>
             <div className="mb-8 flex items-end justify-between">
@@ -270,11 +189,12 @@ export default function App() {
                 <p className="mt-2 text-slate-500">Broaden your search or reset filters.</p>
               </div>
             ) : (
-              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 cursor-pointer">
+              <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
                 {filteredData.map(uni => (
                   <Link
                     key={uni.id}
                     to={`/university/${uni.id}`}
+                    className="cursor-pointer shadow-sm hover:shadow-lg transition-all overflow-clip rounded-2xl group"
                   >
                     <UniversityCard key={uni.id} university={uni} />
                   </Link>
