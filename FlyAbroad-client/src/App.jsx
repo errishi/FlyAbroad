@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom';
 import About from './Pages/About';
 import Footer from './Components/Footer';
 import Career from './Pages/Career';
-import Blog from './Pages/Blog';
 import Contact from './Pages/Contact';
 import LoginForm from './Components/Auth/LoginForm';
 import Courses from './Pages/Courses'

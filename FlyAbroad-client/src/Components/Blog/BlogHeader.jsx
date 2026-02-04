@@ -1,16 +1,16 @@
 import React from 'react'
-import BlogButton from './BlogButton';
 
 const BlogHeader = () => {
   return (
-    <div className='flex lg:flex-row md:flex-row flex-col lg:items-center md:items-center lg:px-15 md:px-10 px-7 py-5 bg-[url(/blog-header-image.svg)] lg:h-45 md:h-30 lg:bg-contain md:bg-contain bg-cover lg:bg-repeat md:bg-repeat bg-no-repeat'>
-        <div>
-            <h1 className='text-[#0B7077] font-semibold lg:mx-20 lg:text-5xl text-4xl drop-shadow-lg'>Level Up : The Blog</h1>
-            <p className='text-gray-700 drop-shadow-lg lg:mx-20 lg:mt-3 md:mt-3 mt-1.5 lg:text-[16px] text-[14px]'>Discover our latest articles covering industry updates & expert advice.</p>
-        </div>
-        <div className='w-fit lg:mt-0 md:mt-0 mt-3'>
-            {/* <BlogButton name={"View All"} /> */}
-        </div>
+    <div className="bg-[url(/blog-header-image.svg)] lg:bg-cover md:bg-contain bg-cover lg:bg-no-repeat md:bg-repeat bg-no-repeat text-white py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-[#0B7077]">
+        <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+          Study Abroad Insights
+        </h1>
+        <p className="text-xl text-[#0B7077]/70 max-w-2xl">
+          Expert advice, tips, and guides to help you navigate your study abroad journey
+        </p>
+      </div>
     </div>
   )
 }
