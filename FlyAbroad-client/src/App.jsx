@@ -5,7 +5,6 @@ import { Route, Routes } from 'react-router-dom';
 import About from './Pages/About';
 import Footer from './Components/Footer';
 import Career from './Pages/Career';
-import Blog from './Pages/Blog';
 import Contact from './Pages/Contact';
 import LoginForm from './Components/Auth/LoginForm';
 import Courses from './Pages/Courses'
@@ -15,6 +14,8 @@ import ScrollToTop from './Components/ScrollToTop';
 import FeedbackPopUp from './Components/Home/FeedbackPopUp';
 import ApplyNow from './Pages/applynow';
 import UniversityDetails from './Components/Home/UniversityDetails';
+import BlogDetails from './Components/Blog/BlogDetails';
+import Blogs from './Pages/Blogs';
 
 
 const App = () => {
@@ -48,7 +49,8 @@ const App = () => {
         <Route path='/' element={<Home sendData={handleFeedbackData} setReadFeedback={setReadFeedback} setCurrentAuth={setCurrentAuth} />} />
         <Route path='/about' element={<About />} />
         <Route path='/career' element={<Career />} />
-        <Route path='/blog' element={<Blog />} />
+        <Route path='/blog' element={<Blogs />} />
+        <Route path='/blog/:id' element={<BlogDetails />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/courses' element={<Courses setCurrentAuth={setCurrentAuth} />} />
         <Route path='/apply' element={<ApplyNow />} />
