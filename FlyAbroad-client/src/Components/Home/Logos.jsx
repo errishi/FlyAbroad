@@ -3,10 +3,9 @@ import {
   Building2, 
   X, 
   MapPin, 
-  Globe, 
-  GraduationCap,
   ExternalLink,
-  Search
+  Search,
+  Globe
 } from 'lucide-react';
 
 const universities = [
@@ -19,70 +18,90 @@ const universities = [
   { id: 7, name: "Tomsk State University", acronym: "TSU", url: "https://en.tsu.ru/", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Tomsk_State_University_logo.svg/500px-Tomsk_State_University_logo.svg.png", location: "Tomsk", type: "Public" },
   { id: 8, name: "National University of Science and Technology", acronym: "MISiS", url: "https://en.misis.ru/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/NUST_MISIS_logo.svg/500px-NUST_MISIS_logo.svg.png", location: "Moscow", type: "Research" },
   { id: 9, name: "Peoples’ Friendship University of Russia", acronym: "RUDN", url: "https://eng.rudn.ru/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/RUDN_University_Logo.svg/500px-RUDN_University_Logo.svg.png", location: "Moscow", type: "Public" },
-  { id: 10, name: "Kazan Federal University", acronym: "KFU", url: "https://kpfu.ru/eng", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Kazan_Federal_University_coat_of_arms.svg/500px-Kazan_Federal_University_coat_of_arms.svg.png", location: "Kazan", type: "Federal" },
-  { id: 11, name: "Ural Federal University", acronym: "UrFU", url: "https://urfu.ru/en/", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Ural_Federal_University_Logo.svg/500px-Ural_Federal_University_Logo.svg.png", location: "Yekaterinburg", type: "Federal" },
-  { id: 12, name: "ITMO University", acronym: "ITMO", url: "https://en.itmo.ru/", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/ITMO_University_Logo.svg/500px-ITMO_University_Logo.svg.png", location: "St. Petersburg", type: "Research" },
-  { id: 13, name: "Samara National Research University", acronym: "Samara", url: "https://ssau.ru/en/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Samara_University_Logo.png/500px-Samara_University_Logo.png", location: "Samara", type: "National Research" },
-  { id: 14, name: "Far Eastern Federal University", acronym: "FEFU", url: "https://www.dvfu.ru/en/", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Far_Eastern_Federal_University_logo.svg/500px-Far_Eastern_Federal_University_logo.svg.png", location: "Vladivostok", type: "Federal" },
-  { id: 15, name: "RANEPA", acronym: "RANEPA", url: "https://www.ranepa.ru/eng/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/RANEPA_Logo.png/500px-RANEPA_Logo.png", location: "Moscow", type: "Public" },
-  { id: 16, name: "Russian New University", acronym: "RosNOU", url: "https://rosnou.ru/en", logo: "https://upload.wikimedia.org/wikipedia/en/2/29/Russian_New_University_logo.png", location: "Moscow", type: "Private" },
-  { id: 17, name: "MIRBIS", acronym: "MIRBIS", url: "https://mirbis.ru/", logo: "https://mirbis.ru/local/templates/main_new/img/logo.png", location: "Moscow", type: "Business" },
-  { id: 18, name: "Synergy University", acronym: "Synergy", url: "https://synergy.ru/en/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Synergy_University_Logo.svg/500px-Synergy_University_Logo.svg.png", location: "Moscow", type: "Private" },
-  { id: 19, name: "Russian State University for the Humanities", acronym: "RSUH", url: "https://www.rsuh.ru/en/", logo: "https://upload.wikimedia.org/wikipedia/en/8/87/Russian_State_University_for_the_Humanities_logo.png", location: "Moscow", type: "Public" },
-  { id: 20, name: "Financial University", acronym: "FinU", url: "http://www.fa.ru/en/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/Financial_University_Logo.svg/500px-Financial_University_Logo.svg.png", location: "Moscow", type: "Public" }
+  { id: 10, name: "Kazan Federal University", acronym: "KFU", url: "https://kpfu.ru/eng", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Kazan_Federal_University_coat_of_arms.svg/500px-Kazan_Federal_University_coat_of_arms.svg.png", location: "Kazan", type: "Federal" }
 ];
 
 const UniversityModal = ({ university, onClose }) => {
   if (!university) return null;
 
   return (
-    <div className="fixed inset-0 `z-[100]` flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-all animate-in fade-in duration-200">
-      <div className="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden relative animate-in zoom-in-95 duration-300">
+    <div className="fixed inset-0 z-10 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md transition-all duration-300">
+      <div 
+        className="bg-white w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden relative animate-in zoom-in-95 fade-in duration-300"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 transition-colors z-10"
+          className="absolute top-6 right-6 p-2.5 rounded-full bg-white/20 hover:bg-white/40 text-white backdrop-blur-md transition-all z-20 group"
+          aria-label="Close modal"
         >
-          <X size={20} />
+          <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
         </button>
 
-        <div className="h-32 bg-linear-to-r from-[#0B7077] to-[#085a60]" />
+        <div className="h-35 bg-linear-to-br from-[#0B7077] via-[#0D8B94] to-[#085a60] relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="1"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+          </div>
+        </div>
         
-        <div className="px-8 pb-8 -mt-12 text-center">
-          <div className="inline-block p-4 bg-white rounded-2xl shadow-xl mb-4 border border-slate-100">
+        <div className="px-8 pb-10 -mt-16 relative z-10 text-center">
+          <div className="inline-block p-5 bg-white rounded-3xl shadow-2xl mb-6 border border-slate-100 transform transition-transform hover:scale-105">
             <img 
               src={university.logo} 
-              alt={university.name} 
-              className="w-24 h-24 object-contain"
-              onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=No+Logo' }}
+              alt={`${university.name} Logo`} 
+              className="w-28 h-28 object-contain"
+              onError={(e) => { 
+                e.target.onerror = null;
+                e.target.src = 'https://via.placeholder.com/150?text=University';
+              }}
             />
           </div>
 
-          <h3 className="text-2xl font-bold text-slate-900 mb-1">{university.name}</h3>
-          <p className="text-[#0B7077] font-semibold tracking-widest uppercase text-sm mb-6">
-            {university.acronym}
-          </p>
+          <h3 className="text-2xl font-extrabold text-slate-900 mb-2 leading-tight">
+            {university.name}
+          </h3>
+          <div className="flex items-center justify-center gap-2 mb-8">
+             <span className="px-3 py-1 bg-[#0B7077]/10 text-[#0B7077] rounded-full text-xs font-bold tracking-widest uppercase">
+               {university.acronym}
+             </span>
+          </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <div className="flex flex-col items-center p-4 bg-slate-50 rounded-2xl border border-slate-100">
-              <MapPin size={18} className="text-[#0B7077] mb-2" />
-              <span className="text-xs text-slate-500 uppercase tracking-wider mb-1 font-bold">Location</span>
-              <span className="text-sm font-medium text-slate-900">{university.location}</span>
+          <div className="grid grid-cols-2 gap-4 mb-10 text-left">
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-start gap-3">
+              <div className="p-2 bg-white rounded-lg shadow-sm">
+                <MapPin size={18} className="text-[#0B7077]" />
+              </div>
+              <div>
+                <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider">Location</span>
+                <span className="text-sm font-semibold text-slate-700">{university.location}</span>
+              </div>
             </div>
-            <div className="flex flex-col items-center p-4 bg-slate-50 rounded-2xl border border-slate-100">
-              <Building2 size={18} className="text-[#0B7077] mb-2" />
-              <span className="text-xs text-slate-500 uppercase tracking-wider mb-1 font-bold">Institution Type</span>
-              <span className="text-sm font-medium text-slate-900">{university.type}</span>
+            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-start gap-3">
+              <div className="p-2 bg-white rounded-lg shadow-sm">
+                <Building2 size={18} className="text-[#0B7077]" />
+              </div>
+              <div>
+                <span className="block text-[10px] text-slate-400 uppercase font-bold tracking-wider">Type</span>
+                <span className="text-sm font-semibold text-slate-700">{university.type}</span>
+              </div>
             </div>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-4">
             <a 
               href={university.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 flex items-center justify-center gap-2 py-4 bg-[#0B7077] hover:bg-[#085a60] text-white rounded-2xl font-bold transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#0B7077]/20"
+              className="flex-1 flex items-center justify-center gap-2 py-4 px-6 bg-[#0B7077] hover:bg-[#085a60] text-white rounded-2xl font-bold transition-all transform hover:-translate-y-1 active:scale-95 shadow-xl shadow-[#0B7077]/30"
             >
-              Visit Official Website <ExternalLink size={18} />
+              <Globe size={18} /> Visit Website
             </a>
           </div>
         </div>
@@ -97,13 +116,18 @@ export default function Logos() {
 
   useEffect(() => {
     setMounted(true);
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') setSelectedUni(null);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
   }, []);
 
-  const firstRow = universities.slice(0, 10);
-  const secondRow = universities.slice(10, 20);
+  const firstRow = universities.slice(0, 5);
+  const secondRow = universities.slice(5, 10);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-[#0B7077]/20 selection:text-[#0B7077] overflow-x-hidden">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans selection:bg-[#0B7077]/20 selection:text-[#0B7077] overflow-x-hidden flex flex-col justify-center">
       
       <style>{`
         @keyframes scroll {
@@ -111,80 +135,91 @@ export default function Logos() {
           100% { transform: translateX(-50%); }
         }
         .animate-scroll {
-          animation: scroll 45s linear infinite;
+          animation: scroll 25s linear infinite;
         }
         .animate-scroll-reverse {
-          animation: scroll 50s linear infinite reverse;
+          animation: scroll 30s linear infinite reverse;
         }
         .animate-scroll:hover, .animate-scroll-reverse:hover {
           animation-play-state: paused;
         }
       `}</style>
 
-      <main className="py-12 md:py-20 px-4">
-        <div className={`space-y-4 transition-opacity duration-1000 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
-          {/* Marquee Row 1 */}
-          <div className="relative w-full overflow-hidden py-10">
-            <div className="flex w-max animate-scroll">
-              {[...firstRow, ...firstRow].map((uni, idx) => (
-                <button 
-                  key={`${uni.id}-${idx}`}
-                  onClick={() => setSelectedUni(uni)}
-                  className="mx-4 w-52 h-52 bg-white rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-2 border border-slate-100 flex flex-col items-center justify-center p-8 transition-all duration-300 group relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Search size={16} className="text-slate-300" />
-                  </div>
-                  <div className="w-24 h-24 mb-4 flex items-center justify-center">
-                    <img src={uni.logo} alt={uni.name} className="max-w-full max-h-full object-contain filter group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                  <div className="text-center">
-                    <p className="font-bold text-slate-900 text-sm line-clamp-1">{uni.acronym}</p>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-[#0B7077] opacity-0 group-hover:opacity-100 transition-opacity">
-                      View Details
-                    </span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <div className="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
-          </div>
+      {/* Header section removed as requested */}
 
-          {/* Marquee Row 2 */}
-          <div className="relative w-full overflow-hidden py-10">
-            <div className="flex w-max animate-scroll-reverse">
-              {[...secondRow, ...secondRow].map((uni, idx) => (
-                <button 
-                  key={`${uni.id}-${idx}`}
-                  onClick={() => setSelectedUni(uni)}
-                  className="mx-4 w-52 h-52 bg-white rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-2 border border-slate-100 flex flex-col items-center justify-center p-8 transition-all duration-300 group relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Search size={16} className="text-slate-300" />
-                  </div>
-                  <div className="w-24 h-24 mb-4 flex items-center justify-center">
-                    <img src={uni.logo} alt={uni.name} className="max-w-full max-h-full object-contain filter group-hover:scale-110 transition-transform duration-300" />
-                  </div>
-                  <div className="text-center">
-                    <p className="font-bold text-slate-900 text-sm line-clamp-1">{uni.acronym}</p>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-[#0B7077] opacity-0 group-hover:opacity-100 transition-opacity">
-                      View Details
-                    </span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            <div className="absolute inset-y-0 left-0 w-32 bg-linear-to-r from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-32 bg-linear-to-l from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
+      <main className={`py-12 transition-all duration-1000 transform ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+        <div className="relative w-full overflow-hidden mb-8">
+          <div className="flex w-max animate-scroll py-4">
+            {[...firstRow, ...firstRow, ...firstRow].map((uni, idx) => (
+              <UniversityCard 
+                key={`${uni.id}-${idx}`} 
+                uni={uni} 
+                onClick={() => setSelectedUni(uni)} 
+              />
+            ))}
           </div>
+          <div className="absolute inset-y-0 left-0 w-8 md:w-16 bg-linear-to-r from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-8 md:w-16 bg-linear-to-l from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
+        </div>
+
+        <div className="relative w-full overflow-hidden">
+          <div className="flex w-max animate-scroll-reverse py-4">
+            {[...secondRow, ...secondRow, ...secondRow].map((uni, idx) => (
+              <UniversityCard 
+                key={`${uni.id}-${idx}`} 
+                uni={uni} 
+                onClick={() => setSelectedUni(uni)} 
+              />
+            ))}
+          </div>
+          <div className="absolute inset-y-0 left-0 w-8 md:w-16 bg-linear-to-r from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-8 md:w-16 bg-linear-to-l from-[#F8FAFC] to-transparent z-10 pointer-events-none" />
         </div>
       </main>
 
-      <UniversityModal 
-        university={selectedUni} 
-        onClose={() => setSelectedUni(null)} 
-      />
+      {selectedUni && (
+        <div className="contents" onClick={() => setSelectedUni(null)}>
+          <UniversityModal 
+            university={selectedUni} 
+            onClose={() => setSelectedUni(null)} 
+          />
+        </div>
+      )}
     </div>
   );
 }
+
+const UniversityCard = ({ uni, onClick }) => {
+  return (
+    <button 
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+      className="mx-4 w-44 h-44 md:w-56 md:h-56 bg-white rounded-[2rem] shadow-sm hover:shadow-2xl hover:-translate-y-3 border border-slate-100 flex flex-col items-center justify-center p-6 md:p-10 transition-all duration-500 group relative overflow-hidden focus:outline-none focus:ring-4 focus:ring-[#0B7077]/20"
+    >
+      <div className="absolute top-0 left-0 w-full h-1 bg-[#0B7077] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+      
+      <div className="absolute top-4 right-4 p-2 opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
+        <div className="bg-[#0B7077]/10 p-1.5 rounded-lg text-[#0B7077]">
+          <Search size={14} />
+        </div>
+      </div>
+
+      <div className="w-20 h-20 md:w-28 md:h-28 mb-4 flex items-center justify-center relative">
+        <img 
+          src={uni.logo} 
+          alt={uni.name} 
+          className="max-w-full max-h-full object-contain filter group-hover:drop-shadow-lg transition-all duration-500" 
+        />
+      </div>
+
+      <div className="text-center">
+        <p className="font-bold text-slate-800 text-sm md:text-base mb-1 tracking-tight">{uni.acronym}</p>
+        <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-[#0B7077] opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
+          Details
+        </span>
+      </div>
+    </button>
+  );
+};

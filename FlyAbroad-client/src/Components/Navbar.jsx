@@ -4,12 +4,12 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
 import AuthButton from './Auth/AuthButton';
+import UniversityDropdown from './Home/UniversityDropdown';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Careers', href: '/career', current: false },
   { name: 'Universities', href: '/university', current: false },
-  { name: 'Explore Countries', href: '#', current: false },
 ]
 
 
@@ -64,6 +64,7 @@ export default function Navbar({setCurrentAuth}) {
                     {item.name}
                   </Link>
                 )})}
+              <UniversityDropdown />
               </div>
             </div>
           </div>
@@ -145,6 +146,7 @@ export default function Navbar({setCurrentAuth}) {
               {item.name}
             </DisclosureButton>
           ))}
+          <UniversityDropdown />
         </div>
       </DisclosurePanel>
     </Disclosure>
