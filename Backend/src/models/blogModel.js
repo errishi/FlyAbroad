@@ -26,7 +26,7 @@ const blogSchema = new mongoose.Schema({
                 required: true,
             },
             image: {
-                type: URL,
+                type: String,
                 required: true,
             },
         },
@@ -44,7 +44,7 @@ const blogSchema = new mongoose.Schema({
         default: Date.now(),
     },
     image: {
-        type: URL,
+        type: String,
         required: true,
     },
     tags: {
