@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { 
-  Globe, 
-  BookOpen, 
-  Users, 
-  TrendingUp, 
-  Award, 
-  Heart, 
-  MapPin, 
-  Briefcase, 
-  Clock, 
-  ChevronDown, 
-  ChevronUp, 
-  CheckCircle, 
+import {
+  Globe,
+  BookOpen,
+  Users,
+  TrendingUp,
+  Award,
+  Heart,
+  MapPin,
+  Briefcase,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+  CheckCircle,
   ArrowRight,
 } from 'lucide-react';
+import { ImageWithFallback } from '@/Components/ImageWithFallback';
 
 // --- Brand Configuration ---
 const BRAND_COLOR = "text-[#007077]";
@@ -150,13 +151,13 @@ const Hero = () => {
             Join a student-first consultancy dedicated to ethical guidance, transparency, and shaping global futures. Your work here changes lives.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button 
+            <button
               onClick={scrollToJobs}
-              className={`${BRAND_BG} ${BRAND_HOVER_BG} text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg shadow-[#007077]/20 transition-all transform hover:-translate-y-1`}
+              className={`${BRAND_BG} ${BRAND_HOVER_BG} text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg cursor-pointer shadow-[#007077]/20 transition-all transform hover:-translate-y-1`}
             >
               View Open Positions
             </button>
-            <a 
+            <a
               href="#culture"
               className={`bg-white text-gray-700 border border-gray-200 hover:border-[#007077] hover:text-[#007077] px-8 py-4 rounded-xl font-bold text-lg transition-all`}
             >
@@ -207,17 +208,18 @@ const Mission = () => {
             </ul>
           </div>
           <div className="relative">
-             <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gray-100">
-                {/* Placeholder for an office image */}
-                <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400">
-                    <div className="text-center">
-                        <Users className="w-16 h-16 mx-auto mb-2 opacity-50"/>
-                        <span className="text-sm font-medium">Team Collaboration Photo</span>
-                    </div>
-                </div>
-             </div>
-             {/* Decorative box */}
-             <div className={`absolute -bottom-6 -left-6 w-48 h-48 ${BRAND_BG} rounded-2xl -z-10 opacity-20`}></div>
+            <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl bg-gray-100">
+              {/* Placeholder for an office image */}
+              <div className="rounded-2xl overflow-hidden lg:mx-0 md:mx-10 shadow-2xl">
+                <ImageWithFallback
+                  src="/partners.png"
+                  alt="Partnership"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            {/* Decorative box */}
+            <div className={`absolute -bottom-6 -left-6 w-48 h-48 ${BRAND_BG} rounded-2xl -z-10 opacity-20`}></div>
           </div>
         </div>
       </div>
@@ -235,7 +237,7 @@ const Benefits = () => {
             We know that happy employees make for happy students. We invest in your growth so you can invest in theirs.
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {BENEFITS.map((benefit, index) => (
             <div key={index} className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 group">
@@ -254,18 +256,19 @@ const Benefits = () => {
 
 const JobList = () => {
   const [filter, setFilter] = useState('All');
-  
-  const filteredJobs = filter === 'All' 
-    ? JOB_LISTINGS 
+
+  const filteredJobs = filter === 'All'
+    ? JOB_LISTINGS
     : JOB_LISTINGS.filter(job => job.category === filter);
 
   const categories = ['All', 'Counseling', 'Operations', 'Marketing'];
 
-  const scrollToApply = (jobTitle) => {    const form = document.getElementById('apply-form');
+  const scrollToApply = (jobTitle) => {
+    const form = document.getElementById('apply-form');
     if (form) {
-        // You would technically set the dropdown value here
-        form.scrollIntoView({ behavior: 'smooth' });
-        console.log(jobTitle); // Use jobTitle to avoid unused variable warning
+      // You would technically set the dropdown value here
+      form.scrollIntoView({ behavior: 'smooth' });
+      console.log(jobTitle); // Use jobTitle to avoid unused variable warning
     }
   };
 
@@ -277,18 +280,17 @@ const JobList = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Open Positions</h2>
             <p className="text-gray-600">Find the role that fits your passion and expertise.</p>
           </div>
-          
+
           {/* Filters */}
           <div className="mt-6 md:mt-0 flex flex-wrap gap-2">
             {categories.map(cat => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  filter === cat 
-                    ? `${BRAND_BG} text-white` 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === cat
+                  ? `${BRAND_BG} text-white`
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
               >
                 {cat}
               </button>
@@ -317,7 +319,7 @@ const JobList = () => {
                     {job.description}
                   </p>
                 </div>
-                <button 
+                <button
                   onClick={() => scrollToApply(job.title)}
                   className="w-full group flex items-center justify-center space-x-2 bg-[#0B7077] text-white border border-[#0B7077] hover:bg-linear-to-r hover:from-purple-900 cursor-pointer hover:to-violet-600 hover:border-transparent px-4 py-3 rounded-lg font-medium transition-all"
                 >
@@ -340,8 +342,8 @@ const JobList = () => {
 const Culture = () => {
   return (
     <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
-        {/* Background Accent */}
-        <div className={`absolute top-0 right-0 w-96 h-96 ${BRAND_BG} opacity-20 blur-[100px] rounded-full pointer-events-none`}></div>
+      {/* Background Accent */}
+      <div className={`absolute top-0 right-0 w-96 h-96 ${BRAND_BG} opacity-20 blur-[100px] rounded-full pointer-events-none`}></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-3">
         <div className="text-center mb-16">
@@ -352,47 +354,47 @@ const Culture = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-slate-800 p-8 rounded-2xl relative">
-                <div className={`absolute -top-4 left-8 text-6xl ${BRAND_COLOR} font-serif opacity-50`}>"</div>
-                <p className="text-gray-300 italic mb-6 pt-4">
-                    "I started as a junior counselor, and within 3 years, I'm leading the Canada team. The mentorship here is real, and the management actually listens to your ideas."
-                </p>
-                <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-slate-600 mr-3 flex items-center justify-center text-xs font-bold">JD</div>
-                    <div>
-                        <div className="font-bold">Jane Doe</div>
-                        <div className={`text-xs ${BRAND_COLOR}`}>Senior Manager</div>
-                    </div>
-                </div>
+          <div className="bg-slate-800 p-8 rounded-2xl relative">
+            <div className={`absolute -top-4 left-8 text-6xl ${BRAND_COLOR} font-serif opacity-50`}>"</div>
+            <p className="text-gray-300 italic mb-6 pt-4">
+              "I started as a junior counselor, and within 3 years, I'm leading the Canada team. The mentorship here is real, and the management actually listens to your ideas."
+            </p>
+            <div className="flex items-center">
+              <div className="w-10 h-10 rounded-full bg-slate-600 mr-3 flex items-center justify-center text-xs font-bold">JD</div>
+              <div>
+                <div className="font-bold">Jane Doe</div>
+                <div className={`text-xs ${BRAND_COLOR}`}>Senior Manager</div>
+              </div>
             </div>
+          </div>
 
-            <div className="bg-slate-800 p-8 rounded-2xl relative">
-                <div className={`absolute -top-4 left-8 text-6xl ${BRAND_COLOR} font-serif opacity-50`}>"</div>
-                <p className="text-gray-300 italic mb-6 pt-4">
-                    "The best part is the 'Student Success Stories' we share every Friday. Knowing you helped a kid from a small town reach Oxford or Toronto is an amazing feeling."
-                </p>
-                <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-slate-600 mr-3 flex items-center justify-center text-xs font-bold">AS</div>
-                    <div>
-                        <div className="font-bold">Arjun Singh</div>
-                        <div className={`text-xs ${BRAND_COLOR}`}>Visa Specialist</div>
-                    </div>
-                </div>
+          <div className="bg-slate-800 p-8 rounded-2xl relative">
+            <div className={`absolute -top-4 left-8 text-6xl ${BRAND_COLOR} font-serif opacity-50`}>"</div>
+            <p className="text-gray-300 italic mb-6 pt-4">
+              "The best part is the 'Student Success Stories' we share every Friday. Knowing you helped a kid from a small town reach Oxford or Toronto is an amazing feeling."
+            </p>
+            <div className="flex items-center">
+              <div className="w-10 h-10 rounded-full bg-slate-600 mr-3 flex items-center justify-center text-xs font-bold">AS</div>
+              <div>
+                <div className="font-bold">Arjun Singh</div>
+                <div className={`text-xs ${BRAND_COLOR}`}>Visa Specialist</div>
+              </div>
             </div>
+          </div>
 
-            <div className="bg-slate-800 p-8 rounded-2xl relative">
-                <div className={`absolute -top-4 left-8 text-6xl ${BRAND_COLOR} font-serif opacity-50`}>"</div>
-                <p className="text-gray-300 italic mb-6 pt-4">
-                    "Flexible hybrid work really helps me balance my master's studies with my job. It's a company that truly values education, even for its own employees."
-                </p>
-                <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-slate-600 mr-3 flex items-center justify-center text-xs font-bold">MK</div>
-                    <div>
-                        <div className="font-bold">Maria K.</div>
-                        <div className={`text-xs ${BRAND_COLOR}`}>Content Strategist</div>
-                    </div>
-                </div>
+          <div className="bg-slate-800 p-8 rounded-2xl relative">
+            <div className={`absolute -top-4 left-8 text-6xl ${BRAND_COLOR} font-serif opacity-50`}>"</div>
+            <p className="text-gray-300 italic mb-6 pt-4">
+              "Flexible hybrid work really helps me balance my master's studies with my job. It's a company that truly values education, even for its own employees."
+            </p>
+            <div className="flex items-center">
+              <div className="w-10 h-10 rounded-full bg-slate-600 mr-3 flex items-center justify-center text-xs font-bold">MK</div>
+              <div>
+                <div className="font-bold">Maria K.</div>
+                <div className={`text-xs ${BRAND_COLOR}`}>Content Strategist</div>
+              </div>
             </div>
+          </div>
         </div>
       </div>
     </section>
@@ -407,17 +409,17 @@ const ApplicationForm = () => {
     role: '',
     message: ''
   });
-  
+
   const [status, setStatus] = useState('idle'); // idle, submitting, success, error
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus('submitting');
-    
+
     // Simulate API call
     setTimeout(() => {
       setStatus('success');
@@ -429,7 +431,7 @@ const ApplicationForm = () => {
     <section id="apply-form" className="py-20 bg-slate-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
-          
+
           {/* Sidebar */}
           <div className={`md:w-1/3 ${BRAND_BG} p-8 text-white flex flex-col justify-between`}>
             <div>
@@ -439,12 +441,12 @@ const ApplicationForm = () => {
               </p>
             </div>
             <div className="space-y-4 text-sm text-white/80">
-                <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2" /> HQ: New Delhi, India
-                </div>
-                <div className="flex items-center">
-                    <Clock className="w-4 h-4 mr-2" /> Mon-Fri, 9am - 6pm
-                </div>
+              <div className="flex items-center">
+                <MapPin className="w-4 h-4 mr-2" /> HQ: New Delhi, India
+              </div>
+              <div className="flex items-center">
+                <Clock className="w-4 h-4 mr-2" /> Mon-Fri, 9am - 6pm
+              </div>
             </div>
           </div>
 
@@ -457,7 +459,7 @@ const ApplicationForm = () => {
                 </div>
                 <h4 className="text-2xl font-bold text-gray-900">Application Received!</h4>
                 <p className="text-gray-600 mt-2">Thanks for applying. We'll be in touch soon.</p>
-                <button 
+                <button
                   onClick={() => setStatus('idle')}
                   className={`mt-6 text-sm font-medium ${BRAND_COLOR} hover:underline`}
                 >
@@ -469,8 +471,8 @@ const ApplicationForm = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       name="name"
                       required
                       value={formData.name}
@@ -481,8 +483,8 @@ const ApplicationForm = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       name="email"
                       required
                       value={formData.email}
@@ -496,8 +498,8 @@ const ApplicationForm = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
-                    <input 
-                      type="tel" 
+                    <input
+                      type="tel"
                       name="phone"
                       required
                       value={formData.phone}
@@ -508,7 +510,7 @@ const ApplicationForm = () => {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Position *</label>
-                    <select 
+                    <select
                       name="role"
                       required
                       value={formData.role}
@@ -525,23 +527,23 @@ const ApplicationForm = () => {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Resume/CV</label>
-                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
-                      <div className="space-y-1 text-center">
-                        <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                          <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        <div className="text-sm text-gray-600">
-                          <span className={`font-medium ${BRAND_COLOR}`}>Upload a file</span> or drag and drop
-                        </div>
-                        <p className="text-xs text-gray-500">PDF, DOC up to 10MB</p>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Resume/CV</label>
+                  <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+                    <div className="space-y-1 text-center">
+                      <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                      <div className="text-sm text-gray-600">
+                        <span className={`font-medium ${BRAND_COLOR}`}>Upload a file</span> or drag and drop
                       </div>
+                      <p className="text-xs text-gray-500">PDF, DOC up to 10MB</p>
                     </div>
+                  </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Why do you want to join us?</label>
-                  <textarea 
+                  <textarea
                     name="message"
                     rows="3"
                     value={formData.message}
@@ -551,7 +553,7 @@ const ApplicationForm = () => {
                   ></textarea>
                 </div>
 
-                <button 
+                <button
                   type="submit"
                   disabled={status === 'submitting'}
                   className={`w-full ${BRAND_BG} ${BRAND_HOVER_BG} text-white font-bold py-3 px-4 rounded-lg transition-colors flex justify-center items-center`}
@@ -576,11 +578,11 @@ const FAQ = () => {
     <section className="py-20 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Frequently Asked Questions</h2>
-        
+
         <div className="space-y-4">
           {FAQS.map((faq, index) => (
             <div key={index} className="border border-gray-200 rounded-lg overflow-hidden">
-              <button 
+              <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full flex justify-between items-center p-4 bg-white hover:bg-gray-50 transition-colors text-left"
               >
@@ -591,11 +593,10 @@ const FAQ = () => {
                   <ChevronDown className="w-5 h-5 text-gray-500" />
                 )}
               </button>
-              
-              <div 
-                className={`transition-all duration-300 ease-in-out ${
-                  openIndex === index ? 'max-h-40 opacity-100 p-4 pt-0' : 'max-h-0 opacity-0 overflow-hidden'
-                }`}
+
+              <div
+                className={`transition-all duration-300 ease-in-out ${openIndex === index ? 'max-h-40 opacity-100 p-4 pt-0' : 'max-h-0 opacity-0 overflow-hidden'
+                  }`}
               >
                 <p className="text-gray-600 text-sm leading-relaxed border-t border-gray-100 pt-3">
                   {faq.answer}
