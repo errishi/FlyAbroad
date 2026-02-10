@@ -51,9 +51,9 @@ const ChooseUneFly = () => {
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="bg-white p-6 rounded-xl border border-gray-200 hover:border-[#FD661F]/50 hover:shadow-lg transition-all"
+                className="bg-white p-6 rounded-xl border border-[#0B7077]/30 hover:border-[#0B7077] hover:shadow-lg transition-all"
               >
-                <div className="bg-green-100 text-[#09585e] size-12 rounded-lg flex items-center justify-center mb-4">
+                <div className="bg-[#0B7077]/10 text-[#0B7077] size-12 rounded-lg flex items-center justify-center mb-4">
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
