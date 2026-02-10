@@ -1,13 +1,19 @@
 import React from 'react'
+import { ImageWithFallback } from '../ImageWithFallback';
 
 const Story = () => {
     return (
         <div className='lg:px-15 md:px-10 px-7 py-5 my-7'>
             <div className='flex lg:items-center lg:flex-row flex-col-reverse justify-around mt-8'>
-                <img src="/about-image-3.jpg" className='lg:w-120 md:w-140 lg:h-70 h-auto lg:mt-0 mt-10 rounded-md shadow-2xl' alt="image" />
+                <ImageWithFallback
+                src="/about-image-3.jpg"
+                alt="Our team"
+                className="lg:w-150 rounded-xl shadow-2xl mx-10 h-auto object-cover"
+                />
+                {/* <img src="/about-image-3.jpg" className='lg:w-120 md:w-140 lg:h-70 h-auto lg:mt-0 mt-10 lg:mx-10 md:mx-10 rounded-md shadow-2xl' alt="image" /> */}
                 <div className='lg:w-160'>
                     <h2 className='text-3xl font-bold text-[#0B7077] drop-shadow-md'>Our Story</h2>
-                    <p className='lg:text-xl md:text-xl text-[16px] mt-5'>
+                    <p className='lg:text-[18px] md:text-[18px] text-[16px] mt-5'>
                         <p className='my-3'><b>The UneFly Story :</b></p>
                         <b>UneFly</b> has long been a trusted resource in international education—the go-to search engine where the journey began. But we realized that searching wasn’t enough. Students needed a simpler, more affordable way to actually go.
                         That’s why in 2025, we didn't just update our website; we reinvented our purpose. UneFly has evolved from a directory into a full-service provider. We took years of data, deep global partnerships, and a legacy of quality, and re-engineered them into a bold, student-first platform.
