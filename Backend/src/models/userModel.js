@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -12,12 +12,12 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
     isLoggedIn: { type: Boolean, default: false },
-    verificationToken: { type: String, default: null },
+    Token: { type: String, default: null },
     otp: { type: String, default: null },
-    otpExpiration: { type: Date, default: null },
+    otpExpiry: { type: Date, default: null },
 
 
 
 }, { Timestamp: true })
 
-export const User = mongoose.model('User', userSchema)                                                                          
+export const User = mongoose.model("User", userSchema)                                                                          

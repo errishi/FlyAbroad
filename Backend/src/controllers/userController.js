@@ -1,4 +1,4 @@
-import {User, user} from "../models/userModel.js";
+import {User} from "../models/userModel.js";
 
 
 export const registerUser = async (req, res) => {
@@ -20,6 +20,8 @@ export const registerUser = async (req, res) => {
         })
 
     } catch (error) {
-        return res.status(500).json({success: false, message: "Server error", error: error.message})
+        return res.status(500).json({success: false, message: "Server error", error: error.message
+            
+        })
     }
 }
