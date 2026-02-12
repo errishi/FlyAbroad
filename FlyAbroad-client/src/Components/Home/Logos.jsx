@@ -9,16 +9,73 @@ import {
 } from 'lucide-react';
 
 const universities = [
-  { id: 1, name: "Moscow State University", acronym: "MSU", url: "https://www.msu.ru/en/", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Moscow_State_University_logo.svg/500px-Moscow_State_University_logo.svg.png", location: "Moscow", type: "Public" },
-  { id: 2, name: "St. Petersburg State University", acronym: "SPbU", url: "https://english.spbu.ru/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Saint_Petersburg_State_University_logo.svg/500px-Saint_Petersburg_State_University_logo.svg.png", location: "St. Petersburg", type: "Public" },
-  { id: 3, name: "Higher School of Economics", acronym: "HSE", url: "https://www.hse.ru/en/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/HSE_University_logo.svg/500px-HSE_University_logo.svg.png", location: "Moscow", type: "National Research" },
-  { id: 4, name: "Moscow Institute of Physics and Technology", acronym: "MIPT", url: "https://mipt.ru/english/", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/25/Moscow_Institute_of_Physics_and_Technology_logo.svg/500px-Moscow_Institute_of_Physics_and_Technology_logo.svg.png", location: "Dolgoprudny", type: "Research" },
-  { id: 5, name: "Bauman Moscow State Technical University", acronym: "BMSTU", url: "https://bmstu.ru/en", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bauman_Moscow_State_Technical_University_Logo.svg/500px-Bauman_Moscow_State_Technical_University_Logo.svg.png", location: "Moscow", type: "Technical" },
-  { id: 6, name: "Novosibirsk State University", acronym: "NSU", url: "https://english.nsu.ru/", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Novosibirsk_State_University_Logo.svg/500px-Novosibirsk_State_University_Logo.svg.png", location: "Novosibirsk", type: "Public" },
-  { id: 7, name: "Tomsk State University", acronym: "TSU", url: "https://en.tsu.ru/", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Tomsk_State_University_logo.svg/500px-Tomsk_State_University_logo.svg.png", location: "Tomsk", type: "Public" },
-  { id: 8, name: "National University of Science and Technology", acronym: "MISiS", url: "https://en.misis.ru/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/NUST_MISIS_logo.svg/500px-NUST_MISIS_logo.svg.png", location: "Moscow", type: "Research" },
-  { id: 9, name: "Peoples’ Friendship University of Russia", acronym: "RUDN", url: "https://eng.rudn.ru/", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/RUDN_University_Logo.svg/500px-RUDN_University_Logo.svg.png", location: "Moscow", type: "Public" },
-  { id: 10, name: "Kazan Federal University", acronym: "KFU", url: "https://kpfu.ru/eng", logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Kazan_Federal_University_coat_of_arms.svg/500px-Kazan_Federal_University_coat_of_arms.svg.png", location: "Kazan", type: "Federal" }
+  { id: 1, name: "Moscow State University", 
+    acronym: "MSU", 
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Moscow_State_University_logo.svg/500px-Moscow_State_University_logo.svg.png", 
+    location: "Moscow", 
+    type: "Public" },
+
+  { id: 2, name: "St. Petersburg State University", 
+    acronym: "SPbU", 
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Saint_Petersburg_State_University_logo.svg/500px-Saint_Petersburg_State_University_logo.svg.png", 
+    location: "St. Petersburg", 
+    type: "Public" },
+
+  { id: 3, name: "Higher School of Economics", 
+    acronym: "HSE", 
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/HSE_University_logo.svg/500px-HSE_University_logo.svg.png", location: "Moscow", 
+    type: "National Research" },
+
+  { id: 4, name: "Moscow Institute of Physics and Technology", 
+    acronym: "MIPT", 
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/25/Moscow_Institute_of_Physics_and_Technology_logo.svg/500px-Moscow_Institute_of_Physics_and_Technology_logo.svg.png", 
+    location: "Dolgoprudny", 
+    type: "Research" },
+
+  { id: 5, name: "Bauman Moscow State Technical University",
+    acronym: "BMSTU",
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bauman_Moscow_State_Technical_University_Logo.svg/500px-Bauman_Moscow_State_Technical_University_Logo.svg.png",
+    location: "Moscow", 
+    type: "Technical" },
+
+  { id: 6, name: "Novosibirsk State University", 
+    acronym: "NSU", 
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Novosibirsk_State_University_Logo.svg/500px-Novosibirsk_State_University_Logo.svg.png", 
+    location: "Novosibirsk", 
+    type: "Public" },
+
+  { id: 7, name: "Tomsk State University", 
+    acronym: "TSU", 
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7b/Tomsk_State_University_logo.svg/500px-Tomsk_State_University_logo.svg.png", 
+    location: "Tomsk", 
+    type: "Public" },
+
+  { id: 8, name: "National University of Science and Technology", 
+    acronym: "MISiS", 
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/NUST_MISIS_logo.svg/500px-NUST_MISIS_logo.svg.png", location: "Moscow", 
+    type: "Research" },
+
+  { id: 9, name: "Peoples’ Friendship University of Russia", 
+    acronym: "RUDN", 
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/RUDN_University_Logo.svg/500px-RUDN_University_Logo.svg.png", 
+    location: "Moscow", 
+    type: "Public" },
+
+  { id: 10, name: "Kazan Federal University", 
+    acronym: "KFU", 
+    url: "#", 
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Kazan_Federal_University_coat_of_arms.svg/500px-Kazan_Federal_University_coat_of_arms.svg.png", 
+    location: "Kazan", 
+    type: "Federal" }
 ];
 
 const UniversityModal = ({ university, onClose }) => {
