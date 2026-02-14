@@ -12,7 +12,7 @@ export const registerUser = async (req, res) => {
             return res.status(400).json({success: false, message: "User already exists"})
         }
 
-        const newUser = await user.create({username, email, password
+        const newUser = await User.create({username, email, password
 
         })
         return res.status(201).json({success: true, message: "User registered successfully", data:newUser
