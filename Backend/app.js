@@ -6,6 +6,7 @@ import cors from 'cors';
 import connectDB from './src/config/MongoDB.js';
 import blogRouter from './src/routes/blogRoute.js';
 import blogModel from './src/models/blogModel.js';
+import userRoute from "./src/routes/userRoute.js"
 import fs from 'fs';
 // import applicationRouter from './src/routes/applicationRoute.js';
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(cors());
 
 //API end-points
+app.use('/user', userRoute)
 app.use("/api/blogs", blogRouter);
 // app.use("/api/applications", applicationRouter);
 
