@@ -36,32 +36,36 @@ const features = [
 
 const ChooseUneFly = () => {
   return (
-    <section className="py-18 border bg-[#09585e]/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+    <section className="py-12 bg-[#F1F9F8]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0A3030] mb-4">
               Why Choose UneFly?
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base text-[#0A3030] max-w-2xl mx-auto">
               Comprehensive support throughout your entire study abroad journey
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="bg-white p-6 rounded-xl border border-[#0B7077]/30 hover:border-[#0B7077] hover:shadow-lg transition-all"
+                className="bg-transparent p-4 rounded-md"
               >
-                <div className="bg-[#0B7077]/10 text-[#0B7077] size-12 rounded-lg flex items-center justify-center mb-4">
-                  {feature.icon}
+                <div className="flex items-start gap-4">
+                  <div className="bg-white shadow-md text-[#0B7077] p-3 rounded-lg flex items-center justify-center">
+                    {feature.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-[#0A3030] mb-1">
+                      {feature.title}
+                    </h3>
+                    <p className="text-sm text-[#334646]">
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600">
-                  {feature.description}
-                </p>
               </div>
             ))}
           </div>
