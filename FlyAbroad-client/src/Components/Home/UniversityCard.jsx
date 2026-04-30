@@ -15,6 +15,20 @@ const Badge = ({ children, variant = "default" }) => {
 };
 
 const UniversityCard = ({ university }) => {
+  const formatPopulation = (pop) => {
+    if (pop == null) return 'N/A';
+    if (typeof pop === 'number') return `${Math.round(pop / 1000)}K`;
+    if (typeof pop === 'string') {
+      const digits = pop.replace(/[^\d]/g, '');
+      if (!digits) return pop;
+      const num = parseInt(digits, 10);
+      return num >= 1000 ? `${Math.round(num / 1000)}K` : `${num}`;
+    }
+    return String(pop);
+  };
+
+  const programsCount = university.programsOfferedCount ?? university.availablePrograms?.length ?? null;
+
   return (
     <div className='rounded-2xl overflow-hidden'>
       <div className="relative h-48 overflow-hidden">
@@ -23,10 +37,11 @@ const UniversityCard = ({ university }) => {
           alt={university.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
-        <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-[#FD661F] shadow-md">
-          {/* #{university.ranking} */}
-          <p>ranking ?</p>
-        </div>
+        {university.worldRanking && (
+          <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full text-sm font-semibold text-[#FD661F] shadow-md">
+            #{university.worldRanking}
+          </div>
+        )}
       </div>
 
       <div className="p-6 rounded-2xl overflow-clip">
@@ -40,19 +55,18 @@ const UniversityCard = ({ university }) => {
         </div>
 
         <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-          {university.description}
+          {university.overview || university.description}
         </p>
 
         <div className="flex items-center justify-between pt-4 border-t border-gray-100">
           <div className="flex items-center gap-4 text-sm text-gray-600">
             <div className="flex items-center gap-1">
               <Users className="size-4" />
-              {/* <span>{(university.studentCount / 1000).toFixed(0)}K</span> */}
-              <p>12k</p>
+              <span>{formatPopulation(university.studentPopulation)}</span>
             </div>
             <div className="flex items-center gap-1">
               <Star className="size-4 text-yellow-500 fill-yellow-500" />
-              <span>{university.type}</span>
+              <span>{university.universityType || 'University'}</span>
             </div>
           </div>
           <ArrowRight className="size-5 text-[#09585e] group-hover:translate-x-1 transition-transform" />
@@ -63,8 +77,7 @@ const UniversityCard = ({ university }) => {
             Available Programs
           </div>
           <div className="text-sm font-semibold text-gray-900">
-            {/* {university.courses.length} {university.courses.length === 1 ? 'Course' : 'Courses'} */}
-            <p>10+</p>
+            <p>{university.programsOfferedCount || programsCount || '10+'}+ Programs</p>
           </div>
         </div>
       </div>
