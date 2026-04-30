@@ -13,31 +13,28 @@ const VideoTestimonial = ({
     const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden group">
-      <div className="relative h-64 bg-gray-900 cursor-pointer" onClick={() => setIsPlaying(true)}>
+    <div className="group">
+      <div className="relative rounded-2xl overflow-hidden bg-gray-100 shadow-sm cursor-pointer" onClick={() => setIsPlaying(true)}>
         {!isPlaying ? (
           <>
             <ImageWithFallback
               src={thumbnail}
               alt={name}
-              className="w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity"
+              className="w-full h-48 object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-white/90 size-16 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-xl">
-                <Play className="size-8 text-[#0B7077] ml-1" fill="currentColor" />
+              <div className="bg-white/95 w-14 h-14 rounded-full flex items-center justify-center drop-shadow-lg transition-transform group-hover:scale-105">
+                <Play className="text-[#0B7077]" />
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 bg-linear-to-t from-black/80 to-transparent p-4">
-              <div className="flex items-center gap-2 text-white text-sm mb-1">
-                <MapPin className="size-4" />
-                <span>{country}</span>
-              </div>
+            <div className="absolute left-4 bottom-4 right-4">
+              <div className="h-1 bg-white/40 rounded-full" />
             </div>
           </>
         ) : (
-          <div className="w-full h-full bg-black flex items-center justify-center">
+          <div className="w-full h-48 bg-black flex items-center justify-center">
             <video
-              className="w-full h-full"
+              className="w-full h-full object-cover"
               controls
               autoPlay
               src={videoUrl}
@@ -47,14 +44,15 @@ const VideoTestimonial = ({
           </div>
         )}
       </div>
-      
-      <div className="p-5">
-        <h3 className="font-semibold text-lg text-gray-900 mb-1">{name}</h3>
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-2">
-          <GraduationCap className="size-4" />
-          <span>{course}</span>
+
+      <div className="flex items-center gap-3 mt-3">
+        <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
+          <ImageWithFallback src={thumbnail} alt={`${name}-avatar`} className="w-full h-full object-cover" />
         </div>
-        <p className="text-sm text-[#FD661F] font-medium">{university}</p>
+        <div>
+          <h3 className="font-semibold text-sm text-[#0A3030]">{name}</h3>
+          <p className="text-xs text-gray-500">{country}</p>
+        </div>
       </div>
     </div>
   )
