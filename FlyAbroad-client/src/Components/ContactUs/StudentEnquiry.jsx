@@ -173,7 +173,7 @@ const StudentEnquiry = () => {
             </div>
 
             {/* Mobile Number */}
-            <div>
+            <div className='w-100%'>
               <label className="block text-sm font-semibold text-gray-700 mb-2">Mobile Number</label>
               <div className="flex gap-2">
                 <div className="relative w-20">
@@ -198,7 +198,7 @@ const StudentEnquiry = () => {
                   onChange={handleInputChange}
                   required
                   placeholder="Mobile number"
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition"
+                  className="flex-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition"
                 />
               </div>
             </div>
