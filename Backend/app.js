@@ -7,6 +7,7 @@ import connectDB from './src/config/MongoDB.js';
 import blogRouter from './src/routes/blogRoute.js';
 import blogModel from './src/models/blogModel.js';
 import fs from 'fs';
+import universityRouter from './src/routes/universityRoute.js';
 // import applicationRouter from './src/routes/applicationRoute.js';
 
 connectDB();
@@ -21,6 +22,7 @@ app.use(cors());
 //API end-points
 app.use("/api/blogs", blogRouter);
 // app.use("/api/applications", applicationRouter);
+app.use("/api/universities", universityRouter);
 
 // route
 app.get("/", (req, res) => {
