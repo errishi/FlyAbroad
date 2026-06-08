@@ -41,3 +41,28 @@ export const allUniversity = async(req,res) =>{
         });
     }
 }
+
+export const universityViewDetails = async (req,res) => {
+    try {
+        const { id } = req.params;
+        const university = await universityModel.findOne({ _id: id}).lean();
+
+        if(!university){
+            return res.status(404).json({
+                success: false,
+                message: "University not found"
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            data: university
+        });
+    } catch (error) {
+        console.error("Error fetching university details: ", error);
+        res.status(500).json({
+            success: false,
+            message: "An error occurred while fetching the details."
+        });
+    }
+}
