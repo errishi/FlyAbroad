@@ -50,8 +50,8 @@ const LoginForm = ({ setCurrentAuth, currentAuth }) => {
                 scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
             }}
             className='relative flex w-full max-w-[96vw] flex-col overflow-hidden rounded-2xl bg-white shadow-2xl max-h-[95vh] sm:max-w-6xl lg:flex-row'>
-                <div className='hidden lg:block relative h-[28vh] sm:h-[34vh] md:h-[40vh] lg:h-full lg:min-h-full lg:w-[52%] overflow-hidden'>
-                    <img src='/login-student.jpg' className='hidden lg:block absolute inset-0 h-full w-full object-cover' alt='student' />
+                <div className='hidden lg:block relative h-[28vh] sm:h-[34vh] md:h-[40vh] lg:min-h-[85vh] lg:h-full lg:w-[52%] overflow-hidden'>
+                    <img src='/login-student.jpg' className='absolute inset-0 h-full w-full object-cover' alt='student' />
                     <div className='hidden lg:block absolute inset-0 bg-linear-to-t from-black/45 via-black/15 to-black/10' />
                     <div className='absolute inset-0 flex items-center justify-start p-5 sm:p-8 lg:p-10'>
                         <h2 className='max-w-md text-left text-2xl font-extrabold leading-[1.05] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.45)] sm:text-4xl lg:text-[64px]'>

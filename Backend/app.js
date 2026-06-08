@@ -8,6 +8,8 @@ import blogRouter from './src/routes/blogRoute.js';
 import blogModel from './src/models/blogModel.js';
 import userRoute from "./src/routes/userRoute.js"
 import fs from 'fs';
+import universityRouter from './src/routes/universityRoute.js';
+import studentRouter from './src/routes/studentRoute.js';
 // import applicationRouter from './src/routes/applicationRoute.js';
 
 connectDB();
@@ -23,28 +25,13 @@ app.use(cors());
 app.use('/user', userRoute)
 app.use("/api/blogs", blogRouter);
 // app.use("/api/applications", applicationRouter);
+app.use("/api/universities", universityRouter);
+app.use("/api/students", studentRouter);
 
 // route
 app.get("/", (req, res) => {
     res.send("Welcome to Unefly!");
 });
-
-// read json file data
-// const blogs = JSON.parse(fs.readFileSync("./blogdata.json", "utf-8"));
-
-// const importData = async () => {
-//     try {
-//         await blogModel.deleteMany();
-
-//         // insert data
-//         await blogModel.insertMany(blogs);
-//         console.log("data inserted");
-//     } catch (error) {
-//         console.error(`${error}`);
-//     }
-// }
-
-// importData();
 
 app.listen(port, ()=>{
     console.log(`sever live at ${port}`);
