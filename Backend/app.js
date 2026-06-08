@@ -29,23 +29,6 @@ app.get("/", (req, res) => {
     res.send("Welcome to Unefly!");
 });
 
-// read json file data
-// const blogs = JSON.parse(fs.readFileSync("./blogdata.json", "utf-8"));
-
-// const importData = async () => {
-//     try {
-//         await blogModel.deleteMany();
-
-//         // insert data
-//         await blogModel.insertMany(blogs);
-//         console.log("data inserted");
-//     } catch (error) {
-//         console.error(`${error}`);
-//     }
-// }
-
-// importData();
-
 app.listen(port, ()=>{
     console.log(`sever live at ${port}`);
 })
