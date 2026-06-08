@@ -8,6 +8,7 @@ import blogRouter from './src/routes/blogRoute.js';
 import blogModel from './src/models/blogModel.js';
 import fs from 'fs';
 import universityRouter from './src/routes/universityRoute.js';
+import studentRouter from './src/routes/studentRoute.js';
 // import applicationRouter from './src/routes/applicationRoute.js';
 
 connectDB();
@@ -23,6 +24,7 @@ app.use(cors());
 app.use("/api/blogs", blogRouter);
 // app.use("/api/applications", applicationRouter);
 app.use("/api/universities", universityRouter);
+app.use("/api/students", studentRouter);
 
 // route
 app.get("/", (req, res) => {
