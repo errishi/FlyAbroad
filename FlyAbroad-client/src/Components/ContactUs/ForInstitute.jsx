@@ -7,7 +7,7 @@ import SecondaryButton from '../SecondaryButton';
 const contactData = () => {
   firstName: "";
   lastName: "";
-  jobTitle: "";
+  country: "";
   institution: "";
   emailAddress: "";
   message: "";
@@ -21,7 +21,7 @@ const ForInstitute = () => {
       <form onClick={(e)=>e.preventDefault()} className='flex flex-col gap-5 text-black'>
         <TextField id="outlined-basic" label="First Name*" variant="outlined" />
         <TextField id="outlined-basic" label="Last Name*" variant="outlined" />
-        <TextField id="outlined-basic" label="Job Title*" variant="outlined" />
+        <TextField id="outlined-basic" label="Country*" variant="outlined" />
         <TextField id="outlined-basic" label="Institution*" variant="outlined" />
         <TextField id="outlined-basic" label="Email Address*" variant="outlined" />
         <TextareaAutosize
