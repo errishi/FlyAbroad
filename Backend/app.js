@@ -10,6 +10,7 @@ import userRoute from "./src/routes/userRoute.js"
 import fs from 'fs';
 import universityRouter from './src/routes/universityRoute.js';
 import studentRouter from './src/routes/studentRoute.js';
+import instituteRouter from './src/routes/instituteRoute.js';
 // import applicationRouter from './src/routes/applicationRoute.js';
 
 connectDB();
@@ -27,6 +28,7 @@ app.use("/api/blogs", blogRouter);
 // app.use("/api/applications", applicationRouter);
 app.use("/api/universities", universityRouter);
 app.use("/api/students", studentRouter);
+app.use("/api/institutes", instituteRouter);
 
 // route
 app.get("/", (req, res) => {
