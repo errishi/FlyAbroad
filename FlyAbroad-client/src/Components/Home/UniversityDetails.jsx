@@ -33,7 +33,7 @@ const UniversityDetails = () => {
                 <div className="absolute inset-0 flex items-end">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
                         <div className="inline-block bg-white px-4 py-2 rounded-full text-sm font-semibold text-orange-600 mb-4">
-                            World Ranking #{university.ranking}
+                            World Ranking #{university.worldRanking}
                         </div>
                         <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
                             {university.name}
@@ -74,10 +74,9 @@ const UniversityDetails = () => {
                                     </div>
                                     <div>
                                         <div className="text-sm text-gray-600">Total Students</div>
-                                        {/* <div className="text-lg font-semibold text-gray-900">
-                                            {university.studentCount.toLocaleString()}
-                                        </div> */}
-                                        <p>Total enrolled student</p>
+                                        <div className="text-lg font-semibold text-gray-900">
+                                            {university.studentPopulation?.toLocaleString()}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -100,7 +99,7 @@ const UniversityDetails = () => {
                                     <div>
                                         <div className="text-sm text-gray-600">University Type</div>
                                         <div className="text-lg font-semibold text-gray-900">
-                                            {university.type}
+                                            {university.universityType}
                                         </div>
                                     </div>
                                 </div>
@@ -111,10 +110,9 @@ const UniversityDetails = () => {
                                     </div>
                                     <div>
                                         <div className="text-sm text-gray-600">Programs Offered</div>
-                                        {/* <div className="text-lg font-semibold text-gray-900">
-                                            {university.courses.length} Courses
-                                        </div> */}
-                                        <p>number of courses Offered</p>
+                                        <div className="text-lg font-semibold text-gray-900">
+                                            {university.programsOfferedCount || university.availablePrograms?.length || '10+'} Courses
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -132,13 +130,12 @@ const UniversityDetails = () => {
                         <div className="bg-white rounded-xl shadow-sm p-6">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4">Facilities</h2>
                             <div className="grid sm:grid-cols-2 gap-3">
-                                {/* {university.facilities.map((facility, index) => (
+                                {university.facilities.map((facility, index) => (
                                     <div key={index} className="flex items-center gap-2">
-                                        <CheckCircle className="size-5 text-green-600 flex-shrink-0" />
+                                        <CheckCircle className="size-5 text-green-600 shrink-0" />
                                         <span className="text-gray-700">{facility}</span>
                                     </div>
-                                ))} */}
-                                <p>facilities</p>
+                                ))}
                             </div>
                         </div>
 
@@ -146,15 +143,15 @@ const UniversityDetails = () => {
                         <div className="bg-white rounded-xl shadow-sm p-6">
                             <h2 className="text-2xl font-bold text-gray-900 mb-6">Available Programs</h2>
                             <div className="space-y-4">
-                                {/* {university.courses.map((course) => (
+                                {university.availablePrograms.map((course) => (
                                     <Link
                                         key={course.id}
                                         to={`/course/${course.id}`}
-                                        className="block border border-gray-200 rounded-lg p-5 hover:border-blue-300 hover:shadow-md transition-all group"
+                                        className="block border border-gray-200 rounded-lg p-5 hover:border-[#0B7077] hover:shadow-md transition-all group"
                                     >
                                         <div className="flex items-start justify-between gap-4">
                                             <div className="flex-1">
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                                                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#0B7077] transition-colors">
                                                     {course.name}
                                                 </h3>
                                                 <p className="text-sm text-gray-600 mb-3">
@@ -175,11 +172,10 @@ const UniversityDetails = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <ArrowRight className="size-5 text-blue-600 flex-shrink-0 group-hover:translate-x-1 transition-transform" />
+                                            <ArrowRight className="size-5 text-[#FD661F] shrink-0 group-hover:translate-x-1 transition-transform" />
                                         </div>
                                     </Link>
-                                ))} */}
-                                <p>university courses</p>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -198,7 +194,7 @@ const UniversityDetails = () => {
 
                                 <div className="pb-4 border-b border-gray-100">
                                     <div className="text-sm text-gray-600 mb-1">World Ranking</div>
-                                    <div className="font-semibold text-gray-900">#{university.ranking}</div>
+                                    <div className="font-semibold text-gray-900">#{university.worldRanking}</div>
                                 </div>
 
                                 <div className="pb-4 border-b border-gray-100">
@@ -208,7 +204,7 @@ const UniversityDetails = () => {
 
                                 <div className="pb-4 border-b border-gray-100">
                                     <div className="text-sm text-gray-600 mb-1">Student Population</div>
-                                    {/* <div className="font-semibold text-gray-900">{university.studentCount.toLocaleString()}</div> */}
+                                    <div className="font-semibold text-gray-900">{university.studentPopulation?.toLocaleString()}</div>
                                 </div>
 
                                 <div>

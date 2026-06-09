@@ -1,5 +1,5 @@
-import { CheckCircle, Play } from 'lucide-react';
-import React from 'react'
+import { CheckCircle, Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useRef } from 'react'
 import VideoTestimonial from './VideoTestimonial';
 
 const videoTestimonials = [
@@ -38,30 +38,45 @@ const videoTestimonials = [
   ];
 
 const VideoTestimonialPage = () => {
+  const scrollRef = useRef(null);
   return (
-    <section className="py-20 mt-20 bg-linear-to-br from-[#0B7077]/80 to-[#0B7077] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] bg-repeat"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
-              <Play className="size-4" />
-              <span className="text-sm">Student Success Stories</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-              Hear From Our Students
-            </h2>
-            <p className="text-lg text-blue-100 max-w-2xl mx-auto">
-              Watch real students share their journey and experiences studying abroad with our support
-            </p>
+    <section className="py-12 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#0A3030] mb-4">Hear From Our Students</h2>
+            <p className="text-base text-gray-600 max-w-2xl mx-auto">Watch real students share their journey and experiences studying abroad with our support</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {videoTestimonials.map((testimonial, index) => (
-              <VideoTestimonial key={index} {...testimonial} />
-            ))}
+          <div className="relative">
+            <button
+              aria-label="scroll-left"
+              onClick={() => {
+                const el = scrollRef.current;
+                if (el) el.scrollBy({ left: -el.clientWidth * 0.6, behavior: 'smooth' });
+              }}
+              className="hidden sm:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-md hover:bg-gray-100 items-center justify-center"
+            >
+              <ChevronLeft className="w-5 h-5 text-[#0A3030]" />
+            </button>
+
+            <div ref={scrollRef} className="flex gap-6 overflow-x-auto px-3 py-2 scroll-smooth">
+              {videoTestimonials.map((testimonial, index) => (
+                <div key={index} className="shrink-0 w-60 sm:w-65 md:w-70 lg:w-75">
+                  <VideoTestimonial {...testimonial} />
+                </div>
+              ))}
+            </div>
+
+            <button
+              aria-label="scroll-right"
+              onClick={() => {
+                const el = scrollRef.current;
+                if (el) el.scrollBy({ left: el.clientWidth * 0.6, behavior: 'smooth' });
+              }}
+              className="hidden sm:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-md hover:bg-gray-100 items-center justify-center"
+            >
+              <ChevronRight className="w-5 h-5 text-[#0A3030]" />
+            </button>
           </div>
         </div>
       </section>
