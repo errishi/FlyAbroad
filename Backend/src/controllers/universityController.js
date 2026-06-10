@@ -72,9 +72,9 @@ export const newUniversityListing = async (req, res) => {
         const image = req.file;
         // 1. Ensure the image was successfully uploaded to Cloudinary
         if (!image) {
-            return res.status(400).json({ 
+            return res.status(400).json({
                 success: false,
-                message: "University cover image is required." 
+                message: "University cover image is required."
             });
         }
 
@@ -85,6 +85,7 @@ export const newUniversityListing = async (req, res) => {
             universityType, applicationDeadline, overview, campusLife
         } = req.body;
 
+
         // 3. Handle Arrays/Objects coming from FormData
         // We must parse them back into arrays before saving to MongoDB.
 
@@ -93,8 +94,17 @@ export const newUniversityListing = async (req, res) => {
         const facilities = req.body.facilities ? JSON.parse(req.body.facilities) : [];
         const availablePrograms = req.body.availablePrograms ? JSON.parse(req.body.availablePrograms) : [];
 
+        if (!name || !city || !region || !country || !costLevel || !safetyLevel
+            || !worldRanking || !founded || !studentPopulation || !internationalStudents ||
+            !universityType || !applicationDeadline || !overview || !campusLife || !categories || !tags || !facilities || !availablePrograms) {
+            return res.status(400).json({
+                success: false,
+                message: "Please provide required field!"
+            });
+        }
+
         // 4. Create the new University document
-        const newUniversity = new University({
+        const newUniversity = new universityModel.create({
             name,
             city,
             region,
@@ -120,17 +130,25 @@ export const newUniversityListing = async (req, res) => {
             }
         });
 
-        // 5. Save to the database
-        await newUniversity.save();
-
         // 6. Return success response
         res.status(201).json({
+            success: true,
             message: "University added successfully!",
             university: newUniversity
         });
 
     } catch (error) {
         console.error("Error creating university:", error);
-        res.status(500).json({ message: "Server error", error: error.message });
+
+        // If it's a Mongoose validation error, send a 400 Bad Request
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({
+                success: false,
+                message: Object.values(error.errors).map(val => val.message).join(', ')
+            });
+        }
+
+        // Otherwise, it's a generic server error
+        res.status(500).json({ success: false, message: "Server error", error: error.message });
     }
 };

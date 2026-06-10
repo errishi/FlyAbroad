@@ -12,6 +12,7 @@ import universityRouter from './src/routes/universityRoute.js';
 import studentRouter from './src/routes/studentRoute.js';
 import instituteRouter from './src/routes/instituteRoute.js';
 import userFeedbackRouter from './src/routes/userFeedbackRoute.js';
+import careerRouter from './src/routes/careerRoute.js';
 // import applicationRouter from './src/routes/applicationRoute.js';
 
 connectDB();
@@ -31,6 +32,7 @@ app.use("/api/universities", universityRouter);
 app.use("/api/students", studentRouter);
 app.use("/api/institutes", instituteRouter);
 app.use("/api/user-feedback", userFeedbackRouter);
+app.use("/api/careers", careerRouter);
 
 // route
 app.get("/", (req, res) => {
