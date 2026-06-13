@@ -16,6 +16,8 @@ import ApplyNow from './Pages/applynow';
 import UniversityDetails from './Components/Home/UniversityDetails';
 import BlogDetails from './Components/Blog/BlogDetails';
 import Blogs from './Pages/Blogs';
+import ProtectedRoutes from './Pages/Protectedroutes';
+
 
 
 const App = () => {
@@ -57,6 +59,7 @@ const App = () => {
         <Route path='/university' element={<Universites />} />
         <Route path={'/university/:id'} element={<UniversityDetails />} />
         <Route path='/*' element={<NotFound />} />
+        
       </Routes>
       <Footer />
     </div>

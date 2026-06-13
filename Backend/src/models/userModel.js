@@ -11,9 +11,23 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['user', 'admin', 'superadmin'],
+        enum: ['user', 'admin', 'super_admin'],
         default: 'user'
     },
+    permissions:[{
+        type:String,
+        enum: [
+            'manage_blog',
+            'manage_universities',
+            'manage_career',
+            'manage_users',
+            'manage_inquiries',
+            'manage_reviews',
+            'manage_events',
+            'manage_testimonial_videos'
+        ]
+    }],
+    
     password: { type: String, required: true },
     isVerified: { type: Boolean, default: false },
     isLoggedIn: { type: Boolean, default: false },

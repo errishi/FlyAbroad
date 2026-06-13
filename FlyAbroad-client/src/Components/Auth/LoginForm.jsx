@@ -8,9 +8,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import GoogleIcon from '@mui/icons-material/Google';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
-import * as motion from "motion/react-client"
+import { motion as Motion } from "motion/react-client"
 
-const LoginForm = ({ setCurrentAuth, currentAuth }) => {
+const LoginForm = ({ setCurrentAuth }) => {
     const [login, setLogin] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
 
@@ -40,7 +40,7 @@ const LoginForm = ({ setCurrentAuth, currentAuth }) => {
 
     return (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-2 py-2 sm:px-4 sm:py-4'>
-            <motion.div
+            <Motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isClosing ? { opacity: 0, scale: 0.9 } : { opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
@@ -58,7 +58,7 @@ const LoginForm = ({ setCurrentAuth, currentAuth }) => {
                             Your global future starts here.
                         </h2>
                     </div>
-                </div>
+                </div> //
 
                 <div className='relative flex w-full flex-col justify-center min-h-0 overflow-auto lg:overflow-visible bg-white px-4 py-6 sm:px-8 sm:py-8 lg:w-[48%] lg:px-14 lg:py-10 pr-4 lg:pr-0'>
                     <div className='absolute right-3 top-3 sm:right-5 sm:top-5'>
@@ -169,7 +169,7 @@ const LoginForm = ({ setCurrentAuth, currentAuth }) => {
                         </form>
                     </div>
                 </div>
-            </motion.div>
+            </Motion.div>
         </div>
     )
 }
