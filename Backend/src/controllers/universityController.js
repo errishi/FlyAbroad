@@ -248,3 +248,48 @@ export const editListedUniversityById = async(req,res) => {
         res.status(500).json({ success: false, message: "Server error", error: error.message });
     }
 }
+
+/**
+ * @desc    Delete a university listing by ID
+ * @route   DELETE /api/universities/:id
+ * @access  Private (Admin only)
+ */
+
+export const deleteListedUniversityById = async(req,res) => {
+    try {
+        const { id } = req.params;
+        const deleteUniversity = await universityModel.findByIdAndDelete(id);
+
+        if(!deleteUniversity){
+            return res.status(400).json({
+                success: false,
+                message: "Invalid request, please check id."
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "University deleted successfully.",
+        });
+    } catch (error) {
+        console.error("Error deleting university:", error);
+
+        // Handle Mongoose Validation Errors
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({
+                success: false,
+                message: Object.values(error.errors).map(val => val.message).join(', ')
+            });
+        }
+        
+        // Handle Invalid Mongoose Object IDs
+        if (error.name === 'CastError' && error.kind === 'ObjectId') {
+             return res.status(400).json({
+                success: false,
+                message: "Invalid University ID format."
+            });
+        }
+
+        res.status(500).json({ success: false, message: "Server error", error: error.message });
+    }
+}
