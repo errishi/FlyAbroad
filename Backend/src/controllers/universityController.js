@@ -1,5 +1,10 @@
 import universityModel from "../models/universityModel.js"
 
+/** 
+ * @desc    Get all universities with pagination
+ * @route   GET /api/universities
+ * @access  Public
+ */
 export const allUniversity = async (req, res) => {
     try {
         // apply pagination feature
@@ -42,6 +47,12 @@ export const allUniversity = async (req, res) => {
     }
 }
 
+/** 
+ * @desc    Get a single university by ID
+ * @route   GET /api/universities/:id
+ * @access  Public
+ */
+
 export const universityViewDetails = async (req, res) => {
     try {
         const { id } = req.params;
@@ -66,6 +77,12 @@ export const universityViewDetails = async (req, res) => {
         });
     }
 }
+
+/** 
+ * @desc    Create a new university listing
+ * @route   POST /api/universities
+ * @access  Private (Admin only)
+ */
 
 export const newUniversityListing = async (req, res) => {
     try {
@@ -103,31 +120,33 @@ export const newUniversityListing = async (req, res) => {
             });
         }
 
-        // 4. Create the new University document
-        const newUniversity = new universityModel.create({
-            name,
-            city,
-            region,
-            country,
-            costLevel,
-            safetyLevel,
-            worldRanking,
-            founded,
-            studentPopulation,
-            internationalStudents,
-            universityType,
-            applicationDeadline,
-            overview,
-            campusLife,
-            categories,
-            tags,
-            facilities,
-            availablePrograms,
-            // Map the Cloudinary data correctly according to your schema
-            image: {
+        // Map the Cloudinary data correctly according to your schema
+        const uploadedImage = {
                 url: req.file.path,
                 filename: req.file.filename
             }
+
+        // 4. Create the new University document
+        const newUniversity = await universityModel.create({
+            name: name,
+            city: city,
+            region: region,
+            country: country,
+            costLevel: costLevel,
+            safetyLevel: safetyLevel,
+            worldRanking: worldRanking,
+            founded: founded,
+            studentPopulation: studentPopulation,
+            internationalStudents: internationalStudents,
+            universityType: universityType,
+            applicationDeadline: applicationDeadline,
+            overview: overview,
+            campusLife: campusLife,
+            categories: categories,
+            tags: tags,
+            facilities: facilities,
+            availablePrograms: availablePrograms,
+            image: uploadedImage
         });
 
         // 6. Return success response
@@ -152,3 +171,80 @@ export const newUniversityListing = async (req, res) => {
         res.status(500).json({ success: false, message: "Server error", error: error.message });
     }
 };
+
+/**
+ * @desc    Update an existing university listing
+ * @route   PUT /api/universities/:id
+ * @access  Private (Admin only)
+ */
+
+export const editListedUniversityById = async(req,res) => {
+    try {
+        const { id } = req.params;
+        // update object dynamically based on what the sent
+        const updatedData = {...req.body};
+
+        // Safely parse arrays/objects only if they are included in this specific request
+        const fieldsToParse = ['categories', 'tags', 'facilities', 'availablePrograms'];
+
+        fieldsToParse.forEach((field) => {
+            if(updatedData[field]){
+                try {
+                    updatedData[field] = JSON.parse(updatedData[field]);
+                } catch (error) {
+                    return res.status(400).json({
+                        success: false,
+                        message: `Invalid JSON format for field: ${field}`
+                    });
+                }
+            }
+        });
+
+        if(req.file){
+            updatedData.image = {
+                url: req.file.path,
+                filename: req.file.filename
+            };
+        };
+
+        // update data into db
+        const updatedUniversity = await universityModel.findByIdAndUpdate(
+            id,
+            { $set: updatedData },
+            { new: true, $runValidators: true }
+        );
+
+        if(!updatedUniversity){
+            return res.status(404).json({
+                success: false,
+                message: "University not found."
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "University updated successfully.",
+            university: updatedUniversity
+        });
+    } catch (error) {
+        console.error("Error updating university:", error);
+
+        // Handle Mongoose Validation Errors
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({
+                success: false,
+                message: Object.values(error.errors).map(val => val.message).join(', ')
+            });
+        }
+        
+        // Handle Invalid Mongoose Object IDs
+        if (error.name === 'CastError' && error.kind === 'ObjectId') {
+             return res.status(400).json({
+                success: false,
+                message: "Invalid University ID format."
+            });
+        }
+
+        res.status(500).json({ success: false, message: "Server error", error: error.message });
+    }
+}
