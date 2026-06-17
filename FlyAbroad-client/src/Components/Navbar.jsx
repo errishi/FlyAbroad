@@ -1,11 +1,11 @@
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
 import AuthButton from './Auth/AuthButton';
 import UniversityDropdown from './Home/UniversityDropdown';
-import { getData } from '@/Context/UserContext'; 
+import UserContext from '@/Context/UserContext';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -19,7 +19,7 @@ function classNames(...classes) {
 
 export default function Navbar({ setCurrentAuth }) {
   const location = useLocation();
-  const { user, setUser } = getData(); 
+  const { user, setUser } = useContext(UserContext); 
 
   // Example: auto‑sync user state (could be from localStorage, API, etc.)
   useEffect(() => {

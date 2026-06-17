@@ -33,6 +33,7 @@ app.use("/api/universities", universityRouter);
 app.use("/api/students", studentRouter);
 app.use("/api/institutes", instituteRouter);
 
+
 // route
 app.get("/", (req, res) => {
     res.send("Welcome to Unefly!");

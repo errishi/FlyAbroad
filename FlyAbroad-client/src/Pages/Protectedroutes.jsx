@@ -1,9 +1,9 @@
-import React from 'react';
+import UserContext from '@/Context/UserContext';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { getData } from '@/Context/UserContext';
 
 const ProtectedRoutes = ({ children }) => {
-  const { user } = getData(); // call the function, not just reference it
+  const { user } = useContext(UserContext); // call the function, not just reference it
 
   return (
     <>

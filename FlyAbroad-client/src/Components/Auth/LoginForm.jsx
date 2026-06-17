@@ -8,7 +8,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import GoogleIcon from '@mui/icons-material/Google';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
-import { motion as Motion } from "motion/react-client"
+import * as motion from "motion/react-client"
 
 const LoginForm = ({ setCurrentAuth }) => {
     const [login, setLogin] = useState(false);
@@ -40,7 +40,7 @@ const LoginForm = ({ setCurrentAuth }) => {
 
     return (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-2 py-2 sm:px-4 sm:py-4'>
-            <Motion.div
+            <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isClosing ? { opacity: 0, scale: 0.9 } : { opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
@@ -169,7 +169,7 @@ const LoginForm = ({ setCurrentAuth }) => {
                         </form>
                     </div>
                 </div>
-            </Motion.div>
+            </motion.div>
         </div>
     )
 }
