@@ -33,9 +33,16 @@ const blogSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    // --- CLOUDINARY IMAGE FIX ---
     image: {
-        type: String,
-        required: true,
+        url: {
+            type: String,
+            required: true
+        },
+        filename: { 
+            type: String, 
+            required: true // Cloudinary returns this as the 'public_id' or 'filename'
+        }
     },
     tags: {
         type: [String],

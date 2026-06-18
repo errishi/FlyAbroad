@@ -40,5 +40,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, ()=>{
-    console.log(`sever live at ${port}`);
+    console.log(`server live at ${port}`);
 })
