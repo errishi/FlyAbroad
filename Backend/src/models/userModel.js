@@ -1,42 +1,40 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
+    name:{
+          type: String,
+          required:[true, "name is required"]
+      },
     username: {
-        type: String,
-        required: true,
+      type: String,
+      required: [true, "Username is required"],
+      unique: true,
+      trim: true,
+      match: [/^[a-zA-Z0-9]+$/, "Username can only contain letters, numbers, and underscores"]
     },
+
     email: {
-        type: String,
-        required: true, unique: true
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      lowercase: true,
+      trim: true,
+      match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"]
     },
-    role: {
-        type: String,
-        enum: ['user', 'admin', 'super_admin'],
-        default: 'user'
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minlength: 6,
+      match: [/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/, 
+        "Password must be at least 8 characters long and contain letters and numbers"]
     },
-    permissions:[{
-        type:String,
-        enum: [
-            'manage_blog',
-            'manage_universities',
-            'manage_career',
-            'manage_users',
-            'manage_inquiries',
-            'manage_reviews',
-            'manage_events',
-            'manage_testimonial_videos'
-        ]
-    }],
-    
-    password: { type: String, required: true },
-    isVerified: { type: Boolean, default: false },
-    isLoggedIn: { type: Boolean, default: false },
-    token: { type: String, default: null },
-    otp: { type: String, default: null },
-    otpExpiry: { type: Date, default: null },
+    isVerified: {
+      type: Boolean,
+      default: false
+    }
+  },
+  { timestamps: true }
+);
 
-
-
-}, { timestamps: true })
-
-export const User = mongoose.model("User", userSchema)                                                                          
+export const User = mongoose.model("User", userSchema);
