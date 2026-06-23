@@ -13,17 +13,26 @@ import studentRouter from './src/routes/studentRoute.js';
 import instituteRouter from './src/routes/instituteRoute.js';
 // import applicationRouter from './src/routes/applicationRoute.js';
 
-connectDB();
+connectDB()
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 
 // middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin:'http://localhost:5173',
-    credentials:true
+    origin: 'http://localhost:5173',
+    credentials: true
 }))
+
+// JSON parse error handler
+app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        return res.status(400).json({ success: false, message: 'Invalid JSON payload. Check your request body formatting.' });
+    }
+    next(err);
+});
 
 //API end-points
 app.use('/user', userRoute)
@@ -39,6 +48,6 @@ app.get("/", (req, res) => {
     res.send("Welcome to Unefly!");
 });
 
-app.listen(port, ()=>{
-    console.log(`sever live at ${port}`);
+app.listen(port, () => {
+    console.log(`sever is listening at port ${port}`);
 })
