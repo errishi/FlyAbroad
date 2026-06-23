@@ -1,4 +1,4 @@
-import { sendOtpEmail } from "../../sentOtp.js";
+import { sendOtpEmail } from "../../emailverify/sentOtp.js";
 import { Session } from "../models/sessionModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -59,7 +59,7 @@ export const registerUser = async (req, res) => {
 export const verifyEmail = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    if (!authHeader || !authHeader.startsWith("Bearer")) {
       return res.status(401).json({ success: false, message: "Authorization header missing or invalid" });
     }
 
@@ -107,29 +107,40 @@ export const loginUser = async (req, res) => {
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ success: false, message: "Invalid password" });
+      return res.status(402).json({ success: false, message: "Invalid password" });
     }
 
-    // Check if email is verified
     if (!user.isVerified) {
       return res.status(403).json({ success: false, message: "Email not verified, verify your account" });
     }
 
-    // Check for existing session and delete
     const existingSession = await Session.findOne({ userId: user._id });
     if (existingSession) {
       await Session.deleteOne({ userId: user._id });
     }
 
-    // Create a new session
     await Session.create({ userId: user._id });
 
     // Create tokens
-    const accessToken = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
-    const refreshToken = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" });
+    const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+    const refreshToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
     user.isLoggedIn = true;
     await user.save();
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,   // prevents JS access
+      secure: process.env.NODE_ENV === "production", 
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000 // 1 day
+    });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
 
     return res.status(200).json({
       success: true,
@@ -142,11 +153,10 @@ export const loginUser = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server error", error: error.message });
   }
 };
-
 export const logoutUser = async (req, res) => {
   try {
     const userId = req.userId;
-    await Session.deleteOne({ userId });
+    await Session.deleteMany({ userId });
     await User.findByIdAndUpdate(userId, { isLoggedIn: false });
     return res.status(200).json({ success: true, message: "Logged out successfully" });
   } catch (error) {
@@ -168,10 +178,10 @@ export const forgotPassword = async (req, res) => {
     user.otp = otp;
     user.otpExpiry = expiry;
     await user.save();
-
     await sendOtpEmail(email, otp);
-
-    return res.status(200).json({ success: true, message: "Password reset instructions sent to your email" });
+    return res.status(200).json({
+      success: true, 
+      message:"OTP sent sucessfully" });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server error", error: error.message });
   }
@@ -207,7 +217,8 @@ export const verifyOtp = async (req, res) => {
     user.otpExpiry = null;
     await user.save();
 
-    return res.status(200).json({ success: true, message: "OTP verified successfully" });
+    return res.status(200).json({ success: true, message: "OTP verified successfully" })
+    
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server error", error: error.message });
   }

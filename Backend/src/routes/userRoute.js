@@ -12,7 +12,11 @@ router.post('/login', loginUser)
 router.post('/logout',isAuthenticated, logoutUser)
 router.post('/forgot-password', forgotPassword)
 router.post('/verify-otp/:email', verifyOtp)
-router.post('/change-password/:email', changePassword)
+router.put('/change-password/:email', changePassword)
+
+
+
+
 
 
 export default router
