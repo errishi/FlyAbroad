@@ -18,9 +18,10 @@ export const userSchema = yup.object({
 
 export const validate = (schema)=> async (req, res, next) => {
     try {
-        await schema.validate(req.body, {abortEarly: false})
+        await schema.validate(req.body)
+        next()
         
     } catch (error) {
-        return res.status(400).json({success: false, message: "Validation error", errors: error.errors})
+        return res.status(400).json({errors:err.errors})
     }
 }

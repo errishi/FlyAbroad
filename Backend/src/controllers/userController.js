@@ -232,7 +232,7 @@ export const changePassword = async (req, res) => {
     return res.status(400).json({ success: false, message: "All fields are required" });
   }
 
-  if (newPassword !== confirmPassword) {
+  if (newPassword != confirmPassword) {
     return res.status(400).json({ success: false, message: "Passwords do not match" });
   }
 

@@ -17,6 +17,9 @@ import UniversityDetails from './Components/Home/UniversityDetails';
 import BlogDetails from './Components/Blog/BlogDetails';
 import Blogs from './Pages/Blogs';
 import ProtectedRoutes from './Pages/Protectedroutes';
+import Verify from './Pages/Verify';
+import VerifyEmail from './Pages/VerifyEmail';
+import Signup from './Pages/Signup';
 
 
 
@@ -48,9 +51,13 @@ const App = () => {
     <div>
       <Navbar setCurrentAuth={setCurrentAuth} />
       <Routes>
-        <Route path='/' element={<Home sendData={handleFeedbackData} setReadFeedback={setReadFeedback} setCurrentAuth={setCurrentAuth} />} />
+        <Route path='/' element={<Home sendData={handleFeedbackData} setReadFeedback={setReadFeedback} setCurrentAuth={setCurrentAuth} />} />        
         <Route path='/about' element={<About />} />
+        <Route path='/signup' element={<Signup />} />
         <Route path='/career' element={<Career />} />
+        <Route path='/verify' element={<VerifyEmail />} />
+        <Route path='/verify/:token' element={<Verify />} />
+        <Route path='/login' element={<LoginForm />} />
         <Route path='/blog' element={<Blogs />} />
         <Route path='/blog/:id' element={<BlogDetails />} />
         <Route path='/contact' element={<Contact />} />

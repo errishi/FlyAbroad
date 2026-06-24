@@ -6,7 +6,7 @@ import { userSchema, validate } from "../../Validators/userValidate.js"
 
 const router = express.Router()
 
-router.post('/register', registerUser)
+router.post('/register', validate(userSchema), registerUser)
 router.post('/verify', verifyEmail)
 router.post('/login', loginUser)
 router.post('/logout',isAuthenticated, logoutUser)
