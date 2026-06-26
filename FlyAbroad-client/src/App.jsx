@@ -20,6 +20,10 @@ import ProtectedRoutes from './Pages/Protectedroutes';
 import Verify from './Pages/Verify';
 import VerifyEmail from './Pages/VerifyEmail';
 import Signup from './Pages/Signup';
+import OAuthRedirect from './Pages/OAuthRedirect';
+import ChangePassword from './Pages/ChangePassword';
+import ForgetPassword from './Pages/ForgetPassword';
+import VerifyOTP from './Pages/VerifyOTP';
 
 
 
@@ -53,11 +57,17 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home sendData={handleFeedbackData} setReadFeedback={setReadFeedback} setCurrentAuth={setCurrentAuth} />} />        
         <Route path='/about' element={<About />} />
+        <Route path='/ProtectedRoutes' element={<ProtectedRoutes />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/oauth-redirect' element={<OAuthRedirect />} />
         <Route path='/career' element={<Career />} />
         <Route path='/verify' element={<VerifyEmail />} />
         <Route path='/verify/:token' element={<Verify />} />
+        <Route path='/oauth-redirect' element={<OAuthRedirect />} />
         <Route path='/login' element={<LoginForm />} />
+        <Route path='/forget-password' element={<ForgetPassword />} />
+        <Route path='/change-password/:email' element={<ChangePassword />} />
+        <Route path='/verify-otp/:email' element={<VerifyOTP />} />
         <Route path='/blog' element={<Blogs />} />
         <Route path='/blog/:id' element={<BlogDetails />} />
         <Route path='/contact' element={<Contact />} />

@@ -1,29 +1,62 @@
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useContext, useEffect } from 'react'
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems
+} from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useContext, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
 import AuthButton from './Auth/AuthButton';
 import UniversityDropdown from './Home/UniversityDropdown';
 import UserContext from '@/Context/UserContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Careers', href: '/career', current: false },
   { name: 'Universities', href: '/university', current: false },
-]
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Navbar({ setCurrentAuth }) {
   const location = useLocation();
-  const { user, setUser } = useContext(UserContext); 
+  const { user, setUser } = useContext(UserContext);
 
-  // Example: auto‑sync user state (could be from localStorage, API, etc.)
+  const accessToken = localStorage.getItem('accessToken');
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/user/logout',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (res.data.success) {
+        setUser(null);
+        toast.success(res.data.message);
+        localStorage.clear();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Sync user state from localStorage
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
@@ -36,6 +69,7 @@ export default function Navbar({ setCurrentAuth }) {
     >
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-auto">
         <div className="relative flex h-16 items-center justify-between">
+          {/* Mobile menu button */}
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-300 hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
               <span className="absolute -inset-0.5" />
@@ -44,9 +78,11 @@ export default function Navbar({ setCurrentAuth }) {
               <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
             </DisclosureButton>
           </div>
+
+          {/* Logo + Navigation */}
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <Link to='/'>
+              <Link to="/">
                 <img
                   alt="Your Company"
                   src="/logo.svg"
@@ -64,18 +100,22 @@ export default function Navbar({ setCurrentAuth }) {
                       to={item.href}
                       aria-current={isCurrent ? 'page' : undefined}
                       className={classNames(
-                        isCurrent ? 'bg-gray-950/50 text-white' : 'text-gray-200 hover:bg-white/5 hover:text-white',
-                        'rounded-md px-3 py-2 text-sm font-medium',
+                        isCurrent
+                          ? 'bg-gray-950/50 text-white'
+                          : 'text-gray-200 hover:bg-white/5 hover:text-white',
+                        'rounded-md px-3 py-2 text-sm font-medium'
                       )}
                     >
                       {item.name}
                     </Link>
-                  )
+                  );
                 })}
                 <UniversityDropdown />
               </div>
             </div>
           </div>
+
+          {/* Right side (User or Auth) */}
           {user ? (
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <button
@@ -91,8 +131,11 @@ export default function Navbar({ setCurrentAuth }) {
                   <span className="absolute -inset-1.5" />
                   <span className="sr-only">Open user menu</span>
                   <img
-                    alt=""
-                    src={user.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?..."}
+                    alt="User avatar"
+                    src={
+                      user.avatar ||
+                      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?...'
+                    }
                     className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
                   />
                 </MenuButton>
@@ -101,19 +144,25 @@ export default function Navbar({ setCurrentAuth }) {
                   className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 outline -outline-offset-1 outline-white/10 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
                 >
                   <MenuItem>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden">
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden"
+                    >
                       Your profile
                     </a>
                   </MenuItem>
                   <MenuItem>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden">
+                    <a
+                      href="#"
+                      className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden"
+                    >
                       Settings
                     </a>
                   </MenuItem>
                   <MenuItem>
                     <a
                       href="#"
-                      onClick={() => { setUser(null); localStorage.removeItem("user"); }}
+                      onClick={logoutHandler}
                       className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden"
                     >
                       Sign out
@@ -123,12 +172,17 @@ export default function Navbar({ setCurrentAuth }) {
               </Menu>
             </div>
           ) : (
-            <div onClick={() => setCurrentAuth(true)} className='cursor-pointer hover:opacity-90'>
+            <div
+              onClick={() => setCurrentAuth(true)}
+              className="cursor-pointer hover:opacity-90"
+            >
               <AuthButton />
             </div>
           )}
         </div>
       </div>
+
+      {/* Mobile menu */}
       <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pt-2 pb-3">
           {navigation.map((item) => (
@@ -138,8 +192,10 @@ export default function Navbar({ setCurrentAuth }) {
               href={item.href}
               aria-current={item.current ? 'page' : undefined}
               className={classNames(
-                item.current ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
-                'block rounded-md px-3 py-2 text-base font-medium',
+                item.current
+                  ? 'bg-gray-950/50 text-white'
+                  : 'text-gray-300 hover:bg-white/5 hover:text-white',
+                'block rounded-md px-3 py-2 text-base font-medium'
               )}
             >
               {item.name}
@@ -149,5 +205,5 @@ export default function Navbar({ setCurrentAuth }) {
         </div>
       </DisclosurePanel>
     </Disclosure>
-  )
+  );
 }

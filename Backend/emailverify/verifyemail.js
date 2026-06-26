@@ -1,5 +1,5 @@
-import nodemailer from "nodemailer";
 import "dotenv/config";
+import { sendMail } from "./emailTransport.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -15,27 +15,22 @@ export const sendVerificationEmail = async (token, email) => {
   );
 
   const template = handlebars.compile(emailTemplateSource);
-  const htmlToSend = template({ token: encodeURIComponent(token) });
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
-    },
-  });
+  const verificationUrl = `${process.env.FRONTEND_URL || "https://yourdomain.com"}/verify/${encodeURIComponent(
+    token
+  )}`;
+  const htmlToSend = template({ verificationUrl });
 
   const mailConfigurations = {
-    from: process.env.MAIL_USER,
     to: email,
-    subject: "Email Verification",
+    subject: process.env.MAIL_SUBJECT_VERIFICATION || "FlyAbroad — Email Verification",
+    text: `Please verify your email by opening this link: ${verificationUrl}`,
     html: htmlToSend,
   };
 
   try {
-    const info = await transporter.sendMail(mailConfigurations);
-    console.log("Email sent:", info.response);
-    return info;t
+    const info = await sendMail(mailConfigurations);
+    console.log("Email sent:", info.response || info.messageId || info);
+    return info;
   } catch (error) {
     console.error("Error sending email:", error.message);
     throw new Error("Failed to send verification email");

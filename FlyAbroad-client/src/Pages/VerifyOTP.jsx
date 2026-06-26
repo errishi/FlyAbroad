@@ -1,145 +1,157 @@
-import { AlertDescription } from '@/Components/ui/alert'
 import React, { useState, useRef } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import { Alert } from '@/Components/ui/alert'
+import { Alert, AlertDescription } from '@/Components/ui/alert'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/Components/ui/card'
 import { Input } from '@/Components/ui/input'
 import { CheckCircle, Loader2 } from 'lucide-react'
 
 const VerifyOTP = () => {
-    const [isVerified, setIsVerified] = useState(false)
-    const [error, setError] = useState("")
-    const [successMessage, setSuccessMessage] = useState("")
-    const [otp, setotp] = useState(["", "", "", "", "", ""])
-    const [isLoading, setIsLoading] = useState(false)
-    const inputRefs = useRef([])
-    const { email } = useParams()
-    const navigate = useNavigate()
+  const [isVerified, setIsVerified] = useState(false)
+  const [error, setError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+  const [otp, setOtp] = useState(["", "", "", "", "", ""])
+  const [isLoading, setIsLoading] = useState(false)
 
-    const handleChange = (index, value) => {
-        if (value.length > 1) return
-        const updatedOtp = [...otp]
-        updatedOtp[index] = value
-        setotp(updatedOtp)
-        if (value && index < 5) {
-            inputRefs.current[index + 1]?.focus()
-        }
+  const inputRefs = useRef([])
+  const { email } = useParams()
+  const navigate = useNavigate()
+
+  const handleChange = (index, value) => {
+    if (value.length > 1) return
+    const updatedOtp = [...otp]
+    updatedOtp[index] = value
+    setOtp(updatedOtp)
+
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus()
+    }
+  }
+
+  const handleVerify = async () => {
+    const finalOtp = otp.join("")
+    if (finalOtp.length !== 6) {
+      setError("Please enter all 6 digits")
+      return
     }
 
-    const handleVerify = async () => {
-        const finalOtp = otp.join("")
-        if (finalOtp.length !== 6) {
-            setError("please enter all 6 digits")
-            return
-        }
-        try {
-            setIsLoading(true)
-            const res = await axios.post(`http://localhost:8080/user/verify-otp/${email}`, { otp: finalOtp })
-            setSuccessMessage(res.data.message)
-            setIsVerified(true)
-            setTimeout(() => {
-                navigate(`/change-password/${email}`)
-            }, 2000)
-        } catch (error) {
-            setError(error.response?.data?.message || "something went wrong")
-        } finally {
-            setIsLoading(false)
-        }
-    }
+    try {
+      setIsLoading(true)
+      const res = await axios.post(`http://localhost:8080/user/verify-otp/${email}`, { otp: finalOtp })
+      setSuccessMessage(res.data.message)
+      setIsVerified(true)
 
-    const clearOtp = () => {
-        setotp(["", "", "", "", "", ""])
-        setError("")
-        inputRefs.current[0]?.focus()
+      setTimeout(() => {
+        navigate(`/change-password/${email}`)
+      }, 2000)
+    } catch (error) {
+      setError(error.response?.data?.message || "Something went wrong")
+    } finally {
+      setIsLoading(false)
     }
+  }
 
-    return (
-        <div className='min-h-screen flex flex-col bg-green-100 '>
-            {/* Main content*/}
-            <div className='flex-1 flex items-center justify-center p-4'>
-                <div className='w-full max-w-md space-y-6'>
-                    <div className='text-center space-y-2'></div>
-                    <h1 className='text-3xl font-bold tracking-tight text-green-600'>Verify your Email</h1>
-                    <p className='text-mutate-foregroung '>We have sent a 6-digit verification code to {" "}
-                        <span className=''>{email}</span>
-                    </p>
-                </div>
-                <Card className='shadow-lg'>
-                    <CardHeader className='space-y-1'>
-                        <CardTitle className='text-2xl text-center text-green-600'>Enter your verification code</CardTitle>
-                        <CardDescription className='text-center'>
-                            {isVerified ? "Code verified successfully! Redirecting" : "Enter the 6-Digit code sent to your email"}
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className='space-y-6'>
-                        {
-                            error && (<Alert variant="destructive">
-                                <AlertDescription>{error}</AlertDescription>
-                            </Alert>)
-                        }
-                        {successMessage && <p className='text-green-500 text-sm mb-3 text-center'>{successMessage}</p>}
-                        {
-                            isVerified ? (
-                                <div className='py-6 flex flex-col items-center justify-center text-center space-y-4'>
-                                    <div className='bg-primary/10 rounded-full p-3'>
-                                        <CheckCircle className='h-6 w-6 text-primary' />
-                                    </div>
-                                    <div className='space-y-2'>
-                                        <h3 className='font-medium text-lg'>Verification successful</h3>
-                                        <p className='text-muted-foreground'>Your email has been verified, you will be redirected to reset your password </p>
-                                        <div className='flex item-center space-x-2'>
-                                            <Loader2 className='h-4 w-4 animate-spin' />
-                                            <span className='text-sm text-mutted-foreground'>Redirecting...</span>
-                                        </div>
-                                    </div>
-                                </div>) : (
-                                <>
-                                    {/* OTP input */}
-                                    <div className='flex justify-between mb-6'>
-                                        {
-                                            otp.map((digit, index) => (
-                                                <Input
-                                                    key={index}
-                                                    type="text"
-                                                    value={digit}
-                                                    maxLength={1}
-                                                    onChange={(e) => handleChange(index, e.target.value)}
-                                                    ref={(el) => inputRefs.current[index] = el}
-                                                    className="w-12 h-12 text-center text-xl font-bold"
-                                                />
-                                            ))
-                                        }
-                                    </div>
-                                    {/* Action buttons */}
-                                    <div className='space-y-3'>
-                                        <button disabled={isLoading || otp.some((digit) => digit === "")}
-                                            onClick={handleVerify}
-                                            className='bg-green-600 w-full text-white py-2 rounded flex justify-center items-center'>
-                                            {isLoading ? <> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Verifying</> : "Verify Code"}
-                                        </button>
-                                        <button
-                                            onClick={clearOtp}
-                                            disabled={isLoading || isVerified}
-                                            className='w-full border border-green-600 text-green-600 py-2 rounded'>
-                                            Clear Code
-                                        </button>
-                                    </div>
-                                </>)
-                        }
-                    </CardContent>
-                    <CardFooter className='flex justify-center'>
-                        <p className='text-sm text-muted-'>
-                            Wrong email?{" "}
-                            <Link to={'/forgot-password'}className='text-green-600 hover:underline font-medium'>Go Back</Link>
-                        </p>
-                    </CardFooter>
-                </Card>
-                <div className='text-center text-xs text-muted-foreground'>
-                    <p className=''>For Testing purposes, use code: <span className='font-mono font-medium'>123456</span></p>
-                </div>
+  const clearOtp = () => {
+    setOtp(["", "", "", "", "", ""])
+    setError("")
+    inputRefs.current[0]?.focus()
+  }
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 to-teal-100 p-6">
+      <Card className="w-full max-w-md shadow-xl border border-teal-200">
+        <CardHeader className="space-y-2 text-center">
+          <CardTitle className="text-3xl font-bold text-teal-700">Verify Your Email</CardTitle>
+          <CardDescription className="text-gray-600">
+            We’ve sent a 6-digit verification code to <span className="font-medium">{email}</span>
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="space-y-6">
+          {error && (
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          {successMessage && (
+            <p className="text-teal-600 text-sm text-center font-medium">{successMessage}</p>
+          )}
+
+          {isVerified ? (
+            <div className="flex flex-col items-center space-y-4 py-6">
+              <div className="bg-teal-100 rounded-full p-3">
+                <CheckCircle className="h-8 w-8 text-teal-600" />
+              </div>
+              <h3 className="text-lg font-semibold">Verification Successful</h3>
+              <p className="text-gray-500 text-sm">
+                Your email has been verified. Redirecting to reset your password...
+              </p>
+              <div className="flex items-center space-x-2">
+                <Loader2 className="h-4 w-4 animate-spin text-teal-600" />
+                <span className="text-sm text-gray-500">Redirecting...</span>
+              </div>
             </div>
-        </div>
-    )
+          ) : (
+            <>
+              {/* OTP Input */}
+              <div className="flex justify-between mb-6">
+                {otp.map((digit, index) => (
+                  <Input
+                    key={index}
+                    type="text"
+                    value={digit}
+                    maxLength={1}
+                    onChange={(e) => handleChange(index, e.target.value)}
+                    ref={(el) => (inputRefs.current[index] = el)}
+                    className="w-12 h-12 text-center text-xl font-bold border-teal-300 focus:ring-teal-500"
+                  />
+                ))}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-3">
+                <button
+                  disabled={isLoading || otp.some((digit) => digit === "")}
+                  onClick={handleVerify}
+                  className="w-full bg-gradient-to-r from-teal-500 to-orange-500 text-white py-2 rounded-lg flex justify-center items-center transition-colors hover:from-teal-600 hover:to-orange-600"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Verifying...
+                    </>
+                  ) : (
+                    "Verify Code"
+                  )}
+                </button>
+
+                <button
+                  onClick={clearOtp}
+                  disabled={isLoading || isVerified}
+                  className="w-full border border-teal-600 text-teal-600 py-2 rounded-lg hover:bg-gradient-to-r hover:from-teal-50 hover:to-orange-50 transition-colors"
+                >
+                  Clear Code
+                </button>
+              </div>
+            </>
+          )}
+        </CardContent>
+
+        <CardFooter className="flex justify-center">
+          <p className="text-sm text-gray-500">
+            Wrong email?{" "}
+            <Link to="/forget-password" className="text-teal-600 hover:underline font-medium">
+              Go Back
+            </Link>
+          </p>
+        </CardFooter>
+      </Card>
+
+      <div className="absolute bottom-4 text-center text-xs text-gray-400">
+        For testing purposes, use code: <span className="font-mono font-medium">123456</span>
+      </div>
+    </div>
+  )
 }
+
 export default VerifyOTP

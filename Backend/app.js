@@ -11,6 +11,9 @@ import fs from 'fs';
 import universityRouter from './src/routes/universityRoute.js';
 import studentRouter from './src/routes/studentRoute.js';
 import instituteRouter from './src/routes/instituteRoute.js';
+import session from 'express-session';
+import passport from 'passport';
+import authRoute from './src/routes/authRoute.js';
 // import applicationRouter from './src/routes/applicationRoute.js';
 
 connectDB()
@@ -26,6 +29,17 @@ app.use(cors({
     credentials: true
 }))
 
+// session and passport (used for OAuth flows)
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET || 'keyboardcat',
+        resave: false,
+        saveUninitialized: false,
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // JSON parse error handler
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
@@ -36,6 +50,7 @@ app.use((err, req, res, next) => {
 
 //API end-points
 app.use('/user', userRoute)
+app.use('/auth', authRoute)
 app.use("/api/blogs", blogRouter);
 // app.use("/api/applications", applicationRouter);
 app.use("/api/universities", universityRouter);
