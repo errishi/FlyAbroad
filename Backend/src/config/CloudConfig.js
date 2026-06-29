@@ -39,6 +39,14 @@ const videoStorage = createStorage('shortVideos', ['mp4', 'mov', 'avi', 'mkv', '
 // Export specific Multer upload middlewares
 export const uploadImage = multer({ storage: imageStorage });
 export const uploadDoc = multer({ storage: documentStorage });
-export const uploadMixed = multer({ storage: mixedStorage });
-export const uploadVideo = multer({ storage: videoStorage });
+export const uploadMixed = multer({ 
+  storage: mixedStorage,
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB in bytes
+ });
+
+export const uploadVideo = multer({ 
+  storage: videoStorage,
+  limits: { fileSize: 50 * 1024 * 1024 } // 50MB in bytes
+});
+
 export { cloudinary };
