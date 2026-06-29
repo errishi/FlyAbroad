@@ -9,7 +9,7 @@ const EducationalBackground = ({ formData, setFormData }) => {
         <div className="space-y-6">
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Highest Qualification *
+                    Highest Qualification <span className='text-destructive'>*</span>
                 </label>
                 <select
                     value={formData.highestQualification}
@@ -27,7 +27,7 @@ const EducationalBackground = ({ formData, setFormData }) => {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Institution Name *
+                    Institution Name <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"
@@ -41,7 +41,7 @@ const EducationalBackground = ({ formData, setFormData }) => {
             <div className="grid sm:grid-cols-2 gap-6">
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Field of Study *
+                        Field of Study <span className='text-destructive'>*</span>
                     </label>
                     <input
                         type="text"
@@ -54,7 +54,7 @@ const EducationalBackground = ({ formData, setFormData }) => {
 
                 <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Graduation Year *
+                        Graduation Year <span className='text-destructive'>*</span>
                     </label>
                     <input
                         type="text"
@@ -69,7 +69,7 @@ const EducationalBackground = ({ formData, setFormData }) => {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    GPA / Percentage *
+                    GPA / Percentage <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"
@@ -87,7 +87,7 @@ const EducationalBackground = ({ formData, setFormData }) => {
                 <div className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Test Type *
+                            Test Type <span className='text-destructive'>*</span>
                         </label>
                         <select
                             value={formData.englishTest}

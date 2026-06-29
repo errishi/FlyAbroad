@@ -3,33 +3,23 @@ import mongoose from "mongoose";
 const blogSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     excerpt: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     content: {
-        type: Array,
+        type: [String],
         default: [],
         required: true
     },
     author: {
-        type: Object,
-        default: {
-            name: {
-                type: String,
-                required: true,
-            },
-            role: {
-                type: String,
-                required: true,
-            },
-            image: {
-                type: String,
-                required: true,
-            },
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
     category: {
         type: String,
@@ -41,15 +31,22 @@ const blogSchema = new mongoose.Schema({
     },
     publishDate: {
         type: Date,
-        default: Date.now(),
+        default: Date.now,
     },
+    // --- CLOUDINARY IMAGE FIX ---
     image: {
-        type: String,
-        required: true,
+        url: {
+            type: String,
+            required: true
+        },
+        filename: { 
+            type: String, 
+            required: true // Cloudinary returns this as the 'public_id' or 'filename'
+        }
     },
     tags: {
-        type: Array,
-        default: [
+        type: [String],
+        enum: [
             "All Articles",
             "Visa & Immigration",
             "Scholarships",
@@ -59,7 +56,7 @@ const blogSchema = new mongoose.Schema({
             "Study Destinations"
         ]
     }
-});
+},{ timestamps: true });
 
 const blogModel = mongoose.models.Blog || mongoose.model("Blog", blogSchema);
 

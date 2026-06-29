@@ -18,9 +18,11 @@ import FormSubmitButton from '@/Components/Form/FormSubmitButton';
 import NextButton from '@/Components/Form/NextButton';
 import PreviousButton from '@/Components/Form/PreviousButton';
 import Help from '@/Components/Form/Help';
+import ApplicationSuccess from '@/Components/Form/ApplicationSuccess';
 
 export default function ApplyNow() {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     // Personal Information
     firstName: '',
@@ -83,7 +85,18 @@ export default function ApplyNow() {
   };
 
   const handleSubmit = () => {
-    alert('Application submitted successfully! Our counselors will contact you within 24 hours.');
+    setIsSubmitted(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // NEW: Intercepts the form submission to trigger validation before moving to the next step
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (currentStep < 5) {
+      nextStep();
+    } else {
+      handleSubmit();
+    }
   };
 
   return (
@@ -92,6 +105,9 @@ export default function ApplyNow() {
       {/* Header */}
       <FormHeader />
 
+      {isSubmitted ? (
+          <ApplicationSuccess />
+      ) : (
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Progress Steps */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
@@ -114,67 +130,70 @@ export default function ApplyNow() {
 
         {/* Form Content */}
         <div className="bg-white rounded-xl shadow-sm p-6 sm:p-8">
-          {/* Step 1: Personal Information */}
-          {currentStep === 1 && (
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Personal Information</h2>
-              
-              <PersonalInfo formData={formData} setFormData={setFormData} />
-            </div>
-          )}
-
-          {/* Step 2: Education Background */}
-          {currentStep === 2 && (
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Education Background</h2>
-              
-              <EducationalBackground formData={formData} setFormData={setFormData} />
-            </div>
-          )}
-
-          {/* Step 3: Program Selection */}
-          {currentStep === 3 && (
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Program Selection</h2>
-              
-              <ProgramSelection setFormData={setFormData} formData={formData} />
-            </div>
-          )}
-
-          {/* Step 4: Document Upload */}
-          {currentStep === 4 && (
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Upload Documents</h2>
-              
-              <DocumentUpload setFormData={setFormData} formData={formData} />
-            </div>
-          )}
-
-          {/* Step 5: Review */}
-          {currentStep === 5 && (
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Review Your Application</h2>
-              
-              <Preview formData={formData} />
-            </div>
-          )}
-
-          {/* Navigation Buttons */}
-          <div className="flex lg:flex-row md:flex-row flex-col gap-5 justify-between items-center mt-8 pt-6 border-t border-gray-200">
-
-            <PreviousButton currentStep={currentStep} prevStep={prevStep} />
-
-            {currentStep < 5 ? (
-              <NextButton nextStep={nextStep} />
-            ) : (
-              <FormSubmitButton handleSubmit={handleSubmit} />
+          
+          {/* NEW: Form wrapper added here */}
+          <form onSubmit={handleFormSubmit}>
+            
+            {/* Step 1: Personal Information */}
+            {currentStep === 1 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Personal Information</h2>
+                <PersonalInfo formData={formData} setFormData={setFormData} />
+              </div>
             )}
-          </div>
+
+            {/* Step 2: Education Background */}
+            {currentStep === 2 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Education Background</h2>
+                <EducationalBackground formData={formData} setFormData={setFormData} />
+              </div>
+            )}
+
+            {/* Step 3: Program Selection */}
+            {currentStep === 3 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Program Selection</h2>
+                <ProgramSelection setFormData={setFormData} formData={formData} />
+              </div>
+            )}
+
+            {/* Step 4: Document Upload */}
+            {currentStep === 4 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Upload Documents</h2>
+                <DocumentUpload setFormData={setFormData} formData={formData} />
+              </div>
+            )}
+
+            {/* Step 5: Review */}
+            {currentStep === 5 && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">Review Your Application</h2>
+                <Preview formData={formData} />
+              </div>
+            )}
+
+            {/* Navigation Buttons */}
+            <div className="flex lg:flex-row md:flex-row flex-col gap-5 justify-between items-center mt-8 pt-6 border-t border-gray-200">
+
+              <PreviousButton currentStep={currentStep} prevStep={prevStep} />
+
+              {/* REMOVED onClick logic from these components; the form now handles it */}
+              {currentStep < 5 ? (
+                <NextButton />
+              ) : (
+                <FormSubmitButton />
+              )}
+            </div>
+            
+          </form>
         </div>
 
         {/* Help Card */}
         <Help />
       </div>
+      )}
     </div>
   );
 }
