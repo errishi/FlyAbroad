@@ -6,6 +6,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 @theme{
     --breakpoint-xs: 20rem;
     --breakpoint-smL: 23.75rem;

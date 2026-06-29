@@ -10,7 +10,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
         <div className="grid sm:grid-cols-2 gap-6">
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name *
+                    First Name <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"
@@ -23,7 +23,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name *
+                    Last Name <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"
@@ -37,7 +37,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     <Mail className="size-4 inline mr-1" />
-                    Email *
+                    Email <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="email"
@@ -51,11 +51,12 @@ const PersonalInfo = ({ formData, setFormData }) => {
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     <Phone className="size-4 inline mr-1" />
-                    Phone Number *
+                    Phone Number <span className='text-destructive'>*</span>
                 </label>
                 <input
-                    type="tel"
+                    type="number"
                     value={formData.phone}
+                    placeholder='+1 31xxxxxxxx'
                     onChange={(e) => handleInputChange('phone', e.target.value)}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0B7077]"
                     required
@@ -65,7 +66,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     <Calendar className="size-4 inline mr-1" />
-                    Date of Birth *
+                    Date of Birth <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="date"
@@ -78,7 +79,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Nationality *
+                    Nationality <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"
@@ -92,7 +93,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
             <div className="sm:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                     <MapPin className="size-4 inline mr-1" />
-                    Address *
+                    Address <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"
@@ -105,7 +106,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    City *
+                    City <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"
@@ -118,7 +119,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Country *
+                    Country <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"
@@ -131,7 +132,7 @@ const PersonalInfo = ({ formData, setFormData }) => {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Postal Code
+                    Postal Code <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"

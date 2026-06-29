@@ -1,10 +1,10 @@
 import { CheckCircle } from 'lucide-react';
-import React from 'react'
+import React from 'react';
 
-const DocumentUpload = ({formData, setFormData}) => {
+const DocumentUpload = ({ formData, setFormData }) => {
     const handleFileChange = (field, file) => {
-    setFormData(prev => ({ ...prev, [field]: file }));
-  };
+        setFormData(prev => ({ ...prev, [field]: file }));
+    };
 
     return (
         <div className="space-y-6">
@@ -15,16 +15,20 @@ const DocumentUpload = ({formData, setFormData}) => {
             </div>
 
             {[
-                { field: 'passport', label: 'Passport Copy *', required: true },
-                { field: 'transcript', label: 'Academic Transcripts *', required: true },
+                // Removed the hardcoded '*' from the labels
+                { field: 'passport', label: 'Passport Copy', required: true },
+                { field: 'transcript', label: 'Academic Transcripts', required: true },
                 { field: 'englishTestResult', label: 'English Test Results', required: false },
                 { field: 'recommendationLetter', label: 'Recommendation Letter', required: false },
-                { field: 'sop', label: 'Statement of Purpose', required: false }
+                { field: 'sop', label: 'Statement of Purpose', required: true }
             ].map((doc) => (
                 <div key={doc.field} className="border border-gray-300 rounded-lg p-4">
+                    
+                    {/* Render the label and conditionally render the red star if required */}
                     <label className="block text-sm font-medium text-gray-700 mb-3">
-                        {doc.label}
+                        {doc.label} {doc.required && <span className="text-red-500">*</span>}
                     </label>
+                    
                     <div className="flex items-center gap-4">
                         <input
                             type="file"
@@ -33,13 +37,17 @@ const DocumentUpload = ({formData, setFormData}) => {
                             className="flex-1 text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                             required={doc.required}
                         />
-                        {formData && (
-                            <CheckCircle className="size-5 text-green-600" />
+                        
+                        {/* Only show the checkmark if THIS specific file has been uploaded */}
+                        {formData[doc.field] && (
+                            <CheckCircle className="size-5 text-green-600 shrink-0" />
                         )}
                     </div>
-                    {formData && (
+
+                    {/* Only show the file name if THIS specific file has been uploaded */}
+                    {formData[doc.field] && formData[doc.field].name && (
                         <p className="text-sm text-green-600 mt-2">
-                            ✓ {formData.name}
+                            ✓ {formData[doc.field].name}
                         </p>
                     )}
                 </div>
@@ -51,7 +59,7 @@ const DocumentUpload = ({formData, setFormData}) => {
                 </p>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default DocumentUpload;

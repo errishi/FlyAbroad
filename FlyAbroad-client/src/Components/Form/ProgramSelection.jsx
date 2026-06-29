@@ -9,7 +9,7 @@ const ProgramSelection = ({ formData, setFormData }) => {
         <div className="space-y-6">
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Preferred Country *
+                    Preferred Country <span className='text-destructive'>*</span>
                 </label>
                 <select
                     value={formData.preferredCountry}
@@ -41,7 +41,7 @@ const ProgramSelection = ({ formData, setFormData }) => {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Preferred Course/Major *
+                    Preferred Course/Major <span className='text-destructive'>*</span>
                 </label>
                 <input
                     type="text"
@@ -55,7 +55,7 @@ const ProgramSelection = ({ formData, setFormData }) => {
 
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Preferred Intake *
+                    Preferred Intake <span className='text-destructive'>*</span>
                 </label>
                 <select
                     value={formData.intakeMonth}
