@@ -28,6 +28,10 @@ input[type=number] {
     scrollbar-width: none !important;
 }
 
+html{
+    overflow-x: hidden;
+}
+
 body{
     background-color: #F5F5F5;
     overflow-x: hidden !important;

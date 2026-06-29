@@ -57,7 +57,7 @@ const EducationalBackground = ({ formData, setFormData }) => {
                         Graduation Year <span className='text-destructive'>*</span>
                     </label>
                     <input
-                        type="text"
+                        type="number"
                         value={formData.graduationYear}
                         onChange={(e) => handleInputChange('graduationYear', e.target.value)}
                         placeholder="e.g., 2023"
