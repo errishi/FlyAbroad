@@ -142,12 +142,21 @@ export const loginUser = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 
+    // Return user data without sensitive fields
+    const userResponse = {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+      isVerified: user.isVerified,
+      isLoggedIn: user.isLoggedIn
+    };
+
     return res.status(200).json({
       success: true,
       message: `Welcome back ${user.username}`,
       accessToken,
       refreshToken,
-      user
+      user: userResponse
     });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server error", error: error.message });
@@ -158,6 +167,8 @@ export const logoutUser = async (req, res) => {
     const userId = req.userId;
     await Session.deleteMany({ userId });
     await User.findByIdAndUpdate(userId, { isLoggedIn: false });
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken');
     return res.status(200).json({ success: true, message: "Logged out successfully" });
   } catch (error) {
     return res.status(500).json({ success: false, message: "Server error", error: error.message });

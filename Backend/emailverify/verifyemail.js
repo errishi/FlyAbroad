@@ -15,7 +15,7 @@ export const sendVerificationEmail = async (token, email) => {
   );
 
   const template = handlebars.compile(emailTemplateSource);
-  const verificationUrl = `${process.env.FRONTEND_URL || "https://yourdomain.com"}/verify/${encodeURIComponent(
+  const verificationUrl = `${process.env.FRONTEND_URL}/verify/${encodeURIComponent(
     token
   )}`;
   const htmlToSend = template({ verificationUrl });

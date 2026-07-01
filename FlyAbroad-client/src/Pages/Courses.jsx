@@ -1,7 +1,9 @@
 import PrimaryButton from "@/Components/PrimaryButton";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-const Courses = ({setCurrentAuth}) => {
+const Courses = () => {
+  const navigate = useNavigate();
   const courseCategories = [
     {
       name: "Undergraduate Programs",
@@ -128,7 +130,7 @@ const Courses = ({setCurrentAuth}) => {
           <p className="text-[16px] lg:text-xl md:text-2xl mb-10 opacity-90 max-w-3xl mx-auto">
             Learn from industry experts and advance your career with our comprehensive educational programs.
           </p>
-          <button onClick={()=>setCurrentAuth(true)} className="bg-white cursor-pointer text-[#0B7077] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-105 shadow-xl">
+          <button onClick={() => navigate('/signup')} className="bg-white cursor-pointer text-[#0B7077] px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all duration-200 transform hover:scale-105 shadow-xl">
             Get Started Today
           </button>
         </div>

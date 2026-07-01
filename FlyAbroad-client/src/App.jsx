@@ -6,7 +6,7 @@ import About from './Pages/About';
 import Footer from './Components/Footer';
 import Career from './Pages/Career';
 import Contact from './Pages/Contact';
-import LoginForm from './Components/Auth/LoginForm';
+import AuthPage from './Components/Auth/Authpage';
 import Courses from './Pages/Courses'
 import NotFound from './Pages/NotFound';
 import Universites from './Pages/Universites'
@@ -19,7 +19,7 @@ import Blogs from './Pages/Blogs';
 import ProtectedRoutes from './Pages/Protectedroutes';
 import Verify from './Pages/Verify';
 import VerifyEmail from './Pages/VerifyEmail';
-import Signup from './Pages/Signup';
+import Signup from './Components/Auth/Authpage';
 import OAuthRedirect from './Pages/OAuthRedirect';
 import ChangePassword from './Pages/ChangePassword';
 import ForgetPassword from './Pages/ForgetPassword';
@@ -49,7 +49,7 @@ const App = () => {
   
   return (
     <>
-    {currentAuth ? <LoginForm setCurrentAuth={setCurrentAuth} /> : <></>}
+    {currentAuth ? <AuthPage setCurrentAuth={setCurrentAuth} /> : <></>}
     {readFeedback ? <FeedbackPopUp setReadFeedback={setReadFeedback} title={feedbackData.title} userName={feedbackData.name} description={feedbackData.description} /> : <></>}
     <ScrollToTop />
     <div>
@@ -58,13 +58,14 @@ const App = () => {
         <Route path='/' element={<Home sendData={handleFeedbackData} setReadFeedback={setReadFeedback} setCurrentAuth={setCurrentAuth} />} />        
         <Route path='/about' element={<About />} />
         <Route path='/ProtectedRoutes' element={<ProtectedRoutes />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/signup' element={<AuthPage />} />
+        <Route path="/login" element={<AuthPage />} />
         <Route path='/oauth-redirect' element={<OAuthRedirect />} />
         <Route path='/career' element={<Career />} />
         <Route path='/verify' element={<VerifyEmail />} />
         <Route path='/verify/:token' element={<Verify />} />
         <Route path='/oauth-redirect' element={<OAuthRedirect />} />
-        <Route path='/login' element={<LoginForm />} />
+        <Route path='/Authpage' element={<AuthPage />} />
         <Route path='/forget-password' element={<ForgetPassword />} />
         <Route path='/change-password/:email' element={<ChangePassword />} />
         <Route path='/verify-otp/:email' element={<VerifyOTP />} />

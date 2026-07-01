@@ -1,86 +1,156 @@
-import React, { useState, _useEffect } from 'react';
-import { ArrowRight, Plane, GraduationCap, Stethoscope, Briefcase, Globe, Plus } from 'lucide-react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { 
+  ArrowRight, GraduationCap, Stethoscope, Briefcase, Globe, Plus, Search, 
+  BookOpen, Star, MapPin, Heart
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-
 const PRIMARY_COLOR = '#0B7707'; 
+const ACCENT_COLOR = '#FD661F';
 
-
-const CATEGORIES = [
-  { id: 'engineering', label: 'Engineering', icon: <GraduationCap size={16} /> },
-  { id: 'medical', label: 'Medical', icon: <Stethoscope size={16} /> },
-  { id: 'business', label: 'Business', icon: <Briefcase size={16} /> },
-  { id: 'others', label: 'Others', icon: <Globe size={16} /> },
-];
+// Comprehensive Universities Database (10 per Country)
+const UNIVERSITIES_BY_COUNTRY = {
+  'Ireland': [
+    { name: 'Trinity College Dublin', logo: 'TCD', rank: 81, cost: 23000, stream: 'Humanities', city: 'Dublin', desc: "Ireland's oldest university with a highly-ranked historical campus and outstanding humanities." },
+    { name: 'University College Dublin', logo: 'UCD', rank: 126, cost: 21500, stream: 'Business', city: 'Dublin', desc: "Leading research-intensive institution featuring Ireland's top business school." },
+    { name: 'University of Galway', logo: 'UG', rank: 258, cost: 18500, stream: 'Medicine', city: 'Galway', desc: 'Global medical device hub location with stellar medical and biomedical sciences programs.' },
+    { name: 'Dublin City University', logo: 'DCU', rank: 336, cost: 17000, stream: 'STEM', city: 'Dublin', desc: 'Renowned for industrial partnerships, tech innovation, and strong graduate employment.' },
+    { name: 'University of Limerick', logo: 'UL', rank: 426, cost: 16500, stream: 'STEM', city: 'Limerick', desc: 'Superb cooperative education placement program with high employment rates.' },
+    { name: 'Maynooth University', logo: 'MU', rank: 801, cost: 15000, stream: 'Humanities', city: 'Maynooth', desc: 'A rapidly growing institution renowned for its strong community feel and liberal arts.' },
+    { name: 'University College Cork', logo: 'UCC', rank: 292, cost: 19000, stream: 'Medicine', city: 'Cork', desc: 'World leader in sustainability, food science, and digestive medical research.' },
+    { name: 'Technological University Dublin', logo: 'TUD', rank: 851, cost: 14500, stream: 'STEM', city: 'Dublin', desc: 'Hands-on practical engineering curriculum and strong technical foundations.' },
+    { name: 'South East Technological University', logo: 'SETU', rank: 1201, cost: 12500, stream: 'STEM', city: 'Waterford', desc: 'Affordable tuition, friendly regional environment, and targeted applied science tracks.' },
+    { name: 'Atlantic Technological University', logo: 'ATU', rank: 1301, cost: 12000, stream: 'Business', city: 'Galway', desc: 'Dynamic practical learning with beautiful wild Atlantic locations.' }
+  ],
+  'United Kingdom': [
+    { name: 'University of Oxford', logo: 'OXF', rank: 3, cost: 44000, stream: 'Humanities', city: 'Oxford', desc: "One of the world's oldest and most prestigious institutions offering premium tutoring." },
+    { name: 'University of Cambridge', logo: 'CAM', rank: 5, cost: 46000, stream: 'STEM', city: 'Cambridge', desc: 'Global bastion of scientific discoveries and mathematical Excellence.' },
+    { name: 'Imperial College London', logo: 'IMP', rank: 6, cost: 41000, stream: 'STEM', city: 'London', desc: 'Exclusively focused on science, engineering, business, and world-class medicine.' },
+    { name: 'University College London', logo: 'UCL', rank: 9, cost: 35000, stream: 'Humanities', city: 'London', desc: 'Multidisciplinary giant in the heart of London with pioneering global outlooks.' },
+    { name: 'University of Edinburgh', logo: 'EDI', rank: 22, cost: 32000, stream: 'STEM', city: 'Edinburgh', desc: 'Historic Scottish powerhouse leading in artificial intelligence and informatics.' },
+    { name: 'University of Manchester', logo: 'MAN', rank: 32, cost: 29000, stream: 'Business', city: 'Manchester', desc: 'Renowned for social impact, massive research footprint, and Nobel Laureate pedigree.' },
+    { name: 'King\'s College London', logo: 'KCL', rank: 40, cost: 34000, stream: 'Medicine', city: 'London', desc: 'Prestigious center for medicine, psychiatry, law, and international affairs.' },
+    { name: 'University of Bristol', logo: 'BRI', rank: 55, cost: 28000, stream: 'STEM', city: 'Bristol', desc: 'Vibrant modern city university with highly ranked aerospace and computing fields.' },
+    { name: 'University of Warwick', logo: 'WAR', rank: 67, cost: 27500, stream: 'Business', city: 'Coventry', desc: 'Warwick Business School is ranked among the finest in Europe.' },
+    { name: 'University of Glasgow', logo: 'GLA', rank: 76, cost: 26000, stream: 'Medicine', city: 'Glasgow', desc: 'Beautiful gothic campus hosting pioneering medical research institutes.' }
+  ],
+  'Germany': [
+    { name: 'Technical University of Munich', logo: 'TUM', rank: 37, cost: 4000, stream: 'STEM', city: 'Munich', desc: "Germany's premier entrepreneurial tech university with deep corporate ties." },
+    { name: 'LMU Munich', logo: 'LMU', rank: 54, cost: 500, stream: 'Medicine', city: 'Munich', desc: 'World-renowned medical campus and elite research across sciences and arts.' },
+    { name: 'Heidelberg University', logo: 'HEI', rank: 87, cost: 3000, stream: 'Medicine', city: 'Heidelberg', desc: 'Pristine historical center for advanced medical research and classic philosophy.' },
+    { name: 'Humboldt University of Berlin', logo: 'HUB', rank: 120, cost: 600, stream: 'Humanities', city: 'Berlin', desc: 'The architectural model for modern research universities worldwide.' },
+    { name: 'Karlsruhe Institute of Technology', logo: 'KIT', rank: 119, cost: 3000, stream: 'STEM', city: 'Karlsruhe', desc: 'Leading German research laboratory in energy, informatics, and material science.' },
+    { name: 'RWTH Aachen University', logo: 'RWT', rank: 106, cost: 500, stream: 'STEM', city: 'Aachen', desc: 'The powerhouse of German mechanical, electrical, and manufacturing engineering.' },
+    { name: 'TU Berlin', logo: 'TUB', rank: 154, cost: 600, stream: 'STEM', city: 'Berlin', desc: 'Innovative engineering programs nestled directly in the German startup capital.' },
+    { name: 'University of Freiburg', logo: 'FRE', rank: 192, cost: 3000, stream: 'Humanities', city: 'Freiburg', desc: 'Brimming with intellectual heritage amidst the scenic Black Forest region.' },
+    { name: 'University of Tübingen', logo: 'TUB', rank: 213, cost: 3000, stream: 'Medicine', city: 'Tübingen', desc: 'A classic university town focusing on life sciences, chemistry, and AI.' },
+    { name: 'University of Hamburg', logo: 'HAM', rank: 205, cost: 700, stream: 'Business', city: 'Hamburg', desc: 'Excellent climate research, maritime trade law, and strong financial paths.' }
+  ],
+  'Australia': [
+    { name: 'University of Melbourne', logo: 'MEL', rank: 14, cost: 33000, stream: 'STEM', city: 'Melbourne', desc: 'Ranked #1 in Australia; highly regarded globally for tech and biomedicine.' },
+    { name: 'University of Sydney', logo: 'SYD', rank: 19, cost: 32000, stream: 'Business', city: 'Sydney', desc: 'Stunning sandstone campus offering top-tier MBA, commerce, and media programs.' },
+    { name: 'Australian National University', rank: 34, logo: 'ANU', cost: 31000, stream: 'Humanities', city: 'Canberra', desc: "Australia's national research star focusing on foreign policy, policy, and math." },
+    { name: 'University of Queensland', logo: 'UQ', rank: 43, cost: 30000, stream: 'Medicine', city: 'Brisbane', desc: 'A premier research hub leading in vaccine development and marine biology.' },
+    { name: 'Monash University', logo: 'MON', rank: 42, cost: 29500, stream: 'Medicine', city: 'Melbourne', desc: 'A massive global network championing pharmacy and pharmaceutical studies.' },
+    { name: 'UNSW Sydney', logo: 'UNS', rank: 19, cost: 31500, stream: 'STEM', city: 'Sydney', desc: 'Leader in clean energy, solar cell technology, and computer sciences.' },
+    { name: 'University of Western Australia', logo: 'UWA', rank: 72, cost: 28000, stream: 'STEM', city: 'Perth', desc: 'Oceanic engineering, mining engineering, and biodiversity specialists.' },
+    { name: 'University of Adelaide', logo: 'ADE', rank: 89, cost: 27000, stream: 'Medicine', city: 'Adelaide', desc: 'Wine science, agricultural breakthroughs, and stellar health sciences.' },
+    { name: 'University of Technology Sydney', logo: 'UTS', rank: 90, cost: 26000, stream: 'STEM', city: 'Sydney', desc: 'Super modern architecture, practical computing, and dynamic industrial links.' },
+    { name: 'Macquarie University', logo: 'MAC', rank: 130, cost: 25000, stream: 'Business', city: 'Sydney', desc: 'Pioneered continuous actuarial sciences and world-renowned linguistics.' }
+  ],
+  'United States': [
+    { name: 'Massachusetts Institute of Technology', logo: 'MIT', rank: 1, cost: 58000, stream: 'STEM', city: 'Boston', desc: "The world's undisputed champion for modern technology, AI, and engineering." },
+    { name: 'Harvard University', logo: 'HAR', rank: 4, cost: 59000, stream: 'Humanities', city: 'Boston', desc: 'Global benchmark of premium learning, legal education, and economic research.' },
+    { name: 'Stanford University', logo: 'STA', rank: 5, cost: 57000, stream: 'STEM', city: 'Palo Alto', desc: 'The intellectual heartbeat and launchpad of Silicon Valley startup culture.' },
+    { name: 'University of California, Berkeley', logo: 'BER', rank: 10, cost: 44000, stream: 'STEM', city: 'Berkeley', desc: 'The world\'s elite public university, producing unparalleled scientific breakthroughs.' },
+    { name: 'Columbia University', logo: 'COL', rank: 23, cost: 62000, stream: 'Business', city: 'New York', desc: 'Ivy League education perched in Manhattan, driving wall street and media giants.' },
+    { name: 'California Institute of Technology', logo: 'CAL', rank: 15, cost: 56000, stream: 'STEM', city: 'Pasadena', desc: "Intense research focus hosting NASA's jet propulsion laboratory." },
+    { name: 'University of California, Los Angeles', logo: 'ULA', rank: 29, cost: 42000, stream: 'Medicine', city: 'Los Angeles', desc: 'Leading academic medicine system paired with elite cinematic and arts modules.' },
+    { name: 'Yale University', logo: 'YAL', rank: 16, cost: 59500, stream: 'Humanities', city: 'New Haven', desc: 'Renowned for world-class drama, undergraduate residential houses, and law.' },
+    { name: 'Princeton University', logo: 'PRI', rank: 17, cost: 54000, stream: 'STEM', city: 'Princeton', desc: 'Exquisite focus on pure undergraduate research and theoretical sciences.' },
+    { name: 'Cornell University', logo: 'COR', rank: 13, cost: 57000, stream: 'STEM', city: 'Ithaca', desc: 'Ivy League leader in computer science, agricultural science, and hotel management.' }
+  ],
+  'Canada': [
+    { name: 'University of Toronto', logo: 'TOR', rank: 21, cost: 42000, stream: 'STEM', city: 'Toronto', desc: "Canada's highest ranked university, known for machine learning and medicine." },
+    { name: 'University of British Columbia', logo: 'UBC', rank: 34, cost: 38000, stream: 'STEM', city: 'Vancouver', desc: 'Stunning forest-and-ocean campus hosting elite forestry and geosciences.' },
+    { name: 'McGill University', logo: 'MCG', rank: 30, cost: 35000, stream: 'Medicine', city: 'Montreal', desc: 'Historic medical trailblazers situated in Canada\'s cultural capital.' },
+    { name: 'McMaster University', logo: 'MCM', rank: 189, cost: 29000, stream: 'Medicine', city: 'Hamilton', desc: 'Famed for pioneering problem-based learning models in healthcare education.' },
+    { name: 'University of Alberta', logo: 'ALB', rank: 111, cost: 28000, stream: 'STEM', city: 'Edmonton', desc: 'A power research hub for artificial intelligence, mining, and geology.' },
+    { name: 'Université de Montréal', logo: 'MON', rank: 141, cost: 26000, stream: 'STEM', city: 'Montreal', desc: 'World-class francophone research hub featuring MILA (AI research center).' },
+    { name: 'University of Waterloo', logo: 'WAT', rank: 112, cost: 34000, stream: 'STEM', city: 'Waterloo', desc: 'World-renowned co-op program fueling North American tech giants.' },
+    { name: 'Western University', logo: 'WES', rank: 114, cost: 29000, stream: 'Business', city: 'London', desc: 'Ivey Business School provides unparalleled case-study leadership paths.' },
+    { name: 'University of Calgary', logo: 'CAL', rank: 182, cost: 25000, stream: 'STEM', city: 'Calgary', desc: 'Dynamic energetic hub specializing in geoscience, clean energy and tech.' },
+    { name: 'University of Ottawa', logo: 'OTT', rank: 177, cost: 27000, stream: 'Humanities', city: 'Ottawa', desc: "The world's largest English-French bilingual university offering amazing government co-ops." }
+  ],
+  'New Zealand': [
+    { name: 'University of Auckland', logo: 'AKL', rank: 68, cost: 26000, stream: 'STEM', city: 'Auckland', desc: "New Zealand's flagship research-intensive tech and engineering giant." },
+    { name: 'University of Otago', logo: 'OTG', rank: 206, cost: 24000, stream: 'Medicine', city: 'Dunedin', desc: 'The absolute country leader in dental, medical, and physiological sciences.' },
+    { name: 'Victoria University of Wellington', logo: 'VUW', rank: 241, cost: 21000, stream: 'Humanities', city: 'Wellington', desc: 'Strategic capital position driving policy, creative media, and civic law.' },
+    { name: 'University of Canterbury', logo: 'CAN', rank: 256, cost: 22000, stream: 'STEM', city: 'Christchurch', desc: 'Renowned for civil engineering, forestry science, and Antarctic research.' },
+    { name: 'Massey University', logo: 'MAS', rank: 292, cost: 19500, stream: 'STEM', city: 'Palmerston North', desc: 'Pioneers in veterinary science, agricultural engineering, and remote studies.' },
+    { name: 'University of Waikato', logo: 'WAI', rank: 250, cost: 19000, stream: 'Business', city: 'Hamilton', desc: 'Renowned triple-accredited Business management school and indigenous study.' },
+    { name: 'Lincoln University', logo: 'LIN', rank: 362, cost: 18000, stream: 'STEM', city: 'Lincoln', desc: 'Highly boutique focus on agriculture, land-use, ecosystem health, and viticulture.' },
+    { name: 'Auckland University of Technology', logo: 'AUT', rank: 407, cost: 21500, stream: 'STEM', city: 'Auckland', desc: 'High practical employment design, modern gaming/software development hubs.' },
+    { name: 'Eastern Tech Institute', logo: 'EIT', rank: 1501, cost: 14000, stream: 'Business', city: 'Napier', desc: 'Affordable paths, strong regional community links, and direct vocational training.' },
+    { name: 'Southern Institute of Technology', logo: 'SIT', rank: 1600, cost: 12000, stream: 'STEM', city: 'Invercargill', desc: 'Pioneer of the Zero Fees scholarship scheme, ideal for highly budget-conscious paths.' }
+  ],
+  'Russia': [
+    { name: 'Lomonosov Moscow State University', logo: 'MSU', rank: 87, cost: 6500, stream: 'STEM', city: 'Moscow', desc: "Russia's oldest, absolute premier center for advanced mathematics and physics." },
+    { name: 'Saint Petersburg State University', logo: 'SPb', rank: 315, cost: 6000, stream: 'Humanities', city: 'St. Petersburg', desc: 'Incredible historical institution delivering world-class languages and history.' },
+    { name: 'Novosibirsk State University', logo: 'NSU', rank: 321, cost: 4500, stream: 'STEM', city: 'Novosibirsk', desc: 'Located directly inside Akademgorodok scientific research city.' },
+    { name: 'Bauman Moscow State Technical University', logo: 'BAU', rank: 319, cost: 5500, stream: 'STEM', city: 'Moscow', desc: 'Highly elite rocket, aerospace, robotics, and applied physics institute.' },
+    { name: 'HSE University', logo: 'HSE', rank: 308, cost: 6200, stream: 'Business', city: 'Moscow', desc: 'Top tier modern Russian university specializing in social sciences, economics.' },
+    { name: 'National Research Nuclear University MEPhI', logo: 'MEP', rank: 350, cost: 4800, stream: 'STEM', city: 'Moscow', desc: 'A world-class leader in nuclear physics, nanotechnologies, and cybernetics.' },
+    { name: 'Moscow Institute of Physics and Technology', logo: 'MIPT', rank: 290, cost: 5800, stream: 'STEM', city: 'Dolgoprudny', desc: 'Known as the Russian MIT; legendary rigorous curriculum in physics.' },
+    { name: 'Tomsk State University', logo: 'TSU', rank: 272, cost: 3800, stream: 'STEM', city: 'Tomsk', desc: "Siberia's research crown jewel driving complex ecosystem and climate research." },
+    { name: 'ITMO University', logo: 'ITM', rank: 359, cost: 4200, stream: 'STEM', city: 'St. Petersburg', desc: 'The multi-time programming world champions, stellar IT and optical studies.' },
+    { name: 'Peter the Great St. Petersburg Polytech', logo: 'PET', rank: 382, cost: 4000, stream: 'STEM', city: 'St. Petersburg', desc: 'Exceptional legacy in metallurgy, energy system engineering, and mechanics.' }
+  ]
+};
 
 const COUNTRIES = [
-  {
-    id: 1,
-    name: 'Ireland',
-    description: 'Experience world-class education amidst breathtaking landscapes and a vibrant culture.',
-    image: 'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?q=80&w=2574&auto=format&fit=crop', // Cliffs of Moher
-    category: 'engineering'
-  },
-  {
-    id: 2,
-    name: 'United Kingdom',
-    description: 'Home to some of the oldest and most prestigious universities in the world.',
-    image: '/uk-image.png', // London
-    category: 'business'
-  },
-  {
-    id: 3,
-    name: 'Germany',
-    description: 'A hub for innovation and engineering with tuition-free public universities.',
-    image: '/germany-image.png', // German Architecture
-    category: 'engineering'
-  },
-  {
-    id: 4,
-    name: 'Australia',
-    description: 'Study in a paradise of beaches and bushland with a globally recognized education system.',
-    image: '/australia-image.png', // Sydney Opera House
-    category: 'medical'
-  },
-  {
-    id: 5,
-    name: 'United States',
-    description: 'The land of opportunity, offering a diverse range of programs and cultural experiences.',
-    image: '/usa-image.png', // NYC
-    category: 'business'
-  },
-  {
-    id: 6,
-    name: 'Canada',
-    description: 'Known for its friendly locals, stunning nature, and high standard of living.',
-    image: '/canada-image.png', // Lake Louise
-    category: 'medical'
-  },
-  {
-    id: 7,
-    name: 'New Zealand',
-    description: 'A safe and welcoming country with a practical teaching style and hands-on learning.',
-    image: '/newzealand-image.png', // NZ Landscape
-    category: 'others'
-  },
-  {
-    id: 8,
-    name: 'Russia',
-    description: 'Rich history and strong scientific traditions in mathematics and physics.',
-    image: '/russia-image.png', // Moscow
-    category: 'engineering'
-  },
+  { id: 1, name: 'Ireland', code: 'IE', description: 'Experience world-class education amidst breathtaking landscapes and a vibrant tech culture.', image: 'https://images.unsplash.com/photo-1590089415225-401ed6f9db8e?q=80&w=1200&auto=format&fit=crop', accent: 'Goldmine of tech multinationals like Google & Apple.' },
+  { id: 2, name: 'United Kingdom', code: 'UK', description: 'Home to some of the oldest, most prestigious academic institutions on Earth.', image: 'https://wallpapers.com/images/hd/aerial-view-cambridge-university-with-blue-sky-mly3dd8rvzxvbtxa.jpg', accent: 'Exceptional academic legacy and direct career pathways.' },
+  { id: 3, name: 'Germany', code: 'DE', description: 'A globally leading hub for innovation and engineering with tuition-free public options.', image: 'https://fastlagos.com/wp-content/uploads/2022/11/730.jpg', accent: 'Industry-integrated learning with minimal tuition fees.' },
+  { id: 4, name: 'Australia', code: 'AU', description: 'Study in a paradise of warm beaches and modern cities with globally recognized degrees.', image: 'https://i.pinimg.com/originals/d3/77/e2/d377e2f19a8e16e6cb1c8110fd2e640b.jpg', accent: 'Generous post-study working visas and premium lifestyle.' },
+  { id: 5, name: 'United States', code: 'US', description: 'The absolute frontier of innovation, offering unparalleled academic research scope.', image: './usauniversities.png', accent: 'Massive networking index and world-leading faculty teams.' },
+  { id: 6, name: 'Canada', code: 'CA', description: 'Acclaimed for its safety, welcoming multiculturalism, and direct immigration paths.', image: './canadauniversities.png', accent: 'Most welcoming post-grad permanent residency tracks.' },
+  { id: 7, name: 'New Zealand', code: 'NZ', description: 'Safe, beautiful, peaceful country emphasizing highly supportive and hands-on teaching.', image: './newzealand.png', accent: 'Spectacular wilderness paired with personalized care.' },
+  { id: 8, name: 'Russia', code: 'RU', description: 'Immersive historical foundations with unrivaled rigor in math, space sciences, and code.', image: './russia.png', accent: 'Legendary scientific rigor at very affordable costs.' },
 ];
 
-export default function Destination() {
-  const [_activeCategory, _setActiveCategory] = useState('engineering');
+export default function App() {
+  const [activeTab, setActiveTab] = useState('home'); 
   const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [shortlist, setShortlist] = useState([]);
+  
+  // Quiz states
+  const [quizStep, setQuizStep] = useState(0);
+  const [quizAnswers, setQuizAnswers] = useState({ budget: 30000, stream: '', visaPriority: 'high', climate: 'any' });
+  const [quizRecommendations, setQuizRecommendations] = useState([]);
 
-  // Handle changing the main display when a thumbnail is clicked
+  // Search & Filter state
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filterCountry, setFilterCountry] = useState('All');
+  const [filterStream, setFilterStream] = useState('All');
+  const [filterMaxCost, setFilterMaxCost] = useState(65000);
+
+  // Gemini Advisor states
+  const [chatMessages, setChatMessages] = useState([
+    { id: 1, sender: 'bot', text: "Hello! I am your AI Global Study Advisor. Tell me about your academic interests, preferred country, or your annual tuition budget so I can build your ideal educational strategy!" }
+  ]);
+  const [inputMessage, setInputMessage] = useState('');
+  const [isAiTyping, setIsAiTyping] = useState(false);
+  const chatEndRef = useRef(null);
+
+  // Sync scroll on chat
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatMessages, isAiTyping]);
+
   const handleCountrySelect = (country) => {
     if (selectedCountry.id === country.id) return;
-    
     setIsAnimating(true);
     setTimeout(() => {
       setSelectedCountry(country);
@@ -88,159 +158,228 @@ export default function Destination() {
     }, 200); 
   };
 
+  const toggleShortlist = (uni) => {
+    setShortlist(prev => 
+      prev.some(item => item.name === uni.name)
+        ? prev.filter(item => item.name !== uni.name)
+        : [...prev, uni]
+    );
+  };
+
+  const currentUniversities = UNIVERSITIES_BY_COUNTRY[selectedCountry.name] || [];
+
+  // All Universities flattened for explorer - MEMOIZED to prevent redeclaring on every render
+  const allUniversities = useMemo(() => {
+    return Object.entries(UNIVERSITIES_BY_COUNTRY).reduce((acc, [countryName, unis]) => {
+      return [...acc, ...unis.map(u => ({ ...u, country: countryName }))];
+    }, []);
+  }, []);
+
+  // Filter logic - MEMOIZED
+  const filteredUniversities = useMemo(() => {
+    const lowerQuery = searchQuery.toLowerCase();
+    return allUniversities.filter(uni => {
+      const matchesSearch = uni.name.toLowerCase().includes(lowerQuery) || uni.city.toLowerCase().includes(lowerQuery);
+      const matchesCountry = filterCountry === 'All' || uni.country === filterCountry;
+      const matchesStream = filterStream === 'All' || uni.stream === filterStream;
+      const matchesCost = uni.cost <= filterMaxCost;
+      return matchesSearch && matchesCountry && matchesStream && matchesCost;
+    });
+  }, [allUniversities, searchQuery, filterCountry, filterStream, filterMaxCost]);
+
+  // Pre-compiled slider setup to create distinct react keys for duplicated tracks
+  const sliderItems = useMemo(() => {
+    return [
+      ...currentUniversities.map((uni, index) => ({ ...uni, slideId: `orig-${index}` })),
+      ...currentUniversities.map((uni, index) => ({ ...uni, slideId: `dup-${index}` }))
+    ];
+  }, [currentUniversities]);
+
   return (
-    <div className="min-h-screen bg-gray-100 font-sans text-slate-800 selection:bg-green-200">
+    <div className="min-h-screen overflow-x-hidden">
       
-      {/* Decorative Background Element (Subtle grid) */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'radial-gradient(#0B7707 1px, transparent 1px)', backgroundSize: '32px 32px' }}>
+      <style>{`
+        @keyframes infiniteSlide {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-infinite-slide {
+          animation: infiniteSlide 25s linear infinite;
+        }
+        .animate-infinite-slide:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      {/* Dynamic Ambient Background Elements */}
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none z-0" 
+           style={{ backgroundImage: 'radial-gradient(#0B7707 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 flex flex-col items-center">
+      {/* --- Main Contents Dynamic Container --- */}
+      <main className="flex-grow">
         
-        {/* --- Header Section --- */}
-        <div className="text-center max-w-3xl mb-10 space-y-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight relative inline-block">
-            Top Countries to Study <span className='text-[#FD661F]'>Abroad</span>
-            {/* Decorative Arrow SVG using the custom green */}
-            <svg 
-              className="absolute lg:-bottom-10 md:-bottom-10 -bottom-8 lg:right-5 md:right-5 right-30 w-24 h-12 md:w-32 md:h-16 transform rotate-3 translate-x-8 md:translate-x-12" 
-              viewBox="0 0 100 50" 
-              fill="none" 
-              stroke={PRIMARY_COLOR} 
-              strokeWidth="2"
-              strokeLinecap="round"
-            >
-              <path d="M10,25 Q50,45 90,10" />
-              <path d="M80,15 L90,10 L85,25" />
-            </svg>
-          </h1>
-          <p className="text-gray-600 text-lg md:text-xl pt-4">
-            Pack your bags to get top-notch education beyond borders in the USA, UK, Canada, Australia, Ireland, New Zealand, and more!
-          </p>
-        </div>
-
-        {/* --- Main Content Area --- */}
-        <div className="w-full flex flex-col items-center gap-8">
-          
-          {/* 1. Featured Card (The Big Image) */}
-          <div className="relative w-full max-w-4xl h-100 md:h-125 rounded-3xl overflow-hidden shadow-2xl group transition-all duration-500 bg-gray-900">
-            {/* Background Image with animation key */}
-            <img 
-              key={selectedCountry.id}
-              src={selectedCountry.image} 
-              alt={selectedCountry.name}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isAnimating ? 'opacity-50' : 'opacity-80 group-hover:opacity-60'}`}
-            />
-            
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-90" />
-
-            {/* Content Content */}
-            <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-12">
-              <div className="self-center mt-4">
-                <h2 className="text-white text-4xl md:text-6xl font-bold tracking-tight drop-shadow-lg text-center">
-                  {selectedCountry.name}
-                </h2>
+        {/* VIEW 1: HOME / COUNTRY DIRECTORY */}
+        {activeTab === 'home' && (
+          <div className="animate-fade-in">
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 flex flex-col items-center">
+              
+              {/* Header Section */}
+              <div className="text-center max-w-3xl mb-12 space-y-4">
+                <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-[#0B7707] font-semibold text-xs tracking-wider uppercase px-4 py-1.5 rounded-full border border-emerald-200/50">
+                  <Globe size={13} /> Discover Your Educational Horizon
+                </span>
+                <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                  Top Countries to Study <span className="text-[#FD661F] relative">Abroad
+                    <svg className="absolute -bottom-3 left-0 w-full h-2.5" viewBox="0 0 100 10" preserveAspectRatio="none">
+                      <path d="M0,7 Q50,0 100,7" stroke="#FD661F" strokeWidth="3" fill="none" />
+                    </svg>
+                  </span>
+                </h1>
+                <p className="text-slate-600 text-lg md:text-xl pt-4 font-normal max-w-2xl mx-auto leading-relaxed">
+                  Embark on your personal academic adventure. Explore top universities across the UK, USA, Germany, Australia, Canada, Ireland, and beyond!
+                </p>
               </div>
 
-              <div className="flex flex-col items-center gap-6 mb-4">
-                 <p className={`text-gray-200 text-center max-w-lg text-lg drop-shadow-md transition-all duration-500 ${isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'}`}>
-                   {selectedCountry.description}
-                 </p>
-
-                <Link
-                  to={`/university?country=${selectedCountry.name}`} 
-                  className="group relative cursor-pointer inline-flex items-center gap-2 px-8 py-3 rounded-full text-white font-bold text-lg transition-transform duration-300 hover:scale-105 shadow-lg active:scale-95"
-                  style={{ backgroundColor: PRIMARY_COLOR }}
-                >
-                  Explore
-                  <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
-                  
-                  {/* Button Glow Effect */}
-                  <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-50 blur-md transition-opacity duration-300" 
-                       style={{ backgroundColor: PRIMARY_COLOR }}></div>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* 2. Thumbnails Carousel */}
-          <div className="w-full max-w-6xl overflow-x-auto pb-4 pt-5 scrollbar-hide">
-            <div className="flex justify-start md:justify-center gap-4 px-4 min-w-max">
-              {COUNTRIES.map((country) => {
-                const isSelected = selectedCountry.id === country.id;
+              {/* Featured Showcase Card */}
+              <div className="relative w-full max-w-5xl h-[420px] md:h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-500 bg-slate-900 ring-1 ring-slate-800">
+                <img 
+                  key={selectedCountry.id}
+                  src={selectedCountry.image} 
+                  alt={selectedCountry.name}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isAnimating ? 'opacity-40' : 'opacity-85'}`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
                 
-                return (
-                  <div 
-                    key={country.id}
-                    onClick={() => handleCountrySelect(country)}
-                    className="group flex flex-col items-center gap-3 cursor-pointer"
-                  >
-                    {/* Thumbnail Image Container */}
-                    <div 
-                      className={`
-                        relative w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden transition-all duration-300 ease-out shadow-md
-                        ${isSelected ? 'ring-4 ring-offset-2 ring-offset-gray-100 scale-110' : 'hover:scale-105 hover:shadow-xl opacity-80 hover:opacity-100'}
-                      `}
-                      style={{ ringColor: isSelected ? PRIMARY_COLOR : 'transparent', '--tw-ring-color': PRIMARY_COLOR }}
-                    >
-                      <img 
-                        src={country.image} 
-                        alt={country.name}
-                        className="w-full h-full object-cover"
-                      />
-                      {/* Dark overlay on idle items for contrast */}
-                      {!isSelected && (
-                         <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-300" />
-                      )}
+                {/* Featured card text overlay */}
+                <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-14 z-10">
+                  <div className="flex justify-between items-start">
+                    <span className="bg-white/15 backdrop-blur-md border border-white/25 px-5 py-2 rounded-full text-white font-bold text-sm tracking-wide shadow-sm">
+                      Destination Highlight
+                    </span>
+                    <span className="text-white/60 font-mono text-3xl font-extrabold tracking-widest">{selectedCountry.code}</span>
+                  </div>
+
+                  <div className="space-y-4 md:space-y-6">
+                    <div>
+                      <h2 className="text-white text-4xl md:text-6xl font-black tracking-tight leading-none">
+                        {selectedCountry.name}
+                      </h2>
+                      <p className="text-[#FD661F] font-bold text-sm md:text-base mt-2 flex items-center gap-1.5">
+                        <Star size={16} className="fill-[#FD661F]" /> {selectedCountry.accent}
+                      </p>
                     </div>
                     
-                    {/* Country Name Label */}
-                    <span 
-                      className={`
-                        text-sm font-semibold text-center w-24 leading-tight transition-colors duration-300
-                        ${isSelected ? 'text-gray-900 font-bold' : 'text-gray-500 group-hover:text-gray-700'}
-                      `}
-                    >
-                      {country.name}
-                    </span>
-                  </div>
-                );
-              })}
+                    <p className={`text-slate-200 max-w-xl text-base md:text-lg leading-relaxed drop-shadow-md transition-all duration-500 ${isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'}`}>
+                      {selectedCountry.description}
+                    </p>
 
-              {/* Explore More Card (Added) */}
-              <div className="group flex flex-col items-center gap-3 cursor-pointer">
-                <div 
-                  className="relative w-24 h-24 md:w-28 md:h-28 rounded-2xl overflow-hidden bg-white border-2 border-dashed border-gray-300 flex items-center justify-center transition-all duration-300 hover:border-[#0B7707] hover:bg-green-50 shadow-sm hover:shadow-md"
-                >
-                  <div className="flex flex-col items-center gap-1 text-gray-400 group-hover:text-[#0B7707] transition-colors">
-                    <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center group-hover:bg-white group-hover:shadow-sm transition-all">
-                       <Plus size={20} />
+                    <div className="flex flex-wrap gap-4 pt-2">
+                      <Link
+                        to='/university'
+                        className="group relative cursor-pointer inline-flex items-center gap-2.5 px-8 py-4 bg-[#0B7707] hover:bg-emerald-800 rounded-full text-white font-bold text-base transition-all duration-300 hover:scale-[1.03] shadow-lg active:scale-95"
+                      >
+                        Explore Top Universities
+                        <ArrowRight size={18} className="transition-transform group-hover:translate-x-1.5" />
+                      </Link>
                     </div>
                   </div>
                 </div>
-                
-                <span className="text-sm font-semibold text-center w-24 leading-tight text-gray-500 group-hover:text-[#0B7707] transition-colors">
-                  Explore More
-                </span>
               </div>
+
+              {/* Thumbnails Carousel */}
+              <div className="w-full max-w-6xl overflow-x-auto pb-4 pt-8 scrollbar-hide">
+                <div className="flex justify-start lg:justify-center gap-5 px-4 min-w-max">
+                  {COUNTRIES.map((country) => {
+                    const isSelected = selectedCountry.id === country.id;
+                    return (
+                      <div 
+                        key={country.id}
+                        onClick={() => handleCountrySelect(country)}
+                        className="group flex flex-col items-center gap-3 cursor-pointer"
+                      >
+                        <div 
+                          className={`relative w-24 h-24 md:w-28 md:h-28 rounded-3xl overflow-hidden transition-all duration-300 ease-out shadow-md ${isSelected ? 'ring-4 ring-offset-2 scale-110 shadow-xl' : 'hover:scale-105 hover:shadow-lg opacity-85 hover:opacity-100'}`}
+                          style={{ ringColor: isSelected ? PRIMARY_COLOR : 'transparent', '--tw-ring-color': PRIMARY_COLOR }}
+                        >
+                          <img src={country.image} alt={country.name} className="w-full h-full object-cover" />
+                          {!isSelected && <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-transparent transition-colors duration-300" />}
+                        </div>
+                        <span className={`text-sm font-semibold text-center w-24 leading-tight transition-colors duration-300 ${isSelected ? 'text-slate-900 font-black' : 'text-slate-500 group-hover:text-slate-800'}`}>
+                          {country.name}
+                        </span>
+                      </div>
+                    );
+                  })}
+                  
+                  {/* Explore More Card */}
+                  <div className="group flex flex-col items-center gap-3 cursor-pointer">
+                    <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-3xl overflow-hidden bg-white border-2 border-dashed border-slate-300 flex items-center justify-center transition-all duration-300 hover:border-[#0B7707] hover:bg-emerald-50/50 shadow-sm hover:shadow-md">
+                      <div className="flex flex-col items-center gap-1.5 text-slate-400 group-hover:text-[#0B7707] transition-colors">
+                        <Plus size={24} />
+                        <span className="text-xs font-bold uppercase tracking-wider">Search</span>
+                      </div>
+                    </div>
+                    <span className="text-sm font-semibold text-center w-24 leading-tight text-slate-500 group-hover:text-[#0B7707] transition-colors">Explore All</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Slider for Current Country's Universities */}
+              {currentUniversities.length > 0 && (
+                <div className="w-full max-w-6xl mt-14">
+                  <div className="flex justify-between items-end mb-6">
+                    <div>
+                      <h3 className="text-2xl font-extrabold text-slate-900">
+                        Top Institutions in {selectedCountry.name}
+                      </h3>
+                      <p className="text-slate-500 text-sm mt-0.5">Sliding elite colleges for {selectedCountry.name}. Hover to pause.</p>
+                    </div>
+                  </div>
+                  
+                  {/* Infinite Slider Wrapper */}
+                  <div className="relative w-full overflow-hidden bg-white py-6 rounded-3xl border border-slate-200/60 shadow-xs">
+                    <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+                    <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+                    
+                    {/* Sliding flex container */}
+                    <div className="flex w-max animate-infinite-slide gap-6 px-4">
+                      {sliderItems.map((uni) => (
+                        <div 
+                          key={`${selectedCountry.id}-${uni.slideId}`} 
+                          className="flex flex-col justify-between bg-slate-50 hover:bg-white rounded-2xl p-5 border border-slate-200/80 w-56 h-36 transition-all hover:shadow-lg hover:border-emerald-200 shrink-0 relative group"
+                        >
+                          <div className="flex items-start justify-between">
+                            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+                              Rank #{uni.rank}
+                            </span>
+                            <button 
+                              onClick={() => toggleShortlist(uni)}
+                              className="text-slate-300 hover:text-red-500 transition-colors"
+                            >
+                              <Heart size={16} className={shortlist.some(s => s.name === uni.name) ? "fill-red-500 text-red-500" : ""} />
+                            </button>
+                          </div>
+                          
+                          <div>
+                            <h4 className="text-sm font-bold text-slate-800 line-clamp-1 group-hover:text-[#0B7707] transition-colors">{uni.name}</h4>
+                            <div className="flex justify-between items-center mt-2.5 text-xs text-slate-500">
+                              <span className="flex items-center gap-1"><MapPin size={12} /> {uni.city}</span>
+                              <span className="font-extrabold text-[#FD661F]">${uni.cost.toLocaleString()}/yr</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
 
             </div>
           </div>
+        )}
 
-        </div>
-      </div>
-
-      <style>{`
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-      `}</style>
+      </main>
     </div>
   );
 }

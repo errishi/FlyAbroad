@@ -8,14 +8,13 @@ import {
   MenuItems
 } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { useContext, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import LoginIcon from '@mui/icons-material/Login';
+import { useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AuthButton from './Auth/AuthButton';
 import UniversityDropdown from './Home/UniversityDropdown';
 import UserContext from '@/Context/UserContext';
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -27,40 +26,37 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Navbar({ setCurrentAuth }) {
+export default function Navbar() {
   const location = useLocation();
-  const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { user, logout } = useContext(UserContext);
 
+  const apiBase = import.meta.env.VITE_API_BASE || 'http://localhost:8080';
   const accessToken = localStorage.getItem('accessToken');
 
   const logoutHandler = async () => {
     try {
       const res = await axios.post(
-        'http://localhost:8080/user/logout',
+        `${apiBase}/user/logout`,
         {},
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
+          withCredentials: true,
         }
       );
+
       if (res.data.success) {
-        setUser(null);
+        logout();
         toast.success(res.data.message);
-        localStorage.clear();
+        navigate('/');
       }
     } catch (error) {
       console.error(error);
+      toast.error(error.response?.data?.message || 'Failed to logout. Please try again.');
     }
   };
-
-  // Sync user state from localStorage
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, [setUser]);
 
   return (
     <Disclosure
@@ -160,20 +156,19 @@ export default function Navbar({ setCurrentAuth }) {
                     </a>
                   </MenuItem>
                   <MenuItem>
-                    <a
-                      href="#"
+                    <button
                       onClick={logoutHandler}
                       className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden"
                     >
                       Sign out
-                    </a>
+                    </button>
                   </MenuItem>
                 </MenuItems>
               </Menu>
             </div>
           ) : (
             <div
-              onClick={() => setCurrentAuth(true)}
+              onClick={() => navigate('/signup')}
               className="cursor-pointer hover:opacity-90"
             >
               <AuthButton />
