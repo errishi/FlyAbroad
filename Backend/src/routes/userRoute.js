@@ -14,9 +14,4 @@ router.post('/forgot-password', forgotPassword)
 router.post('/verify-otp/:email', verifyOtp)
 router.put('/change-password/:email', changePassword)
 
-
-
-
-
-
 export default router

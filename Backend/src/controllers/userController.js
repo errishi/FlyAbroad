@@ -22,7 +22,7 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ success: false, message: "User already exists" });
     }
 
-    const hashPassword = await bcrypt.hash(password, 10);
+    const hashPassword = await bcrypt.hash(password, 20);
     const newUser = await User.create({
       username,
       email,
@@ -53,9 +53,6 @@ export const registerUser = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server error. Please try again later." });
   }
 };
-
-
-
 export const verifyEmail = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -91,8 +88,6 @@ export const verifyEmail = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server error. Please try again later." });
   }
 }
-
-
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
