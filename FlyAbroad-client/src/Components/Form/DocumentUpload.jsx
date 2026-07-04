@@ -15,20 +15,22 @@ const DocumentUpload = ({ formData, setFormData }) => {
             </div>
 
             {[
-                // Removed the hardcoded '*' from the labels
-                { field: 'passport', label: 'Passport Copy', required: true },
-                { field: 'transcript', label: 'Academic Transcripts', required: true },
-                { field: 'englishTestResult', label: 'English Test Results', required: false },
-                { field: 'recommendationLetter', label: 'Recommendation Letter', required: false },
-                { field: 'sop', label: 'Statement of Purpose', required: true }
+                { field: 'passport', label: 'Passport Copy', required: true, hint: 'Max size: 150KB (JPG, PNG, JPEG)' },
+                { field: 'transcript', label: 'Academic Transcripts', required: true, hint: 'Max size: 5MB (PDF, DOC, DOCX)' },
+                { field: 'englishTestResult', label: 'English Test Results', required: false, hint: 'Max size: 5MB (PDF preferred)' },
+                { field: 'recommendationLetter', label: 'Recommendation Letter', required: false, hint: 'Max size: 5MB (PDF preferred)' },
+                { field: 'sop', label: 'Statement of Purpose', required: true, hint: 'Max size: 5MB (PDF preferred)' }
             ].map((doc) => (
                 <div key={doc.field} className="border border-gray-300 rounded-lg p-4">
-                    
+
                     {/* Render the label and conditionally render the red star if required */}
-                    <label className="block text-sm font-medium text-gray-700 mb-3">
-                        {doc.label} {doc.required && <span className="text-red-500">*</span>}
-                    </label>
-                    
+                    <div className='flex justify-between'>
+                        <label className="block text-sm font-medium text-gray-700 mb-3">
+                            {doc.label} {doc.required && <span className="text-red-500">*</span>}
+                        </label>
+                        <p className="text-xs text-gray-500 mt-0.5">{doc.hint}</p>
+                    </div>
+
                     <div className="flex items-center gap-4">
                         <input
                             type="file"
@@ -37,7 +39,7 @@ const DocumentUpload = ({ formData, setFormData }) => {
                             className="flex-1 text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                             required={doc.required}
                         />
-                        
+
                         {/* Only show the checkmark if THIS specific file has been uploaded */}
                         {formData[doc.field] && (
                             <CheckCircle className="size-5 text-green-600 shrink-0" />
