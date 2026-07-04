@@ -50,10 +50,18 @@ const universitySchema = new mongoose.Schema({
         type: String,
         required: true
     }],
+    // --- CLOUDINARY IMAGE FIX ---
     image: {
-        type: String,
-        required: true
+        url: {
+            type: String,
+            required: true
+        },
+        filename: { 
+            type: String, 
+            required: true // Cloudinary returns this as the 'public_id' or 'filename'
+        }
     },
+    // ----------------------------
     costLevel: {
         type: String,
         enum: ['low', 'medium', 'high'],

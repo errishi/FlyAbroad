@@ -14,7 +14,9 @@ import instituteRouter from './src/routes/instituteRoute.js';
 import session from 'express-session';
 import passport from 'passport';
 import authRoute from './src/routes/authRoute.js';
-// import applicationRouter from './src/routes/applicationRoute.js';
+import userFeedbackRouter from './src/routes/userFeedbackRoute.js';
+import careerRouter from './src/routes/careerRoute.js';
+import applicationRouter from './src/routes/applicationRoute.js';
 
 connectDB()
 
@@ -54,17 +56,19 @@ app.use((err, req, res, next) => {
 app.use('/user', userRoute)
 app.use('/auth', authRoute)
 app.use("/api/blogs", blogRouter);
-// app.use("/api/applications", applicationRouter);
+app.use("/api/applications", applicationRouter);
 app.use("/api/universities", universityRouter);
 app.use("/api/students", studentRouter);
 app.use("/api/institutes", instituteRouter);
-
+app.use("/api/user-feedback", userFeedbackRouter);
+app.use("/api/careers", careerRouter);
 
 // route
 app.get("/", (req, res) => {
     res.send("Welcome to Unefly!");
 });
 
-app.listen(port, () => {
-    console.log(`sever is listening at port ${port}`);
-})
+
+app.listen(port, ()=>{
+    console.log(`server live at ${port}`);
+});
