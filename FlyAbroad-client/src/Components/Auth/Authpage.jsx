@@ -169,6 +169,7 @@ const AuthPage = () => {
               fullWidth
               id="outlined-name"
               name="username"
+              required
               label="Full Name"
               variant="outlined"
               value={formData.username}
@@ -189,6 +190,7 @@ const AuthPage = () => {
             fullWidth
             id="outlined-email"
             name="email"
+            required
             label="Email Address"
             variant="outlined"
             value={formData.email}
@@ -208,6 +210,7 @@ const AuthPage = () => {
             fullWidth
             id="outlined-password"
             name="password"
+            required
             label="Password"
             type="password"
             variant="outlined"
