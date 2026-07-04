@@ -7,7 +7,6 @@ import Exams from '@/Components/Home/Exams';
 import Destination from '@/Components/Home/Destination';
 import StorySection from '@/Components/Home/StorySection';
 import ChooseUneFly from '@/Components/Home/ChooseUneFly';
-import Logos from '@/Components/Home/Logos';
 import Faq from '@/Components/Home/Faq';
 import VideoTestimonialPage from '@/Components/Home/VideoTestimonialPage';
 import CTA from '@/Components/Home/CTA';
@@ -18,7 +17,6 @@ const Home = ({setCurrentAuth, setReadFeedback, sendData}) => {
       <Header />
       <Exams />
       <Destination />
-      <Logos />
       <ChooseUneFly />
       <UniversityData />
       <VideoTestimonialPage />

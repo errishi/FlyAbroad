@@ -17,10 +17,10 @@ const allBlogs = async (req, res) => {
         // query to optimize performance
         const [blogs, totalBlogs] = await Promise.all([
             blogModel.find()
-                .select('title category image excerpt author readTime')
-                .skip(skip)
-                .limit(limit)
-                .lean(),
+            .select('title category image excerpt author readTime')
+            .skip(skip)
+            .limit(limit)
+            .lean(),
 
             blogModel.countDocuments()
         ]);
@@ -41,7 +41,7 @@ const allBlogs = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ success: false, message: "Something went wrong" });
+        res.status(500).json({success: false, message: "Something went wrong"});
     }
 }
 

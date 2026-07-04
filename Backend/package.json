@@ -5,8 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "nodemon app.js",
+    "start": "node app.js"
   },
   "author": "unefly",
   "license": "ISC",
@@ -14,13 +14,20 @@
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
     "cors": "^2.8.6",
-    "dotenv": "^17.2.4",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "handlebars": "^4.7.9",
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.1.0",
     "mongoose": "^9.2.1",
+    "nodemailer": "^9.0.1",
+    "nodemon": "^3.1.11",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-linkedin-oauth2": "^2.0.0",
+    "yup": "^1.7.1",
     "multer": "^2.1.1",
-    "multer-storage-cloudinary": "^4.0.0",
-    "nodemon": "^3.1.11"
+    "multer-storage-cloudinary": "^4.0.0"
   }
 }
