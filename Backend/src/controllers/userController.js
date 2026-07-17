@@ -22,7 +22,8 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ success: false, message: "User already exists" });
     }
 
-    const hashPassword = await bcrypt.hash(password, 20);
+    const saltRounds = Number(process.env.BCRYPT_SALT_ROUNDS) || 10;
+    const hashPassword = await bcrypt.hash(password, saltRounds);
     const newUser = await User.create({
       username,
       email,
@@ -105,6 +106,22 @@ export const loginUser = async (req, res) => {
       return res.status(402).json({ success: false, message: "Invalid password" });
     }
 
+    // Re-hash the password if stored hash uses higher cost than current config.
+    try {
+      const desiredRounds = Number(process.env.BCRYPT_SALT_ROUNDS) || 10;
+      const parts = (user.password || '').split('$');
+      const currentRounds = parts && parts.length >= 3 ? parseInt(parts[2], 10) : null;
+      if (currentRounds && currentRounds !== desiredRounds) {
+        // Re-hash using the plaintext password the user just provided.
+        const newHash = await bcrypt.hash(password, desiredRounds);
+        user.password = newHash;
+        // save asynchronously but don't block the response too long
+        user.save().catch(err => console.error('Rehash save error:', err.message));
+      }
+    } catch (rehashErr) {
+      console.error('Error during rehash check:', rehashErr.message);
+    }
+
     if (!user.isVerified) {
       return res.status(403).json({ success: false, message: "Email not verified, verify your account" });
     }
@@ -157,16 +174,64 @@ export const loginUser = async (req, res) => {
     return res.status(500).json({ success: false, message: "Server error", error: error.message });
   }
 };
+const getTokenFromCookieHeader = (cookieHeader) => {
+  if (!cookieHeader) return null;
+  return cookieHeader.split(';').reduce((token, cookie) => {
+    const [name, value] = cookie.split('=');
+    if (!name || !value) return token;
+    const key = name.trim();
+    const val = decodeURIComponent(value.trim());
+    if (key === 'accessToken' || key === 'token') {
+      return val;
+    }
+    return token;
+  }, null);
+};
+
+const extractTokenFromRequest = (req) => {
+  const authorizationHeader = req.headers.authorization;
+  if (authorizationHeader && authorizationHeader.startsWith('Bearer ')) {
+    return authorizationHeader.split(' ')[1];
+  }
+
+  if (req.body?.token) {
+    return req.body.token;
+  }
+
+  if (req.query?.token) {
+    return req.query.token;
+  }
+
+  return getTokenFromCookieHeader(req.headers.cookie);
+};
+
 export const logoutUser = async (req, res) => {
   try {
-    const userId = req.userId;
-    await Session.deleteMany({ userId });
-    await User.findByIdAndUpdate(userId, { isLoggedIn: false });
+    const token = extractTokenFromRequest(req);
+    let userId = null;
+
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        userId = decoded?.id;
+      } catch (err) {
+        if (err.name === 'TokenExpiredError') {
+          const decoded = jwt.verify(token, JWT_SECRET, { ignoreExpiration: true });
+          userId = decoded?.id;
+        }
+      }
+    }
+
+    if (userId) {
+      await Session.deleteMany({ userId });
+      await User.findByIdAndUpdate(userId, { isLoggedIn: false });
+    }
+
     res.clearCookie('accessToken');
     res.clearCookie('refreshToken');
-    return res.status(200).json({ success: true, message: "Logged out successfully" });
+    return res.status(200).json({ success: true, message: 'Logged out successfully' });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "Server error", error: error.message });
+    return res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 };
 

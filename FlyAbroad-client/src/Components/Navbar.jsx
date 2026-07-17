@@ -36,13 +36,16 @@ export default function Navbar() {
 
   const logoutHandler = async () => {
     try {
+      const headers = {};
+      if (accessToken) {
+        headers.Authorization = `Bearer ${accessToken}`;
+      }
+
       const res = await axios.post(
         `${apiBase}/user/logout`,
         {},
         {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+          headers,
           withCredentials: true,
         }
       );

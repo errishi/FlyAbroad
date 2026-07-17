@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { 
-  ArrowRight, GraduationCap, Stethoscope, Briefcase, Globe, Plus, Search, 
-  BookOpen, Star, MapPin, Heart
-} from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Globe, Plus, Star, MapPin, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const PRIMARY_COLOR = '#0B7707'; 
-const ACCENT_COLOR = '#FD661F';
 
 // Comprehensive Universities Database (10 per Country)
 const UNIVERSITIES_BY_COUNTRY = {
@@ -120,34 +116,9 @@ const COUNTRIES = [
 ];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home'); 
   const [selectedCountry, setSelectedCountry] = useState(COUNTRIES[0]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [shortlist, setShortlist] = useState([]);
-  
-  // Quiz states
-  const [quizStep, setQuizStep] = useState(0);
-  const [quizAnswers, setQuizAnswers] = useState({ budget: 30000, stream: '', visaPriority: 'high', climate: 'any' });
-  const [quizRecommendations, setQuizRecommendations] = useState([]);
-
-  // Search & Filter state
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filterCountry, setFilterCountry] = useState('All');
-  const [filterStream, setFilterStream] = useState('All');
-  const [filterMaxCost, setFilterMaxCost] = useState(65000);
-
-  // Gemini Advisor states
-  const [chatMessages, setChatMessages] = useState([
-    { id: 1, sender: 'bot', text: "Hello! I am your AI Global Study Advisor. Tell me about your academic interests, preferred country, or your annual tuition budget so I can build your ideal educational strategy!" }
-  ]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [isAiTyping, setIsAiTyping] = useState(false);
-  const chatEndRef = useRef(null);
-
-  // Sync scroll on chat
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [chatMessages, isAiTyping]);
 
   const handleCountrySelect = (country) => {
     if (selectedCountry.id === country.id) return;
@@ -168,25 +139,6 @@ export default function App() {
 
   const currentUniversities = UNIVERSITIES_BY_COUNTRY[selectedCountry.name] || [];
 
-  // All Universities flattened for explorer - MEMOIZED to prevent redeclaring on every render
-  const allUniversities = useMemo(() => {
-    return Object.entries(UNIVERSITIES_BY_COUNTRY).reduce((acc, [countryName, unis]) => {
-      return [...acc, ...unis.map(u => ({ ...u, country: countryName }))];
-    }, []);
-  }, []);
-
-  // Filter logic - MEMOIZED
-  const filteredUniversities = useMemo(() => {
-    const lowerQuery = searchQuery.toLowerCase();
-    return allUniversities.filter(uni => {
-      const matchesSearch = uni.name.toLowerCase().includes(lowerQuery) || uni.city.toLowerCase().includes(lowerQuery);
-      const matchesCountry = filterCountry === 'All' || uni.country === filterCountry;
-      const matchesStream = filterStream === 'All' || uni.stream === filterStream;
-      const matchesCost = uni.cost <= filterMaxCost;
-      return matchesSearch && matchesCountry && matchesStream && matchesCost;
-    });
-  }, [allUniversities, searchQuery, filterCountry, filterStream, filterMaxCost]);
-
   // Pre-compiled slider setup to create distinct react keys for duplicated tracks
   const sliderItems = useMemo(() => {
     return [
@@ -196,7 +148,7 @@ export default function App() {
   }, [currentUniversities]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <div className="min-h-screen w-full overflow-x-hidden bg-slate-50">
       
       <style>{`
         @keyframes infiniteSlide {
@@ -216,169 +168,161 @@ export default function App() {
            style={{ backgroundImage: 'radial-gradient(#0B7707 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}>
       </div>
 
-      {/* --- Main Contents Dynamic Container --- */}
-      <main className="flex-grow">
+      {/* Main Full-Width Container */}
+      <main className="w-full flex-grow relative z-10">
         
-        {/* VIEW 1: HOME / COUNTRY DIRECTORY */}
-        {activeTab === 'home' && (
-          <div className="animate-fade-in">
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16 flex flex-col items-center">
-              
-              {/* Header Section */}
-              <div className="text-center max-w-3xl mb-12 space-y-4">
-                <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-[#0B7707] font-semibold text-xs tracking-wider uppercase px-4 py-1.5 rounded-full border border-emerald-200/50">
-                  <Globe size={13} /> Discover Your Educational Horizon
+        <div className="w-full px-4 sm:px-8 lg:px-12 py-10 lg:py-16 flex flex-col items-center">
+          
+          {/* Header Section */}
+          <div className="text-center w-full max-w-4xl mb-12 space-y-4">
+            <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-[#0B7707] font-semibold text-xs tracking-wider uppercase px-4 py-1.5 rounded-full border border-emerald-200/50">
+              <Globe size={13} /> Discover Your Educational Horizon
+            </span>
+            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              Top Countries to Study <span className="text-[#FD661F] relative">Abroad
+                <svg className="absolute -bottom-3 left-0 w-full h-2.5" viewBox="0 0 100 10" preserveAspectRatio="none">
+                  <path d="M0,7 Q50,0 100,7" stroke="#FD661F" strokeWidth="3" fill="none" />
+                </svg>
+              </span>
+            </h1>
+            <p className="text-slate-600 text-lg md:text-xl pt-4 font-normal max-w-2xl mx-auto leading-relaxed">
+              Embark on your personal academic adventure. Explore top universities across the UK, USA, Germany, Australia, Canada, Ireland, and beyond!
+            </p>
+          </div>
+
+          {/* Full-Width Featured Showcase Card */}
+          <div className="relative w-full h-[450px] md:h-[550px] rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-500 bg-slate-900 ring-1 ring-slate-800">
+            <img 
+              key={selectedCountry.id}
+              src={selectedCountry.image} 
+              alt={selectedCountry.name}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isAnimating ? 'opacity-40' : 'opacity-85'}`}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+            
+            {/* Featured card text overlay */}
+            <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-14 z-10">
+              <div className="flex justify-between items-start">
+                <span className="bg-white/15 backdrop-blur-md border border-white/25 px-5 py-2 rounded-full text-white font-bold text-sm tracking-wide shadow-sm">
+                  Destination Highlight
                 </span>
-                <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                  Top Countries to Study <span className="text-[#FD661F] relative">Abroad
-                    <svg className="absolute -bottom-3 left-0 w-full h-2.5" viewBox="0 0 100 10" preserveAspectRatio="none">
-                      <path d="M0,7 Q50,0 100,7" stroke="#FD661F" strokeWidth="3" fill="none" />
-                    </svg>
-                  </span>
-                </h1>
-                <p className="text-slate-600 text-lg md:text-xl pt-4 font-normal max-w-2xl mx-auto leading-relaxed">
-                  Embark on your personal academic adventure. Explore top universities across the UK, USA, Germany, Australia, Canada, Ireland, and beyond!
-                </p>
+                <span className="text-white/60 font-mono text-3xl font-extrabold tracking-widest">{selectedCountry.code}</span>
               </div>
 
-              {/* Featured Showcase Card */}
-              <div className="relative w-full max-w-5xl h-[420px] md:h-[500px] rounded-[2.5rem] overflow-hidden shadow-2xl transition-all duration-500 bg-slate-900 ring-1 ring-slate-800">
-                <img 
-                  key={selectedCountry.id}
-                  src={selectedCountry.image} 
-                  alt={selectedCountry.name}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isAnimating ? 'opacity-40' : 'opacity-85'}`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+              <div className="space-y-4 md:space-y-6">
+                <div>
+                  <h2 className="text-white text-4xl md:text-6xl font-black tracking-tight leading-none">
+                    {selectedCountry.name}
+                  </h2>
+                  <p className="text-[#FD661F] font-bold text-sm md:text-base mt-2 flex items-center gap-1.5">
+                    <Star size={16} className="fill-[#FD661F]" /> {selectedCountry.accent}
+                  </p>
+                </div>
                 
-                {/* Featured card text overlay */}
-                <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-14 z-10">
-                  <div className="flex justify-between items-start">
-                    <span className="bg-white/15 backdrop-blur-md border border-white/25 px-5 py-2 rounded-full text-white font-bold text-sm tracking-wide shadow-sm">
-                      Destination Highlight
-                    </span>
-                    <span className="text-white/60 font-mono text-3xl font-extrabold tracking-widest">{selectedCountry.code}</span>
-                  </div>
+                <p className={`text-slate-200 max-w-3xl text-base md:text-lg leading-relaxed drop-shadow-md transition-all duration-500 ${isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'}`}>
+                  {selectedCountry.description}
+                </p>
 
-                  <div className="space-y-4 md:space-y-6">
-                    <div>
-                      <h2 className="text-white text-4xl md:text-6xl font-black tracking-tight leading-none">
-                        {selectedCountry.name}
-                      </h2>
-                      <p className="text-[#FD661F] font-bold text-sm md:text-base mt-2 flex items-center gap-1.5">
-                        <Star size={16} className="fill-[#FD661F]" /> {selectedCountry.accent}
-                      </p>
-                    </div>
-                    
-                    <p className={`text-slate-200 max-w-xl text-base md:text-lg leading-relaxed drop-shadow-md transition-all duration-500 ${isAnimating ? 'translate-y-4 opacity-0' : 'translate-y-0 opacity-100'}`}>
-                      {selectedCountry.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-4 pt-2">
-                      <Link
-                        to='/university'
-                        className="group relative cursor-pointer inline-flex items-center gap-2.5 px-8 py-4 bg-[#0B7707] hover:bg-emerald-800 rounded-full text-white font-bold text-base transition-all duration-300 hover:scale-[1.03] shadow-lg active:scale-95"
-                      >
-                        Explore Top Universities
-                        <ArrowRight size={18} className="transition-transform group-hover:translate-x-1.5" />
-                      </Link>
-                    </div>
-                  </div>
+                <div className="flex flex-wrap gap-4 pt-2">
+                  <Link
+                    to="/university"
+                    className="group relative cursor-pointer inline-flex items-center gap-2.5 px-8 py-4 bg-[#0B7707] hover:bg-emerald-800 rounded-full text-white font-bold text-base transition-all duration-300 hover:scale-[1.03] shadow-lg active:scale-95"
+                  >
+                    Explore Top Universities
+                  </Link>
                 </div>
               </div>
-
-              {/* Thumbnails Carousel */}
-              <div className="w-full max-w-6xl overflow-x-auto pb-4 pt-8 scrollbar-hide">
-                <div className="flex justify-start lg:justify-center gap-5 px-4 min-w-max">
-                  {COUNTRIES.map((country) => {
-                    const isSelected = selectedCountry.id === country.id;
-                    return (
-                      <div 
-                        key={country.id}
-                        onClick={() => handleCountrySelect(country)}
-                        className="group flex flex-col items-center gap-3 cursor-pointer"
-                      >
-                        <div 
-                          className={`relative w-24 h-24 md:w-28 md:h-28 rounded-3xl overflow-hidden transition-all duration-300 ease-out shadow-md ${isSelected ? 'ring-4 ring-offset-2 scale-110 shadow-xl' : 'hover:scale-105 hover:shadow-lg opacity-85 hover:opacity-100'}`}
-                          style={{ ringColor: isSelected ? PRIMARY_COLOR : 'transparent', '--tw-ring-color': PRIMARY_COLOR }}
-                        >
-                          <img src={country.image} alt={country.name} className="w-full h-full object-cover" />
-                          {!isSelected && <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-transparent transition-colors duration-300" />}
-                        </div>
-                        <span className={`text-sm font-semibold text-center w-24 leading-tight transition-colors duration-300 ${isSelected ? 'text-slate-900 font-black' : 'text-slate-500 group-hover:text-slate-800'}`}>
-                          {country.name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                  
-                  {/* Explore More Card */}
-                  <div className="group flex flex-col items-center gap-3 cursor-pointer">
-                    <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-3xl overflow-hidden bg-white border-2 border-dashed border-slate-300 flex items-center justify-center transition-all duration-300 hover:border-[#0B7707] hover:bg-emerald-50/50 shadow-sm hover:shadow-md">
-                      <div className="flex flex-col items-center gap-1.5 text-slate-400 group-hover:text-[#0B7707] transition-colors">
-                        <Plus size={24} />
-                        <span className="text-xs font-bold uppercase tracking-wider">Search</span>
-                      </div>
-                    </div>
-                    <span className="text-sm font-semibold text-center w-24 leading-tight text-slate-500 group-hover:text-[#0B7707] transition-colors">Explore All</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Slider for Current Country's Universities */}
-              {currentUniversities.length > 0 && (
-                <div className="w-full max-w-6xl mt-14">
-                  <div className="flex justify-between items-end mb-6">
-                    <div>
-                      <h3 className="text-2xl font-extrabold text-slate-900">
-                        Top Institutions in {selectedCountry.name}
-                      </h3>
-                      <p className="text-slate-500 text-sm mt-0.5">Sliding elite colleges for {selectedCountry.name}. Hover to pause.</p>
-                    </div>
-                  </div>
-                  
-                  {/* Infinite Slider Wrapper */}
-                  <div className="relative w-full overflow-hidden bg-white py-6 rounded-3xl border border-slate-200/60 shadow-xs">
-                    <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-                    <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-                    
-                    {/* Sliding flex container */}
-                    <div className="flex w-max animate-infinite-slide gap-6 px-4">
-                      {sliderItems.map((uni) => (
-                        <div 
-                          key={`${selectedCountry.id}-${uni.slideId}`} 
-                          className="flex flex-col justify-between bg-slate-50 hover:bg-white rounded-2xl p-5 border border-slate-200/80 w-56 h-36 transition-all hover:shadow-lg hover:border-emerald-200 shrink-0 relative group"
-                        >
-                          <div className="flex items-start justify-between">
-                            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
-                              Rank #{uni.rank}
-                            </span>
-                            <button 
-                              onClick={() => toggleShortlist(uni)}
-                              className="text-slate-300 hover:text-red-500 transition-colors"
-                            >
-                              <Heart size={16} className={shortlist.some(s => s.name === uni.name) ? "fill-red-500 text-red-500" : ""} />
-                            </button>
-                          </div>
-                          
-                          <div>
-                            <h4 className="text-sm font-bold text-slate-800 line-clamp-1 group-hover:text-[#0B7707] transition-colors">{uni.name}</h4>
-                            <div className="flex justify-between items-center mt-2.5 text-xs text-slate-500">
-                              <span className="flex items-center gap-1"><MapPin size={12} /> {uni.city}</span>
-                              <span className="font-extrabold text-[#FD661F]">${uni.cost.toLocaleString()}/yr</span>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
             </div>
           </div>
-        )}
 
+          {/* Full-Width Thumbnails Grid Carousel */}
+          <div className="w-full overflow-x-auto pb-4 pt-10 scrollbar-hide">
+            <div className="flex justify-start xl:justify-between gap-5 px-2 min-w-max">
+              {COUNTRIES.map((country) => {
+                const isSelected = selectedCountry.id === country.id;
+                return (
+                  <div 
+                    key={country.id}
+                    onClick={() => handleCountrySelect(country)}
+                    className="group flex flex-col items-center gap-3 cursor-pointer"
+                  >
+                    <div 
+                      className={`relative w-24 h-24 md:w-28 md:h-28 rounded-3xl overflow-hidden transition-all duration-300 ease-out shadow-md ${isSelected ? 'ring-4 ring-offset-2 scale-110 shadow-xl' : 'hover:scale-105 hover:shadow-lg opacity-85 hover:opacity-100'}`}
+                      style={{ ringColor: isSelected ? PRIMARY_COLOR : 'transparent', '--tw-ring-color': PRIMARY_COLOR }}
+                    >
+                      <img src={country.image} alt={country.name} className="w-full h-full object-cover" />
+                      {!isSelected && <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-transparent transition-colors duration-300" />}
+                    </div>
+                    <span className={`text-sm font-semibold text-center w-24 leading-tight transition-colors duration-300 ${isSelected ? 'text-slate-900 font-black' : 'text-slate-500 group-hover:text-slate-800'}`}>
+                      {country.name}
+                    </span>
+                  </div>
+                );
+              })}
+              
+              {/* Explore More Trigger */}
+              <div className="group flex flex-col items-center gap-3 cursor-pointer">
+                <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-3xl overflow-hidden bg-white border-2 border-dashed border-slate-300 flex items-center justify-center transition-all duration-300 hover:border-[#0B7707] hover:bg-emerald-50/50 shadow-sm hover:shadow-md">
+                  <div className="flex flex-col items-center gap-1.5 text-slate-400 group-hover:text-[#0B7707] transition-colors">
+                    <Plus size={24} />
+                    <span className="text-xs font-bold uppercase tracking-wider">Search</span>
+                  </div>
+                </div>
+                <span className="text-sm font-semibold text-center w-24 leading-tight text-slate-500 group-hover:text-[#0B7707] transition-colors">Explore All</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Full-Width Infinite Universities Slider */}
+          {currentUniversities.length > 0 && (
+            <div className="w-full mt-14">
+              <div className="flex justify-between items-end mb-6 px-2">
+                <div>
+                  <h3 className="text-2xl font-extrabold text-slate-900">
+                    Top Institutions in {selectedCountry.name}
+                  </h3>
+                  <p className="text-slate-500 text-sm mt-0.5">Sliding elite colleges for {selectedCountry.name}. Hover to pause.</p>
+                </div>
+              </div>
+              
+              <div className="relative w-full overflow-hidden bg-white py-6 rounded-3xl border border-slate-200/60 shadow-xs">
+                <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+                <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+                
+                {/* Endless row element */}
+                <div className="flex w-max animate-infinite-slide gap-6 px-4">
+                  {sliderItems.map((uni) => (
+                    <div 
+                      key={`${selectedCountry.id}-${uni.slideId}`} 
+                      className="flex flex-col justify-between bg-slate-50 hover:bg-white rounded-2xl p-5 border border-slate-200/80 w-64 h-40 transition-all hover:shadow-lg hover:border-emerald-200 shrink-0 relative group"
+                    >
+                      <div className="flex items-start justify-between">
+                        <span className="bg-emerald-100 text-emerald-800 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+                          Rank #{uni.rank}
+                        </span>
+                        <button 
+                          onClick={() => toggleShortlist(uni)}
+                          className="text-slate-300 hover:text-red-500 transition-colors"
+                        >
+                          <Heart size={16} className={shortlist.some(s => s.name === uni.name) ? "fill-red-500 text-red-500" : ""} />
+                        </button>
+                      </div>
+                      
+                      <div>
+                        <h4 className="text-sm font-bold text-slate-800 line-clamp-2 group-hover:text-[#0B7707] transition-colors">{uni.name}</h4>
+                        <div className="flex justify-between items-center mt-3 text-xs text-slate-500">
+                          <span className="flex items-center gap-1"><MapPin size={12} /> {uni.city}</span>
+                          <span className="font-extrabold text-[#FD661F]">${uni.cost.toLocaleString()}/yr</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+        </div>
       </main>
     </div>
   );
