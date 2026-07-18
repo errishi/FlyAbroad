@@ -14,13 +14,13 @@ const programSchema = new mongoose.Schema({
         enum: ["Bachelor's", "Master's", "PhD", "Associate", "Certificate", "Diploma"],
         required: true
     },
-    durationInYears: {
-        type: Number,
+    duration: {
+        type: String,
         required: true
     },
     tuitionFee: {
-        amount: { type: Number, required: true },
-        currency: { type: String, required: true }
+        type: String,
+        required: true
     }
 });
 
@@ -50,18 +50,18 @@ const universitySchema = new mongoose.Schema({
         type: String,
         required: true
     }],
-    // --- CLOUDINARY IMAGE FIX ---
+    // --- CLOUDINARY IMAGE INTEGRATION ---
     image: {
         url: {
             type: String,
             required: true
         },
-        filename: { 
-            type: String, 
-            required: true // Cloudinary returns this as the 'public_id' or 'filename'
+        filename: {
+            type: String,
+            required: true // Cloudinary 'public_id' or filename
         }
     },
-    // ----------------------------
+    // ------------------------------------
     costLevel: {
         type: String,
         enum: ['low', 'medium', 'high'],
@@ -91,7 +91,16 @@ const universitySchema = new mongoose.Schema({
     },
     universityType: {
         type: String,
-        enum: ['Public University', 'Private University', 'Community College'],
+        enum: [
+            "Public University",
+            "Private University",
+            "Public Institute",
+            "Private Institute",
+            "Community College",
+            "Polytechnic",
+            "Institute of Technology",
+            "Academy"
+        ],
         required: true
     },
     programsOfferedCount: {

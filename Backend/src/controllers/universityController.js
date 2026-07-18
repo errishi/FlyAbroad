@@ -9,7 +9,7 @@ export const allUniversity = async (req, res) => {
     try {
         // apply pagination feature
         const page = parseInt(req.query.page) || 1;
-        const limit = parseInt(req.query.limit) || 12;
+        const limit = parseInt(req.query.limit) || 24;
 
         // calculate documents that db skip
         const skip = (page - 1) * limit;
@@ -99,7 +99,7 @@ export const newUniversityListing = async (req, res) => {
         const {
             name, city, region, country, costLevel, safetyLevel,
             worldRanking, founded, studentPopulation, internationalStudents,
-            universityType, applicationDeadline, overview, campusLife
+            universityType, programsOfferedCount, applicationDeadline, overview, campusLife
         } = req.body;
 
 
@@ -111,8 +111,7 @@ export const newUniversityListing = async (req, res) => {
         const facilities = req.body.facilities ? JSON.parse(req.body.facilities) : [];
         const availablePrograms = req.body.availablePrograms ? JSON.parse(req.body.availablePrograms) : [];
 
-        if (!name || !city || !region || !country || !costLevel || !safetyLevel
-            || !worldRanking || !founded || !studentPopulation || !internationalStudents ||
+        if (!name || !city || !region || !country || !costLevel || !worldRanking || !founded || !studentPopulation || !internationalStudents ||
             !universityType || !applicationDeadline || !overview || !campusLife || !categories || !tags || !facilities || !availablePrograms) {
             return res.status(400).json({
                 success: false,
@@ -122,33 +121,45 @@ export const newUniversityListing = async (req, res) => {
 
         // Map the Cloudinary data correctly according to your schema
         const uploadedImage = {
-                url: req.file.path,
-                filename: req.file.filename
-            }
+            url: req.file.path,
+            filename: req.file.filename
+        }
 
-        // 4. Create the new University document
+        const cleanNumber = (val) => {
+            if (!val) return 0;
+            // Removes commas, plus signs, and whitespace
+            const cleanStr = String(val).replace(/[,+]/g, '').trim();
+            const num = Number(cleanStr);
+            return isNaN(num) ? 0 : num;
+        };
+
+        // --- In your controller ---
         const newUniversity = await universityModel.create({
-            name: name,
-            city: city,
-            region: region,
-            country: country,
-            costLevel: costLevel,
-            safetyLevel: safetyLevel,
-            worldRanking: worldRanking,
-            founded: founded,
-            studentPopulation: studentPopulation,
-            internationalStudents: internationalStudents,
-            universityType: universityType,
-            applicationDeadline: applicationDeadline,
-            overview: overview,
-            campusLife: campusLife,
-            categories: categories,
-            tags: tags,
-            facilities: facilities,
-            availablePrograms: availablePrograms,
+            name,
+            city,
+            region,
+            country,
+            costLevel,
+            safetyLevel,
+            worldRanking: cleanNumber(worldRanking),
+            founded: cleanNumber(founded),
+            studentPopulation: cleanNumber(studentPopulation),
+            internationalStudents: cleanNumber(internationalStudents),
+            universityType,
+            programsOfferedCount: cleanNumber(programsOfferedCount),
+            applicationDeadline: new Date(applicationDeadline),
+            overview,
+            campusLife,
+            categories,
+            tags,
+            facilities,
+            availablePrograms: availablePrograms.map(prog => ({
+                ...prog,
+                // Ensure tuitionFee is handled if it's a string like "$3000/year"
+                tuitionFee: String(prog.tuitionFee)
+            })),
             image: uploadedImage
         });
-
         // 6. Return success response
         res.status(201).json({
             success: true,
@@ -178,17 +189,17 @@ export const newUniversityListing = async (req, res) => {
  * @access  Private (Admin only)
  */
 
-export const editListedUniversityById = async(req,res) => {
+export const editListedUniversityById = async (req, res) => {
     try {
         const { id } = req.params;
         // update object dynamically based on what the sent
-        const updatedData = {...req.body};
+        const updatedData = { ...req.body };
 
         // Safely parse arrays/objects only if they are included in this specific request
         const fieldsToParse = ['categories', 'tags', 'facilities', 'availablePrograms'];
 
         fieldsToParse.forEach((field) => {
-            if(updatedData[field]){
+            if (updatedData[field]) {
                 try {
                     updatedData[field] = JSON.parse(updatedData[field]);
                 } catch (error) {
@@ -200,7 +211,7 @@ export const editListedUniversityById = async(req,res) => {
             }
         });
 
-        if(req.file){
+        if (req.file) {
             updatedData.image = {
                 url: req.file.path,
                 filename: req.file.filename
@@ -214,7 +225,7 @@ export const editListedUniversityById = async(req,res) => {
             { new: true, $runValidators: true }
         );
 
-        if(!updatedUniversity){
+        if (!updatedUniversity) {
             return res.status(404).json({
                 success: false,
                 message: "University not found."
@@ -236,10 +247,10 @@ export const editListedUniversityById = async(req,res) => {
                 message: Object.values(error.errors).map(val => val.message).join(', ')
             });
         }
-        
+
         // Handle Invalid Mongoose Object IDs
         if (error.name === 'CastError' && error.kind === 'ObjectId') {
-             return res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "Invalid University ID format."
             });
@@ -255,12 +266,12 @@ export const editListedUniversityById = async(req,res) => {
  * @access  Private (Admin only)
  */
 
-export const deleteListedUniversityById = async(req,res) => {
+export const deleteListedUniversityById = async (req, res) => {
     try {
         const { id } = req.params;
         const deleteUniversity = await universityModel.findByIdAndDelete(id);
 
-        if(!deleteUniversity){
+        if (!deleteUniversity) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid request, please check id."
@@ -281,10 +292,10 @@ export const deleteListedUniversityById = async(req,res) => {
                 message: Object.values(error.errors).map(val => val.message).join(', ')
             });
         }
-        
+
         // Handle Invalid Mongoose Object IDs
         if (error.name === 'CastError' && error.kind === 'ObjectId') {
-             return res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "Invalid University ID format."
             });
