@@ -171,7 +171,7 @@ export default function App() {
       {/* Main Full-Width Container */}
       <main className="w-full flex-grow relative z-10">
         
-        <div className="w-full px-4 sm:px-8 lg:px-12 py-10 lg:py-16 flex flex-col items-center">
+        <div className="w-full py-10 lg:py-16 flex flex-col items-center px-4 md:px-8 lg:px-16">
           
           {/* Header Section */}
           <div className="text-center w-full max-w-4xl mb-12 space-y-4">
@@ -196,7 +196,7 @@ export default function App() {
               key={selectedCountry.id}
               src={selectedCountry.image} 
               alt={selectedCountry.name}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isAnimating ? 'opacity-40' : 'opacity-85'}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity  duration-500 ${isAnimating ? 'opacity-40' : 'opacity-85'}`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
             

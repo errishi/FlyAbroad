@@ -1,8 +1,8 @@
 export default function MissionCard() {
   return (
-    <div className="min-h-screen w-full bg-gray-50 flex items-center justify-center p-6 select-none font-sans">
+    <div className="min-h-screen mt-20 w-full flex items-center justify-center px-4 md:px-8 lg:px-16 p-6 select-none font-sans">
       {/* Main Card Container spanning full width */}
-      <div className="relative w-full bg-white rounded-xl shadow-xl border border-gray-100 p-8 md:p-14 text-center overflow-hidden">
+      <div className="relative w-full bg-white rounded-xl shadow-lg border border-gray-100 p-8 md:p-14 text-center overflow-hidden">
         
         {/* Decorative Green Quotes Icon */}
         <div className="absolute top-8 left-8 md:top-12 md:left-12 text-teal-500 opacity-80">

@@ -28,9 +28,13 @@ const StepsToApply = () => {
 
       {/* Steps section */}
       <div className='relative flex flex-col md:flex-row gap-8 md:gap-4 justify-between items-start md:items-center mt-16 mb-16 px-4 md:px-0'>
-        {/* Background connecting line */}
-        <div className='absolute left-10 top-4 bottom-4 w-1 md:left-4 md:right-4 md:w-auto md:h-1 md:top-12 z-[-1] bg-yellow-300 hidden sm:block'></div>
-        
+        {/* Background connecting line - Adjusted for alignment */}
+        <div className='absolute bg-yellow-300 z-[-1] hidden sm:block
+    /* Desktop: align with center of 24x24 image (h-24 = 96px, top-12 = 48px) */
+    md:top-12 md:left-[12.5%] md:right-[12.5%] md:h-1 
+    /* Mobile (if you choose to enable it): adjust top value based on image size */
+  '></div>
+
         {/* Step 1 */}
         <div className='bg-white md:bg-transparent flex md:flex-col flex-row items-center gap-4 md:gap-3 text-left md:text-center w-full md:w-1/4 z-10'>
           <img src="/create-profile.svg" className='w-16 h-16 md:w-24 md:h-24 object-contain hover:scale-105 transition-all shrink-0' alt="profile" />

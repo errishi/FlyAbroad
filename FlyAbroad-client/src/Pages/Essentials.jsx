@@ -175,7 +175,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans">
+    <div className="min-h-screen w-full bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-sans px-4 md:px-8 lg:px-16 py-10">
       
       {/* Dynamic Toast System */}
       {toast.visible && (
