@@ -1,4 +1,3 @@
-import React from 'react'
 import StoryCard from './StoryCard';
 import { Button } from "../ui/button";
 import { ArrowRight } from 'lucide-react';
@@ -7,30 +6,50 @@ import { blogs } from '../Blog/BlogData';
 
 const StorySection = () => {
   return (
-    <div className='lg:px-15 md:px-10 px-7 py-5 lg:h-210 md:h-205 h-460 lg:mt-5 mt-10 text-center bg-[url(/design.svg)] bg-no-repeat bg-cover bg-center lg:mask-y-from-195 md:mask-y-from-175 mask-y-from-430 lg:mask-x-from-320'>
-        <div className='lg:mt-15 md:mt-13 mt-20'>
-        <div>
-            <h2 className='lg:text-4xl text-2xl font-semibold'>The Hub of Insights, Stories & Success</h2>
-            <p className='lg:text-lg text-[16px] text-gray-500 my-3 lg:w-210 m-auto'>Discover real journeys, expert tips, and alumni experiences—all in one place.</p>
+    <div className='w-full min-h-screen py-10 lg:py-16 text-center bg-[url(/design.svg)] bg-no-repeat bg-cover bg-center'>
+      {/* Main layout wrapper */}
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        
+        {/* Header Content */}
+        <div className='max-w-3xl mx-auto mb-12'>
+          <h2 className='text-3xl md:text-4xl font-semibold tracking-tight text-gray-900'>
+            The Hub of Insights, Stories & Success
+          </h2>
+          <p className='text-base md:text-lg text-gray-500 mt-4'>
+            Discover real journeys, expert tips, and alumni experiences—all in one place.
+          </p>
         </div>
-        <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols lg:h-115 md:h-115 overflow-y-hidden gap-5 mt-15 place-self-center'>
-            {blogs.slice(0, 3).map((item, index)=>{
-                return (
-                    <StoryCard key={index} id={item.id} title={item.title} description={item.excerpt} category={item.category} readTime={item.readTime} image={item.image} />
-                )
-            })}
+
+        {/* Responsive Grid */}
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-10 place-items-center'>
+          {blogs.slice(0, 3).map((item) => (
+            <StoryCard 
+              key={item.id} 
+              id={item.id} 
+              title={item.title} 
+              description={item.excerpt} 
+              category={item.category} 
+              readTime={item.readTime} 
+              image={item.image} 
+            />
+          ))}
         </div>
-        <div className="text-center mt-10">
-        <Link to={"/blog"}>
-          <Button size="lg" variant="outline" className="rounded-full cursor-pointer px-8 hover:bg-green-50 border-2 border-[#09585e] text-[#FD661F]">
-            View All
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </Link>
+
+        {/* CTA Button */}
+        <div className="text-center mt-12">
+          <Link to="/blog">
+            <Button asChild size="lg" variant="outline" className="rounded-full cursor-pointer px-8 hover:bg-green-50 border-2 border-[#09585e] text-[#FD661F] transition-colors">
+              <span className="flex items-center justify-center gap-2">
+                View All
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </span>
+            </Button>
+          </Link>
         </div>
-        </div>
+
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default StorySection;

@@ -17,7 +17,7 @@ const Header = () => {
           </div>
           <div className='mt-7 flex flex-row sm:gap-5 md:justify-start justify-between items-center'>
             <Link to={"/university"}>
-              <PrimaryButton name={"Explore University"} url={""} />
+              <PrimaryButton asChild name={"Explore University"} />
             </Link>
             <img src="/Button.svg" className='lg:h-10 md:h-9 sm:h-8 h-7' alt="review" />
           </div>

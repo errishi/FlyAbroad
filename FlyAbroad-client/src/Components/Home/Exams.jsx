@@ -7,7 +7,7 @@ const EXAMS_DATA = [
     name: 'IELTS',
     label: 'IELTS',
     color: '#DC2626',
-    description: 'International English Language Testing System. The world\'s most popular English language proficiency test for higher education and global migration.',
+    description: "International English Language Testing System. The world's most popular English language proficiency test for higher education and global migration.",
     duration: '2 hours 45 mins',
     accepted: '11,000+ Organizations',
     type: 'Academic & General',
@@ -134,7 +134,7 @@ const ExamCard = ({ exam, isSelected, onClick }) => {
   return (
     <div 
       onClick={onClick}
-      className={`flex flex-col items-center min-w-30 py-6 cursor-pointer group transition-all duration-300 transform ${isSelected ? 'scale-110' : 'hover:-translate-y-1'}`}
+      className={`flex flex-col items-center min-w-[120px] py-6 cursor-pointer group transition-all duration-300 transform ${isSelected ? 'scale-110' : 'hover:-translate-y-1'}`}
     >
       <div className={`w-24 h-24 rounded-full flex items-center justify-center mb-3 transition-all duration-300 
         ${isSelected 
@@ -144,7 +144,7 @@ const ExamCard = ({ exam, isSelected, onClick }) => {
         <exam.Logo />
       </div>
 
-      <span className={`text-sm font-semibold transition-colors duration-300 ${isSelected ? 'text-[#0B7077]' : 'text-gray-600 group-hover:text-[#0B7077]'}`}>
+      <span className={`text-sm font-semibold text-center transition-colors duration-300 ${isSelected ? 'text-[#0B7077]' : 'text-gray-600 group-hover:text-[#0B7077]'}`}>
         {exam.label}
       </span>
       
@@ -158,14 +158,15 @@ const ExamCard = ({ exam, isSelected, onClick }) => {
 const ExamGuides = () => {
   const [selectedExam, setSelectedExam] = useState(EXAMS_DATA[0]);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
+  const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollContainerRef = useRef(null);
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
       setShowLeftArrow(scrollLeft > 20);
-      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 20);
+      // Only show right arrow if the contents overflow the actual visible screen width
+      setShowRightArrow(scrollWidth > clientWidth && scrollLeft < scrollWidth - clientWidth - 20);
     }
   };
 
@@ -183,15 +184,20 @@ const ExamGuides = () => {
     const container = scrollContainerRef.current;
     if (container) {
       container.addEventListener('scroll', handleScroll);
+      // Run once on load/resize to detect overflow
       handleScroll();
+      window.addEventListener('resize', handleScroll);
     }
-    return () => container?.removeEventListener('scroll', handleScroll);
+    return () => {
+      container?.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
   }, []);
 
   return (
-    <div className="min-h-screen mt-20 text-slate-800 font-sans selection:bg-[#0B7077]/20">
+    <div className="w-full min-h-screen text-slate-800 font-sans bg-slate-50/30">
       {/* Header Section */}
-      <header className="max-w-6xl mx-auto pt-16 px-6 pb-12 text-center">
+      <header className="w-full pt-16 px-4 md:px-8 lg:px-16 pb-12 text-center">
         <h1 className="md:text-4xl lg:text-5xl text-3xl font-extrabold tracking-tight text-slate-900 mb-6 drop-shadow-sm">
           Everything You Need to <span className="text-[#0B7077]">Succeed</span>
         </h1>
@@ -200,20 +206,21 @@ const ExamGuides = () => {
         </p>
       </header>
 
-      {/* Horizontal Nav Wrapper */}
-      <div className="max-w-5xl mx-auto relative px-12">
+      {/* Centered Horizontal Nav Wrapper */}
+      <div className="w-full relative px-4 md:px-12 lg:px-20 mb-8">
         {showLeftArrow && (
           <button 
             onClick={() => scroll('left')}
-            className="absolute left-2 top-1/2 -translate-y-12 z-2 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-slate-400 hover:text-[#0B7077] hover:bg-slate-50 transition-all border border-slate-100"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-12 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-slate-400 hover:text-[#0B7077] hover:bg-slate-50 transition-all border border-slate-100"
           >
             <ChevronLeft size={24} />
           </button>
         )}
 
+        {/* md:justify-center centers items perfectly on wider desktop views */}
         <div 
           ref={scrollContainerRef}
-          className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth pb-8 px-2"
+          className="flex justify-start md:justify-center gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4 px-2"
         >
           {EXAMS_DATA.map((exam) => (
             <ExamCard 
@@ -228,7 +235,7 @@ const ExamGuides = () => {
         {showRightArrow && (
           <button 
             onClick={() => scroll('right')}
-            className="absolute right-2 top-1/2 -translate-y-12 z-2 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-slate-400 hover:text-[#0B7077] hover:bg-slate-50 transition-all border border-slate-100"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-12 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-slate-400 hover:text-[#0B7077] hover:bg-slate-50 transition-all border border-slate-100"
           >
             <ChevronRight size={24} />
           </button>
@@ -236,11 +243,11 @@ const ExamGuides = () => {
       </div>
 
       {/* Detail Section */}
-      <main className="max-w-5xl mx-auto px-6 pb-20 mt-4">
-        <div className="bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 grid md:grid-cols-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
+      <main className="w-full px-4 md:px-8 lg:px-16 pb-20">
+        <div className="w-full bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 grid md:grid-cols-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
           
           {/* Visual Side */}
-          <div className="md:col-span-2 bg-slate-50 p-12 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100">
+          <div className="md:col-span-2 bg-slate-50 p-8 lg:p-12 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100">
             <div className="w-48 h-48 bg-white rounded-full shadow-2xl p-4 mb-8">
               <selectedExam.Logo />
             </div>
@@ -253,7 +260,7 @@ const ExamGuides = () => {
           </div>
 
           {/* Info Side */}
-          <div className="md:col-span-3 p-10 md:p-14">
+          <div className="md:col-span-3 p-8 lg:p-14">
             <h3 className="text-xl font-bold mb-4 flex items-center gap-2 text-slate-800">
               <Info size={20} className="text-[#0B7077]" />
               Exam Overview

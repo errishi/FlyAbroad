@@ -13,7 +13,7 @@ const NotFound = () => {
       </div>
       <div className='lg:-mt-10 md:-mt-8 my-6 z-1'>
         <Link to={"/"}>
-          <SecondaryButton name={"Back to home"} />
+          <SecondaryButton asChild name={"Back to home"} />
         </Link>
       </div>
     </div>
