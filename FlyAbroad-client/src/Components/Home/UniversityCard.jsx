@@ -33,8 +33,9 @@ const UniversityCard = ({ university }) => {
     <div className='rounded-2xl overflow-hidden'>
       <div className="relative h-48 overflow-hidden">
         <ImageWithFallback
-          src={university.image}
-          alt={university.name}
+          src={university?.image?.url}
+          alt={university?.name}
+          loading="lazy"
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         {university.worldRanking && (

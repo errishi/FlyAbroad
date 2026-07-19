@@ -1,13 +1,13 @@
-import React, { useMemo, useState } from "react";
-import { 
-  Search, 
-  MapPin, 
-  Shield, 
-  DollarSign, 
-  Filter, 
-  GraduationCap, 
-  Star, 
-  Info, 
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  Search,
+  MapPin,
+  Shield,
+  DollarSign,
+  Filter,
+  GraduationCap,
+  Star,
+  Info,
   GraduationCap as School,
   Stethoscope,
   Cpu,
@@ -16,15 +16,13 @@ import {
   Scale,
   Sprout,
   ChevronRight,
-  MoreHorizontal
+  MoreHorizontal,
+  Loader2
 } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 import UniversityCard from "../Components/Home/UniversityCard";
-import UNIVERSITY_DATA from "@/Components/alluniversitiesdata";
-
-
-// Combine provided lists and sort alphabetically by name
-const ALL_UNIVERSITIES = [...UNIVERSITY_DATA].sort((a, b) => a.name.localeCompare(b.name));
+import { universitiesApi } from "@/services/universitiesApi";
+import PaginationComponent from "@/Components/PaginationComponent";
 
 const CATEGORY_OPTIONS = [
   { id: "medical", label: "Medical", icon: Stethoscope },
@@ -45,41 +43,122 @@ const SAFETY_LEVELS = ["low", "medium", "high"];
 // -----------------------
 
 export default function App() {
+  // 1. Initial Router & URL Setup
+  const [searchParams, setSearchParams] = useSearchParams();
+  const countryParam = searchParams.get('country') || '';
+  
+  // Read initial page from URL (fallback to 1 if it doesn't exist)
+  const pageParam = parseInt(searchParams.get('page'), 10);
+  const initialPage = isNaN(pageParam) ? 1 : pageParam;
+
+  // 2. All State Hooks (MUST be declared before any conditional returns)
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedCost, setSelectedCost] = useState(null);
   const [selectedSafety, setSelectedSafety] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const countryParam = searchParams.get('country') || '';
   const [selectedCountry, setSelectedCountry] = useState(countryParam);
 
+  const [universities, setUniversities] = useState([]);
+  const [metadata, setMetadata] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 3. Fetch Data Logic
+  const loadData = async (page) => {
+    try {
+      setIsLoading(true);
+      const response = await universitiesApi.getAllUniversities(page);
+      const data = response?.data || response || [];
+      setUniversities(Array.isArray(data) ? data : []);
+      setMetadata(response?.metadata || []);
+    } catch (error) {
+      console.error("Failed to fetch universities:", error);
+      setUniversities([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Fetch data whenever the currentPage changes
+  useEffect(() => {
+    loadData(currentPage);
+  }, [currentPage]);
+
+  // Listen for browser Back/Forward navigation to update the UI
+  useEffect(() => {
+    const urlPage = parseInt(searchParams.get('page'), 10);
+    const validPage = isNaN(urlPage) ? 1 : urlPage;
+    if (validPage !== currentPage) {
+      setCurrentPage(validPage);
+    }
+  }, [searchParams, currentPage]);
+
+  // 4. Memoized Filter Logic
   const filteredData = useMemo(() => {
-    return ALL_UNIVERSITIES.filter((uni) => {
+    return universities.filter((uni) => {
       const query = searchTerm.toLowerCase().trim();
-      const matchesSearch = !query || 
-        uni.name.toLowerCase().includes(query) || 
-        uni.city.toLowerCase().includes(query) ||
-        uni.country.toLowerCase().includes(query) ||
-        uni.region.toLowerCase().includes(query);
 
-      const matchesCat = selectedCategories.length === 0 || 
-        selectedCategories.every(cat => uni.categories.includes(cat));
+      // Helper to safely check if a string includes the query
+      const safeInclude = (field, searchStr) =>
+        field ? String(field).toLowerCase().includes(searchStr.toLowerCase()) : false;
 
-      const matchesTag = selectedTags.length === 0 || 
-        selectedTags.every(tag => uni.tags.includes(tag));
+      // 1. Search Logic (Including overview based on your API)
+      const matchesSearch = !query ||
+        safeInclude(uni.name, query) ||
+        safeInclude(uni.city, query) ||
+        safeInclude(uni.country, query) ||
+        safeInclude(uni.overview, query);
 
-      const matchesCost = !selectedCost || uni.costLevel === selectedCost;
-      const matchesSafety = !selectedSafety || uni.safetyLevel === selectedSafety;
-      const matchesCountry = !selectedCountry || uni.country === selectedCountry;
+      // 2. Category Logic (Searching the overview text, as your API lacks a 'categories' array)
+      const matchesCat = selectedCategories.length === 0 || selectedCategories.some(cat => {
+        return safeInclude(uni.overview, cat) || safeInclude(uni.name, cat);
+      });
+
+      // 3. Tag Logic
+      const matchesTag = selectedTags.length === 0 || selectedTags.every(tag => {
+        const apiTags = uni.tags || [];
+        return apiTags.some(t => String(t).toLowerCase() === tag.toLowerCase());
+      });
+
+      // 4. Exact/Standardized matches for dropdowns
+      const matchesCost = !selectedCost || safeInclude(uni.costLevel, selectedCost);
+      const matchesSafety = !selectedSafety || safeInclude(uni.safetyLevel, selectedSafety);
+      const matchesCountry = !selectedCountry || safeInclude(uni.country, selectedCountry);
 
       return matchesSearch && matchesCat && matchesCountry && matchesTag && matchesCost && matchesSafety;
     });
-  }, [searchTerm, selectedCategories, selectedTags, selectedCost, selectedSafety]);
+  }, [searchTerm, selectedCategories, selectedTags, selectedCost, selectedSafety, selectedCountry, universities]);
 
+  // 5. Handlers
   const toggle = (list, set, val) => set(list.includes(val) ? list.filter(v => v !== val) : [...list, val]);
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    
+    // Update the URL so it can be restored on 'back' navigation
+    setSearchParams(prev => {
+      prev.set('page', newPage);
+      return prev;
+    });
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // 6. EARLY RETURN (Must be placed exactly here, after all hooks are declared)
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB]">
+        <div className="text-xl font-semibold text-slate-500 flex flex-col items-center gap-4">
+          <Loader2 className="h-8 w-8 animate-spin text-[#0B7077]" />
+          Loading universities...
+        </div>
+      </div>
+    );
+  }
+
+  // 7. Main UI
   return (
     <div className="min-h-screen bg-[#F9FAFB] text-slate-900">
 
@@ -106,8 +185,8 @@ export default function App() {
               <div className="relative flex items-center bg-white rounded-2xl shadow-xl overflow-hidden p-1">
                 <div className="flex items-center flex-1 px-4">
                   <Search className="h-6 w-6 text-slate-300" />
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     placeholder="Enter university name, city or region..."
                     className="w-full border-none bg-transparent py-4 px-4 text-lg font-medium outline-none placeholder:text-slate-300"
                     value={searchTerm}
@@ -121,9 +200,9 @@ export default function App() {
             </div>
             <div className="mt-4 flex flex-wrap justify-center gap-4 text-xs font-bold text-slate-400">
               <span>Popular:</span>
-              <button onClick={() => setSearchTerm("Moscow")} className="text-[#0B7077] hover:underline">Moscow</button>
-              <button onClick={() => setSearchTerm("Medical")} className="text-[#0B7077] hover:underline">Medical</button>
-              <button onClick={() => setSearchTerm("ITMO")} className="text-[#0B7077] hover:underline">ITMO</button>
+              <button onClick={() => setSearchTerm("Moscow")} className="text-[#0B7077] hover:underline cursor-pointer">Moscow</button>
+              <button onClick={() => setSearchTerm("Medical")} className="text-[#0B7077] hover:underline cursor-pointer">Medical</button>
+              <button onClick={() => setSearchTerm("ITMO")} className="text-[#0B7077] hover:underline cursor-pointer">ITMO</button>
             </div>
           </div>
         </div>
@@ -133,9 +212,9 @@ export default function App() {
       <section className="bg-white border-b border-slate-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 overflow-x-auto no-scrollbar py-6">
-            <button 
+            <button
               onClick={() => setSelectedCategories([])}
-              className={`flex flex-col items-center gap-2 min-w-25 p-4 rounded-2xl transition-all ${selectedCategories.length === 0 ? 'bg-[#0B7077] text-white shadow-lg' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
+              className={`flex flex-col items-center gap-2 min-w-25 p-4 cursor-pointer rounded-2xl transition-all ${selectedCategories.length === 0 ? 'bg-[#0B7077] text-white shadow-lg' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
             >
               <div className="p-2 rounded-xl bg-white/20">
                 <School className="h-6 w-6" />
@@ -146,10 +225,10 @@ export default function App() {
               const Icon = cat.icon;
               const isActive = selectedCategories.includes(cat.id);
               return (
-                <button 
+                <button
                   key={cat.id}
                   onClick={() => toggle(selectedCategories, setSelectedCategories, cat.id)}
-                  className={`flex flex-col items-center gap-2 min-w-25 p-4 rounded-2xl transition-all ${isActive ? 'bg-[#0B7077] text-white shadow-lg' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
+                  className={`flex flex-col items-center gap-2 min-w-25 p-4 cursor-pointer rounded-2xl transition-all ${isActive ? 'bg-[#0B7077] text-white shadow-lg' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
                 >
                   <div className={`p-2 rounded-xl ${isActive ? 'bg-white/20' : 'bg-white shadow-sm'}`}>
                     <Icon className={`h-6 w-6 ${isActive ? 'text-white' : 'text-[#0B7077]'}`} />
@@ -159,9 +238,9 @@ export default function App() {
               );
             })}
             {/* See More Icon Button */}
-            <button 
+            <button
               onClick={() => setIsSidebarOpen(true)}
-              className="flex flex-col items-center gap-2 min-w-25 p-4 rounded-2xl transition-all bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-[#0B7077]"
+              className="flex flex-col items-center gap-2 min-w-25 p-4 rounded-2xl cursor-pointer transition-all bg-slate-50 text-slate-400 hover:bg-slate-100 hover:text-[#0B7077]"
             >
               <div className="p-2 rounded-xl bg-white shadow-sm">
                 <MoreHorizontal className="h-6 w-6" />
@@ -172,18 +251,21 @@ export default function App() {
         </div>
       </section>
 
-      <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <main className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
         <div>
           {/* Results Grid */}
           <section>
             <div className="mb-8 flex items-end justify-between">
               <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest">
-                Showing <span className="text-slate-900">{filteredData.length}</span> Results
+                Showing <span className="text-slate-900">{filteredData?.length || 0}</span> Results out of <span className="text-slate-900">{metadata?.totalUniversity || 0}</span> Universities
+              </h2>
+              <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest">
+                Page <span className="text-slate-900">{metadata?.currentPage || 1}</span> of <span className="text-slate-900">{metadata?.totalPages || 1}</span>
               </h2>
             </div>
 
-            {filteredData.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-200 py-24 text-center">
+            {filteredData?.length === 0 ? (
+              <div className="flex flex-col items-center justify-center rounded-3xl border-2 border-dashed border-slate-200 py-24 pb-10 text-center">
                 <Search className="mb-4 h-12 w-12 text-slate-200" />
                 <h3 className="text-xl font-bold text-slate-900">No match found</h3>
                 <p className="mt-2 text-slate-500">Broaden your search or reset filters.</p>
@@ -192,11 +274,11 @@ export default function App() {
               <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
                 {filteredData.map(uni => (
                   <Link
-                    key={uni.id}
-                    to={`/university/${uni.id}`}
+                    key={uni._id || uni.id}
+                    to={`/university/${uni._id || uni.id}`}
                     className="cursor-pointer shadow-sm hover:shadow-lg transition-all overflow-clip rounded-2xl group"
                   >
-                    <UniversityCard key={uni.id} university={uni} />
+                    <UniversityCard university={uni} />
                   </Link>
                 ))}
               </div>
@@ -205,6 +287,9 @@ export default function App() {
 
         </div>
       </main>
+      
+      <PaginationComponent metadata={metadata} onPageChange={handlePageChange} />
+      
     </div>
   );
 }
