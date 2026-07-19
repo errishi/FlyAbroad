@@ -1,17 +1,28 @@
-import React, { useState } from 'react'
-import { ChevronDown, CheckCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronDown, CheckCircle, Loader2 } from 'lucide-react';
+import { enquiryApi } from '@/services/enquiryApi';
+import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
 
 const StudentEnquiry = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    country: '',
-    courseInterest: '',
-    mobileNumber: '',
-    countryCode: '+1',
-    email: '',
+  // 1. Setup react-hook-form
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors }
+  } = useForm({
+    defaultValues: {
+      countryCode: '+1'
+    }
   });
 
-  const [submitted, setSubmitted] = useState(false);
+  // Watch the custom country field to update the button display
+  const selectedCountry = watch('country');
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
 
   const countries = [
@@ -28,47 +39,38 @@ const StudentEnquiry = () => {
   ];
 
   const courses = [
-    'Business',
-    'Engineering',
-    'Computer Science',
-    'Medicine',
-    'Arts',
-    'Law',
-    'Economics',
-    'Architecture',
+    'Business', 'Engineering', 'Computer Science', 'Medicine',
+    'Arts', 'Law', 'Economics', 'Architecture',
   ];
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  // Form submission handler
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    
+    // Transform the data to match your Mongoose Schema exactly
+    const payload = {
+      fullName: data.fullName,
+      countryOfResidence: data.country,
+      courseOfInterest: data.courseInterest,
+      mobileNumber: {
+        countryCode: data.countryCode,
+        number: Number(data.mobileNumber)
+      },
+      email: data.email
+    };
 
-  const handleCountryCodeChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      countryCode: e.target.value
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // TODO: Send form data to backend
-    console.log('Form Data:', formData);
-    setSubmitted(true);
-    setTimeout(() => {
-      setFormData({
-        fullName: '',
-        country: '',
-        courseInterest: '',
-        mobileNumber: '',
-        countryCode: '+1',
-        email: '',
-      });
-      setSubmitted(false);
-    }, 3000);
+    try {
+      const res = await enquiryApi.submitEnquiry(payload);
+      toast.success(res?.message || 'Enquiry submitted successfully!');
+      setIsSuccess(true);
+    } catch (error) {
+      console.error('Detailed Error:', error.response?.data);
+      // Display the actual error message from your backend
+      const errorMessage = error.response?.data?.message || 'Failed to submit enquiry.';
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -76,159 +78,130 @@ const StudentEnquiry = () => {
       <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg p-8">
         <h1 className="text-2xl text-center font-bold text-gray-900 mb-8">Student Inquiry Contact Form</h1>
 
-        {submitted ? (
+        {isSuccess ? (
           <div className="text-center py-8">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
             <p className="text-lg font-semibold text-gray-800">Thank you for your inquiry!</p>
             <p className="text-gray-600 mt-2">We'll be in touch shortly.</p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Full Name */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name <span className="text-destructive">*</span></label>
               <input
                 type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleInputChange}
-                required
+                {...register('fullName', { required: 'Full name is required' })}
                 placeholder="Enter your full name"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition"
               />
+              {errors.fullName && <p className="text-red-500 text-sm mt-1">{errors.fullName.message}</p>}
             </div>
 
-            {/* Country of Residence */}
+            {/* Country of Residence (Hidden registered input for validation) */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Country of Residence</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Country of Residence <span className="text-destructive">*</span></label>
+              <input type="hidden" {...register('country', { required: 'Country is required' })} />
               <div className="relative">
                 <button
                   type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setShowCountryDropdown(!showCountryDropdown);
-                  }}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none appearance-none bg-white transition text-left flex items-center justify-between"
+                  onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none bg-white transition text-left flex items-center justify-between"
                 >
                   <span className="flex items-center gap-2">
-                    {formData.country ? (
+                    {selectedCountry ? (
                       <>
                         <img
-                          src={countries.find(c => c.name === formData.country)?.image}
-                          alt={formData.country}
+                          src={countries.find(c => c.name === selectedCountry)?.image}
+                          alt={selectedCountry}
                           className="w-6 h-4 rounded object-cover"
                         />
-                        {formData.country}
+                        {selectedCountry}
                       </>
-                    ) : (
-                      'Select Country'
-                    )}
+                    ) : 'Select Country'}
                   </span>
                   <ChevronDown className={`w-5 h-5 text-gray-400 transition ${showCountryDropdown ? 'rotate-180' : ''}`} />
                 </button>
-                
+
                 {showCountryDropdown && (
-                  <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
                     {countries.map(country => (
                       <button
                         key={country.name}
                         type="button"
                         onClick={() => {
-                          setFormData(prev => ({ ...prev, country: country.name }));
+                          setValue('country', country.name, { shouldValidate: true });
                           setShowCountryDropdown(false);
                         }}
                         className="w-full px-4 py-3 flex items-center gap-2 hover:bg-gray-100 transition text-left border-b last:border-b-0"
                       >
-                        <img
-                          src={country.image}
-                          alt={country.name}
-                          className="w-8 h-6 rounded object-cover"
-                        />
+                        <img src={country.image} alt={country.name} className="w-8 h-6 rounded object-cover" />
                         <span>{country.name}</span>
                       </button>
                     ))}
                   </div>
                 )}
               </div>
+              {errors.country && <p className="text-red-500 text-sm mt-1">{errors.country.message}</p>}
             </div>
 
             {/* Course of Interest */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Course of Interest</label>
-              <div className="relative">
-                <select
-                  name="courseInterest"
-                  value={formData.courseInterest}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none appearance-none bg-white transition"
-                >
-                  <option value="">Search courses (e.g., Business, Engineering)</option>
-                  {courses.map(course => (
-                    <option key={course} value={course}>{course}</option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-3 w-5 h-5 text-gray-400 pointer-events-none" />
-              </div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Course of Interest <span className="text-destructive">*</span></label>
+              <select
+                {...register('courseInterest', { required: 'Course is required' })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none appearance-none bg-white transition"
+              >
+                <option value="">Search courses...</option>
+                {courses.map(course => <option key={course} value={course}>{course}</option>)}
+              </select>
+              {errors.courseInterest && <p className="text-red-500 text-sm mt-1">{errors.courseInterest.message}</p>}
             </div>
 
             {/* Mobile Number */}
-            <div className='w-100%'>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Mobile Number</label>
+            <div className="w-full">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Mobile Number <span className="text-destructive">*</span></label>
               <div className="flex gap-2">
-                <div className="relative w-20">
-                  <select
-                    name="countryCode"
-                    value={formData.countryCode}
-                    onChange={handleCountryCodeChange}
-                    className="w-full px-2 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none appearance-none bg-white text-sm transition"
-                  >
-                    {countries.map(country => (
-                      <option key={country.code + country.name} value={country.code}>
-                        {country.flag} {country.code}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-1 top-2 w-4 h-4 text-gray-400 pointer-events-none" />
-                </div>
+                <select
+                  {...register('countryCode')}
+                  className="w-20 px-2 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none bg-white text-sm"
+                >
+                  {countries.map(c => (
+                    <option key={`${c.code}-${c.name}`} value={c.code}>
+                      {c.flag} {c.code}
+                    </option>
+                  ))}
+                </select>
                 <input
-                  type="tel"
-                  name="mobileNumber"
-                  value={formData.mobileNumber}
-                  onChange={handleInputChange}
-                  required
+                  type="number"
+                  {...register('mobileNumber', { required: 'Mobile number is required' })}
                   placeholder="Mobile number"
-                  className="flex-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition"
+                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none"
                 />
               </div>
+              {errors.mobileNumber && <p className="text-red-500 text-sm mt-1">{errors.mobileNumber.message}</p>}
             </div>
 
-            {/* Email Address */}
+            {/* Email */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address <span className="text-destructive">*</span></label>
               <input
                 type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
+                {...register('email', { required: 'Email is required' })}
                 placeholder="Enter your email"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent outline-none transition"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none transition"
               />
-            </div>
-
-            {/* Success Message */}
-            <div className="bg-teal-50 border border-teal-200 rounded-lg p-3 flex items-start gap-2">
-              <CheckCircle className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
-              <p className="text-sm text-teal-700">Thanks for reaching out! We'll be in touch shortly.</p>
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-teal-600 hover:bg-teal-700 text-white cursor-pointer font-semibold py-3 rounded-lg transition duration-200 transform hover:scale-105"
+              disabled={isSubmitting}
+              className={`w-full text-white font-semibold py-3 rounded-lg flex justify-center items-center gap-2 transition duration-200 ${isSubmitting ? 'bg-teal-400 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-700'
+                }`}
             >
-              Submit Inquiry
+              {isSubmitting ? <><Loader2 className="w-5 h-5 animate-spin" /> Submitting...</> : 'Submit Inquiry'}
             </button>
           </form>
         )}

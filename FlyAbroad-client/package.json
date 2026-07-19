@@ -31,7 +31,7 @@
     "radix-ui": "^1.6.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-hook-form": "^7.69.0",
+    "react-hook-form": "^7.82.0",
     "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.17.0",
     "react-toastify": "^11.1.0",
