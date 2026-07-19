@@ -132,6 +132,7 @@ export default function App() {
   // Form submission state
   const [contactForm, setContactForm] = useState({ name: '', email: '', phone: '', comments: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state to handle loading
 
   // Auto-dismiss toast system
   useEffect(() => {
@@ -147,18 +148,43 @@ export default function App() {
     setToast({ visible: true, message, type });
   };
 
-  const handleApplyFormSubmit = (e, serviceId, serviceTitle) => {
+  const handleApplyFormSubmit = async (e, serviceId, serviceTitle) => {
     e.preventDefault();
     if (!contactForm.name || !contactForm.email) {
       triggerToast('Please fill out all mandatory fields.', 'error');
       return;
     }
     
-    if (!appliedServices.includes(serviceId)) {
-      setAppliedServices([...appliedServices, serviceId]);
+    setIsSubmitting(true);
+    
+    // Prepare FormData for Web3Forms API
+    const formData = new FormData(e.target);
+    formData.append("access_key", "692587c4-cf48-4942-9177-9ddc59558e3a");
+    formData.append("service_requested", serviceTitle);
+    formData.append("subject", `New Application Request: ${serviceTitle}`);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        if (!appliedServices.includes(serviceId)) {
+          setAppliedServices([...appliedServices, serviceId]);
+        }
+        setIsSubmitted(true);
+        triggerToast(`Application request for "${serviceTitle}" sent successfully!`, 'success');
+      } else {
+        triggerToast(data.message || 'Error submitting form', 'error');
+      }
+    } catch (error) {
+      triggerToast('Network error, please try again.', 'error');
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitted(true);
-    triggerToast(`Application request for "${serviceTitle}" sent successfully!`, 'success');
   };
 
   const calculateEMI = () => {
@@ -704,6 +730,7 @@ export default function App() {
                         <div>
                           <label className="block text-[11px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Your Full Name *</label>
                           <input 
+                            name="name"
                             type="text" 
                             required
                             placeholder="John Doe"
@@ -716,6 +743,7 @@ export default function App() {
                         <div>
                           <label className="block text-[11px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Email Address *</label>
                           <input 
+                            name="email"
                             type="email" 
                             required
                             placeholder="john@university.edu"
@@ -728,6 +756,7 @@ export default function App() {
                         <div>
                           <label className="block text-[11px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Contact Number</label>
                           <input 
+                            name="phone"
                             type="tel" 
                             placeholder="+1 234 567 890"
                             value={contactForm.phone}
@@ -739,6 +768,7 @@ export default function App() {
                         <div>
                           <label className="block text-[11px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Specific Questions</label>
                           <textarea 
+                            name="comments"
                             rows="2"
                             placeholder="Tell us about your flight date, uni destination, etc."
                             value={contactForm.comments}
@@ -749,9 +779,20 @@ export default function App() {
 
                         <button 
                           type="submit"
-                          className="w-full py-3.5 bg-[#40E0D0] hover:bg-[#39c9bb] active:scale-[0.98] transition-all text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#40E0D0]/20"
+                          disabled={isSubmitting}
+                          className={`w-full py-3.5 transition-all font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-[#40E0D0]/20 ${
+                            isSubmitting 
+                            ? 'bg-slate-300 text-slate-500 cursor-not-allowed' 
+                            : 'bg-[#40E0D0] hover:bg-[#39c9bb] active:scale-[0.98] text-slate-950'
+                          }`}
                         >
-                          <Send className="w-3.5 h-3.5" /> Submit Setup Request
+                          {isSubmitting ? (
+                            'Sending...'
+                          ) : (
+                            <>
+                              <Send className="w-3.5 h-3.5" /> Submit Setup Request
+                            </>
+                          )}
                         </button>
                       </form>
                     ) : (
