@@ -12,4 +12,9 @@ export const enquiryApi = {
         const response = await apiClient.post(`/api/students`, enquiryData);
         return response.data;
     },
+
+    submitInstituteEnquiry: async (instituteData) => {
+        const response = await apiClient.post(`/api/institutes`, instituteData);
+        return response.data;
+    }
 }
