@@ -61,30 +61,47 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(countryParam);
 
-  const [universities, setUniversities] = useState([]);
-  const [metadata, setMetadata] = useState([]);
+  const [allUniversities, setAllUniversities] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // 3. Fetch Data Logic
-  const loadData = async (page) => {
+  const loadData = async () => {
     try {
       setIsLoading(true);
-      const response = await universitiesApi.getAllUniversities(page);
-      const data = response?.data || response || [];
-      setUniversities(Array.isArray(data) ? data : []);
-      setMetadata(response?.metadata || []);
+
+      const firstPageResponse = await universitiesApi.getAllUniversities(1);
+      const firstPageData = firstPageResponse?.data || firstPageResponse || [];
+      const totalPages = firstPageResponse?.metadata?.totalPages || 1;
+
+      if (totalPages <= 1) {
+        setAllUniversities(Array.isArray(firstPageData) ? firstPageData : []);
+        return;
+      }
+
+      const pagePromises = [];
+      for (let page = 2; page <= totalPages; page += 1) {
+        pagePromises.push(universitiesApi.getAllUniversities(page));
+      }
+
+      const otherResponses = await Promise.all(pagePromises);
+      const otherData = otherResponses.flatMap((response) => {
+        const data = response?.data || response || [];
+        return Array.isArray(data) ? data : [];
+      });
+
+      setAllUniversities([...(Array.isArray(firstPageData) ? firstPageData : []), ...otherData]);
     } catch (error) {
       console.error("Failed to fetch universities:", error);
-      setUniversities([]);
+      setAllUniversities([]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Fetch data whenever the currentPage changes
+  // Fetch complete dataset once and filter/paginate on client side
   useEffect(() => {
-    loadData(currentPage);
-  }, [currentPage]);
+    loadData();
+  }, []);
 
   // Listen for browser Back/Forward navigation to update the UI
   useEffect(() => {
@@ -95,9 +112,16 @@ export default function App() {
     }
   }, [searchParams, currentPage]);
 
-  // 4. Memoized Filter Logic
+  useEffect(() => {
+    const nextCountry = searchParams.get('country') || '';
+    if (nextCountry !== selectedCountry) {
+      setSelectedCountry(nextCountry);
+    }
+  }, [searchParams, selectedCountry]);
+
+  // 4. Memoized Filter Logic (applies on complete dataset)
   const filteredData = useMemo(() => {
-    return universities.filter((uni) => {
+    return allUniversities.filter((uni) => {
       const query = searchTerm.toLowerCase().trim();
 
       // Helper to safely check if a string includes the query
@@ -111,15 +135,21 @@ export default function App() {
         safeInclude(uni.country, query) ||
         safeInclude(uni.overview, query);
 
-      // 2. Category Logic (Searching the overview text, as your API lacks a 'categories' array)
+      // 2. Category Logic
       const matchesCat = selectedCategories.length === 0 || selectedCategories.some(cat => {
-        return safeInclude(uni.overview, cat) || safeInclude(uni.name, cat);
+        const categories = Array.isArray(uni.categories) ? uni.categories : [];
+        return categories.some(category => safeInclude(category, cat));
       });
 
       // 3. Tag Logic
       const matchesTag = selectedTags.length === 0 || selectedTags.every(tag => {
         const apiTags = uni.tags || [];
-        return apiTags.some(t => String(t).toLowerCase() === tag.toLowerCase());
+        if (apiTags.length > 0) {
+          return apiTags.some(t => String(t).toLowerCase() === tag.toLowerCase());
+        }
+
+        // Fallback for partial API payloads
+        return safeInclude(uni.overview, tag) || safeInclude(uni.name, tag);
       });
 
       // 4. Exact/Standardized matches for dropdowns
@@ -129,18 +159,46 @@ export default function App() {
 
       return matchesSearch && matchesCat && matchesCountry && matchesTag && matchesCost && matchesSafety;
     });
-  }, [searchTerm, selectedCategories, selectedTags, selectedCost, selectedSafety, selectedCountry, universities]);
+  }, [searchTerm, selectedCategories, selectedTags, selectedCost, selectedSafety, selectedCountry, allUniversities]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedCategories, selectedTags, selectedCost, selectedSafety, selectedCountry]);
+
+  const derivedMetadata = useMemo(() => {
+    const totalUniversity = allUniversities.length;
+    const itemPerPage = 24;
+    const totalPages = Math.max(1, Math.ceil(filteredData.length / itemPerPage));
+    const safeCurrentPage = Math.min(currentPage, totalPages);
+
+    return {
+      totalUniversity,
+      currentPage: safeCurrentPage,
+      totalPages,
+      itemPerPage,
+      hasNextPage: safeCurrentPage < totalPages,
+      hasPrevPage: safeCurrentPage > 1,
+    };
+  }, [allUniversities.length, filteredData.length, currentPage]);
+
+  const paginatedData = useMemo(() => {
+    const start = (derivedMetadata.currentPage - 1) * derivedMetadata.itemPerPage;
+    const end = start + derivedMetadata.itemPerPage;
+    return filteredData.slice(start, end);
+  }, [filteredData, derivedMetadata]);
 
   // 5. Handlers
   const toggle = (list, set, val) => set(list.includes(val) ? list.filter(v => v !== val) : [...list, val]);
 
   const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > derivedMetadata.totalPages) return;
     setCurrentPage(newPage);
     
     // Update the URL so it can be restored on 'back' navigation
     setSearchParams(prev => {
-      prev.set('page', newPage);
-      return prev;
+      const next = new URLSearchParams(prev);
+      next.set('page', String(newPage));
+      return next;
     });
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -257,10 +315,10 @@ export default function App() {
           <section>
             <div className="mb-8 flex items-end justify-between">
               <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest">
-                Showing <span className="text-slate-900">{filteredData?.length || 0}</span> Results out of <span className="text-slate-900">{metadata?.totalUniversity || 0}</span> Universities
+                Showing <span className="text-slate-900">{derivedMetadata?.itemPerPage || 0}</span> Results out of <span className="text-slate-900">{derivedMetadata?.totalUniversity || 0}</span> Universities
               </h2>
               <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest">
-                Page <span className="text-slate-900">{metadata?.currentPage || 1}</span> of <span className="text-slate-900">{metadata?.totalPages || 1}</span>
+                Page <span className="text-slate-900">{derivedMetadata?.currentPage || 1}</span> of <span className="text-slate-900">{derivedMetadata?.totalPages || 1}</span>
               </h2>
             </div>
 
@@ -272,10 +330,10 @@ export default function App() {
               </div>
             ) : (
               <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-                {filteredData.map(uni => (
+                {paginatedData.map(uni => (
                   <Link
                     key={uni._id || uni.id}
-                    to={`/university/${uni._id || uni.id}`}
+                    to={`/university/details/${uni._id || uni.id}`}
                     className="cursor-pointer shadow-sm hover:shadow-lg transition-all overflow-clip rounded-2xl group"
                   >
                     <UniversityCard university={uni} />
@@ -288,7 +346,7 @@ export default function App() {
         </div>
       </main>
       
-      <PaginationComponent metadata={metadata} onPageChange={handlePageChange} />
+      <PaginationComponent metadata={derivedMetadata} onPageChange={handlePageChange} />
       
     </div>
   );

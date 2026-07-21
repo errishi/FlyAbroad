@@ -169,7 +169,7 @@ export default function App() {
       </div>
 
       {/* Main Full-Width Container */}
-      <main className="w-full flex-grow relative z-10">
+      <main className="w-full grow relative z-10">
         
         <div className="w-full py-10 lg:py-16 flex flex-col items-center px-4 md:px-8 lg:px-16">
           
@@ -198,7 +198,7 @@ export default function App() {
               alt={selectedCountry.name}
               className={`absolute inset-0 w-full h-full object-cover transition-opacity  duration-500 ${isAnimating ? 'opacity-40' : 'opacity-85'}`}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+            <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-950/40 to-transparent" />
             
             {/* Featured card text overlay */}
             <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-14 z-10">
@@ -225,7 +225,7 @@ export default function App() {
 
                 <div className="flex flex-wrap gap-4 pt-2">
                   <Link
-                    to="/university"
+                    to={`/university/${selectedCountry.name.toLowerCase().replace(/\s+/g, '-')}`}
                     className="group relative cursor-pointer inline-flex items-center gap-2.5 px-8 py-4 bg-[#0B7707] hover:bg-emerald-800 rounded-full text-white font-bold text-base transition-all duration-300 hover:scale-[1.03] shadow-lg active:scale-95"
                   >
                     Explore Top Universities

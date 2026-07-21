@@ -1,7 +1,10 @@
-import React from 'react'
+import UserContext from '@/Context/UserContext';
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 
 const CTA = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <section className="py-20 bg-gray-200 text-black">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -12,12 +15,20 @@ const CTA = () => {
             Join thousands of students who have achieved their dream of studying abroad with our support
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
+            {user ? (<Link 
               to="/apply" 
               className="bg-white text-[#FD661F] px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors"
             >
               Apply Now
-            </Link>
+            </Link>) : (
+              <Link 
+                to="/signup"
+                className="bg-white text-[#FD661F] px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors"
+              >
+                Apply Now
+              </Link>
+            )}
+            
             <Link 
               to="/contact" 
               className="hover:bg-[#0B585C] border-2 border-[#127379] text-gray-100 px-8 py-3 rounded-lg font-semibold bg-[#127379c1]  hover:text-white transition-colors"
