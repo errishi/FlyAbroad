@@ -35,7 +35,7 @@ const App = () => {
   const [currentAuth, setCurrentAuth] = useState(false);
   const [readFeedback, setReadFeedback] = useState(false);
   const [feedbackData, setFeedbackData] = useState([]);
-  const [isRouteLoading, setIsRouteLoading] = useState(false);
+  const [isRouteLoading, setIsRouteLoading] = useState(true);
 
   const handleFeedbackData = (array) => {
     setFeedbackData(array);
@@ -51,6 +51,16 @@ const App = () => {
       }
     }
   }, [])
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setIsRouteLoading(false);
+    }, 350);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, []);
 
   useEffect(() => {
     if (previousPathRef.current === location.pathname) return;
