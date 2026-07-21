@@ -9,7 +9,6 @@ const UniversityDetails = () => {
     const { id } = useParams();
     const [university, setUniversity] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { user } = useContext(UserContext);
 
     const formatDate = (dateValue) => {
         if (!dateValue) return 'Not specified';
@@ -250,22 +249,12 @@ const UniversityDetails = () => {
                                 </div>
                             </div>
 
-                            {user ? (
-                                <Link
+                            <Link
                                 to="/apply"
                                 className="block w-full bg-[#0B7077] text-white text-center px-6 py-3 rounded-lg font-semibold hover:bg-[#09585e] transition-colors mb-3"
                             >
                                 Apply Now
                             </Link>
-                            ) : (
-                                <Link
-                                    to="/signup"
-                                    className="block w-full bg-[#0B7077] text-white text-center px-6 py-3 rounded-lg font-semibold hover:bg-[#09585e] transition-colors mb-3"
-                                >
-                                    Apply Now
-                                </Link>
-                            )}
-
 
                             <Link
                                 to="/contact"
