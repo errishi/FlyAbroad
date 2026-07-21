@@ -3,11 +3,13 @@ import { Link, useParams } from 'react-router-dom';
 import { ImageWithFallback } from '../ImageWithFallback';
 import { ArrowRight, Award, Building2, Calendar, CheckCircle, Clock, DollarSign, Globe, GraduationCap, Loader2, MapPin, Users } from 'lucide-react';
 import { universitiesApi } from '@/services/universitiesApi';
+import UserContext from '@/Context/UserContext';
 
 const UniversityDetails = () => {
     const { id } = useParams();
     const [university, setUniversity] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { user } = useContext(UserContext);
 
     const formatDate = (dateValue) => {
         if (!dateValue) return 'Not specified';
@@ -248,12 +250,22 @@ const UniversityDetails = () => {
                                 </div>
                             </div>
 
-                            <Link
+                            {user ? (
+                                <Link
                                 to="/apply"
                                 className="block w-full bg-[#0B7077] text-white text-center px-6 py-3 rounded-lg font-semibold hover:bg-[#09585e] transition-colors mb-3"
                             >
                                 Apply Now
                             </Link>
+                            ) : (
+                                <Link
+                                    to="/signup"
+                                    className="block w-full bg-[#0B7077] text-white text-center px-6 py-3 rounded-lg font-semibold hover:bg-[#09585e] transition-colors mb-3"
+                                >
+                                    Apply Now
+                                </Link>
+                            )}
+
 
                             <Link
                                 to="/contact"
