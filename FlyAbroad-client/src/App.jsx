@@ -24,6 +24,7 @@ import OAuthRedirect from './Pages/OAuthRedirect';
 import ChangePassword from './Pages/ChangePassword';
 import ForgetPassword from './Pages/ForgetPassword';
 import VerifyOTP from './Pages/VerifyOTP';
+import UniversityByCountry from './Pages/UniversityByCountry';
 
 
 
@@ -75,7 +76,8 @@ const App = () => {
         <Route path='/courses' element={<Courses setCurrentAuth={setCurrentAuth} />} />
         <Route path='/apply' element={<ApplyNow />} />
         <Route path='/university' element={<Universites />} />
-        <Route path={'/university/:id'} element={<UniversityDetails />} />
+        <Route path='/university/:country' element={<UniversityByCountry />} />
+        <Route path={'/university/details/:id'} element={<UniversityDetails />} />
         <Route path='/*' element={<NotFound />} />
         
       </Routes>
