@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from './Components/Navbar';
 import Home from './Pages/Home';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import About from './Pages/About';
 import Footer from './Components/Footer';
 import Career from './Pages/Career';
@@ -25,13 +25,17 @@ import ChangePassword from './Pages/ChangePassword';
 import ForgetPassword from './Pages/ForgetPassword';
 import VerifyOTP from './Pages/VerifyOTP';
 import UniversityByCountry from './Pages/UniversityByCountry';
+import { Loader2 } from 'lucide-react';
 
 
 
 const App = () => {
+  const location = useLocation();
+  const previousPathRef = useRef(location.pathname);
   const [currentAuth, setCurrentAuth] = useState(false);
   const [readFeedback, setReadFeedback] = useState(false);
   const [feedbackData, setFeedbackData] = useState([]);
+  const [isRouteLoading, setIsRouteLoading] = useState(false);
 
   const handleFeedbackData = (array) => {
     setFeedbackData(array);
@@ -47,9 +51,32 @@ const App = () => {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (previousPathRef.current === location.pathname) return;
+
+    previousPathRef.current = location.pathname;
+    setIsRouteLoading(true);
+
+    const timer = window.setTimeout(() => {
+      setIsRouteLoading(false);
+    }, 350);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [location.pathname]);
   
   return (
     <>
+    {isRouteLoading ? (
+      <div className="fixed inset-0 z-120 min-h-screen flex items-center justify-center bg-[#F9FAFB]">
+        <div className="text-xl font-semibold text-slate-500 flex flex-col items-center gap-4">
+          <Loader2 className="h-8 w-8 animate-spin text-[#0B7077]" />
+          Loading...
+        </div>
+      </div>
+    ) : null}
     {currentAuth ? <AuthPage setCurrentAuth={setCurrentAuth} /> : <></>}
     {readFeedback ? <FeedbackPopUp setReadFeedback={setReadFeedback} title={feedbackData.title} userName={feedbackData.name} description={feedbackData.description} /> : <></>}
     <ScrollToTop />
