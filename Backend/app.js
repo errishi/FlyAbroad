@@ -68,7 +68,10 @@ app.get("/", (req, res) => {
     res.send("Welcome to Unefly!");
 });
 
+export default app;
 
-app.listen(port, ()=>{
-    console.log(`server live at ${port}`);
-});
+if (process.env.VERCEL !== '1') {
+    app.listen(port, () => {
+        console.log(`server live at ${port}`);
+    });
+}
