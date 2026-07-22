@@ -3,14 +3,14 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 import configurePassport from '../config/Passport.js';
 
-const router = express.Router();
+const authRoute = express.Router();
 
 configurePassport();
 
 const strategyExists = (name) => !!passport._strategy(name);
 
 // Initiate Google OAuth
-router.get('/google', (req, res, next) => {
+authRoute.get('/google', (req, res, next) => {
   if (!strategyExists('google')) {
     return res.status(500).json({ success: false, message: 'Google OAuth is not configured' });
   }
@@ -18,7 +18,7 @@ router.get('/google', (req, res, next) => {
 });
 
 // Google callback
-router.get(
+authRoute.get(
   '/google/callback',
   (req, res, next) => {
     if (!strategyExists('google')) {
@@ -34,7 +34,7 @@ router.get(
 );
 
 // Initiate LinkedIn OAuth
-router.get('/linkedin', (req, res, next) => {
+authRoute.get('/linkedin', (req, res, next) => {
   if (!strategyExists('linkedin')) {
     return res.status(500).json({ success: false, message: 'LinkedIn OAuth is not configured' });
   }
@@ -42,7 +42,7 @@ router.get('/linkedin', (req, res, next) => {
 });
 
 // LinkedIn callback
-router.get(
+authRoute.get(
   '/linkedin/callback',
   (req, res, next) => {
     if (!strategyExists('linkedin')) {
@@ -57,4 +57,4 @@ router.get(
   }
 );
 
-export default router;
+export default authRoute;
