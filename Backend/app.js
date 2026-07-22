@@ -13,10 +13,10 @@ import studentRouter from './src/routes/studentRoute.js';
 import instituteRouter from './src/routes/instituteRoute.js';
 import session from 'express-session';
 import passport from 'passport';
-import authRoute from './src/routes/authRoute.js';
 import userFeedbackRouter from './src/routes/userFeedbackRoute.js';
 import careerRouter from './src/routes/careerRoute.js';
 import applicationRouter from './src/routes/applicationRoute.js';
+import authRoute from './src/routes/AuthRoute.js';
 
 connectDB()
 
