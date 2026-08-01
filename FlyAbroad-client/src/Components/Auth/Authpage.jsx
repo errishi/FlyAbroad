@@ -41,7 +41,7 @@ const AuthPage = () => {
     "& .MuiInputLabel-root": { fontSize: "14px", color: "#8A8F98" },
   };
 
-  const apiBase = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+  const apiBase = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
   // Signup handler
   const handleSignup = async (e) => {
