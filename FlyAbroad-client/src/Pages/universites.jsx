@@ -38,10 +38,7 @@ const TAG_OPTIONS = ["cheapest", "safest", "top", "research"];
 const COST_LEVELS = ["low", "medium", "high"];
 const SAFETY_LEVELS = ["low", "medium", "high"];
 
-// -----------------------
 // 3. Main App
-// -----------------------
-
 export default function App() {
   // 1. Initial Router & URL Setup
   const [searchParams, setSearchParams] = useSearchParams();
