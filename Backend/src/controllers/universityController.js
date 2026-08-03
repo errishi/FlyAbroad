@@ -17,7 +17,7 @@ export const allUniversity = async (req, res) => {
         // query to optimize performance
         const [universities, totalUniversity] = await Promise.all([
             universityModel.find()
-                .select('name city country image worldRanking overview studentPopulation universityType programsOfferedCount')
+                .select('name city country image worldRanking overview studentPopulation universityType programsOfferedCount categories tags costLevel safetyLevel')
                 .skip(skip)
                 .limit(limit)
                 .lean(),    //return plain js object

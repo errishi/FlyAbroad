@@ -1,13 +1,54 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import UNIVERSITY_DATA from '../alluniversitiesdata';
 import { ImageWithFallback } from '../ImageWithFallback';
-import { ArrowRight, Award, Building2, Calendar, CheckCircle, Clock, DollarSign, Globe, GraduationCap, MapPin, Users } from 'lucide-react';
+import { ArrowRight, Award, Building2, Calendar, CheckCircle, Clock, DollarSign, Globe, GraduationCap, Loader2, MapPin, Users } from 'lucide-react';
+import { universitiesApi } from '@/services/universitiesApi';
+import UserContext from '@/Context/UserContext';
 
 const UniversityDetails = () => {
     const { id } = useParams();
-    const university = UNIVERSITY_DATA.find(u => u.id === id);
-    console.log("id : ", id);
+    const [university, setUniversity] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const formatDate = (dateValue) => {
+        if (!dateValue) return 'Not specified';
+
+        const date = new Date(dateValue);
+        if (Number.isNaN(date.getTime())) return dateValue;
+
+        return new Intl.DateTimeFormat('en-US', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric',
+        }).format(date);
+    };
+
+    useEffect(() => {
+        const fetchUniversityDetails = async () => {
+            setIsLoading(true);
+            try {
+                const data = await universitiesApi.getUniversityById(id);
+                setUniversity(data.data);
+            } catch (error) {
+                console.error('Error fetching university details:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchUniversityDetails();
+    }, [id]);
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB]">
+                <div className="text-xl font-semibold text-slate-500 flex flex-col items-center gap-4">
+                    <Loader2 className="h-8 w-8 animate-spin text-[#0B7077]" />
+                    Loading universities...
+                </div>
+            </div>
+        );
+    }
 
     if (!university) {
         return (
@@ -20,11 +61,11 @@ const UniversityDetails = () => {
         );
     }
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div key={university._id} className="min-h-screen bg-gray-50">
             {/* Hero Section */}
             < div className="relative h-100" >
                 <ImageWithFallback
-                    src={university.image}
+                    src={university.image?.url}
                     alt={university.name}
                     className="w-full h-full object-cover"
                 />
@@ -130,7 +171,7 @@ const UniversityDetails = () => {
                         <div className="bg-white rounded-xl shadow-sm p-6">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4">Facilities</h2>
                             <div className="grid sm:grid-cols-2 gap-3">
-                                {university.facilities.map((facility, index) => (
+                                {university.facilities?.map((facility, index) => (
                                     <div key={index} className="flex items-center gap-2">
                                         <CheckCircle className="size-5 text-green-600 shrink-0" />
                                         <span className="text-gray-700">{facility}</span>
@@ -143,38 +184,33 @@ const UniversityDetails = () => {
                         <div className="bg-white rounded-xl shadow-sm p-6">
                             <h2 className="text-2xl font-bold text-gray-900 mb-6">Available Programs</h2>
                             <div className="space-y-4">
-                                {university.availablePrograms.map((course) => (
-                                    <Link
-                                        key={course.id}
-                                        to={`/course/${course.id}`}
-                                        className="block border border-gray-200 rounded-lg p-5 hover:border-[#0B7077] hover:shadow-md transition-all group"
-                                    >
-                                        <div className="flex items-start justify-between gap-4">
-                                            <div className="flex-1">
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#0B7077] transition-colors">
-                                                    {course.name}
-                                                </h3>
-                                                <p className="text-sm text-gray-600 mb-3">
-                                                    {course.description}
-                                                </p>
-                                                <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                                                    <div className="flex items-center gap-1">
-                                                        <GraduationCap className="size-4" />
-                                                        <span>{course.degree}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-1">
-                                                        <Clock className="size-4" />
-                                                        <span>{course.duration}</span>
-                                                    </div>
-                                                    <div className="flex items-center gap-1">
-                                                        <DollarSign className="size-4" />
-                                                        <span>{course.tuitionFee}</span>
-                                                    </div>
+                                {university.availablePrograms?.map((course) => (
+
+                                    <div key={course.name} className="flex border p-4 rounded-xl items-start justify-between gap-4">
+                                        <div className="flex-1">
+                                            <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#0B7077] transition-colors">
+                                                {course.name}
+                                            </h3>
+                                            <p className="text-sm text-gray-600 mb-3">
+                                                {course.description}
+                                            </p>
+                                            <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                                                <div className="flex items-center gap-1">
+                                                    <GraduationCap className="size-4" />
+                                                    <span>{course.degree}</span>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    <Clock className="size-4" />
+                                                    <span>{course.duration}</span>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    <DollarSign className="size-4" />
+                                                    <span>{course.tuitionFee}</span>
                                                 </div>
                                             </div>
-                                            <ArrowRight className="size-5 text-[#FD661F] shrink-0 group-hover:translate-x-1 transition-transform" />
                                         </div>
-                                    </Link>
+                                        <ArrowRight className="size-5 text-[#FD661F] shrink-0 group-hover:translate-x-1 transition-transform" />
+                                    </div>
                                 ))}
                             </div>
                         </div>
@@ -199,7 +235,7 @@ const UniversityDetails = () => {
 
                                 <div className="pb-4 border-b border-gray-100">
                                     <div className="text-sm text-gray-600 mb-1">Application Deadline</div>
-                                    <div className="font-semibold text-gray-900">{university.applicationDeadline}</div>
+                                    <div className="font-semibold text-gray-900">{formatDate(university.applicationDeadline)}</div>
                                 </div>
 
                                 <div className="pb-4 border-b border-gray-100">

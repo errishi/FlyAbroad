@@ -1,4 +1,5 @@
-import React from 'react'
+import UserContext from '@/Context/UserContext';
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 
 const CTA = () => {
@@ -18,6 +19,7 @@ const CTA = () => {
             >
               Apply Now
             </Link>
+            
             <Link 
               to="/contact" 
               className="hover:bg-[#0B585C] border-2 border-[#127379] text-gray-100 px-8 py-3 rounded-lg font-semibold bg-[#127379c1]  hover:text-white transition-colors"

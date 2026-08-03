@@ -25,7 +25,7 @@ const UNIVERSITIES_BY_COUNTRY = {
     { name: 'University College London', logo: 'UCL', rank: 9, cost: 35000, stream: 'Humanities', city: 'London', desc: 'Multidisciplinary giant in the heart of London with pioneering global outlooks.' },
     { name: 'University of Edinburgh', logo: 'EDI', rank: 22, cost: 32000, stream: 'STEM', city: 'Edinburgh', desc: 'Historic Scottish powerhouse leading in artificial intelligence and informatics.' },
     { name: 'University of Manchester', logo: 'MAN', rank: 32, cost: 29000, stream: 'Business', city: 'Manchester', desc: 'Renowned for social impact, massive research footprint, and Nobel Laureate pedigree.' },
-    { name: 'King\'s College London', logo: 'KCL', rank: 40, cost: 34000, stream: 'Medicine', city: 'London', desc: 'Prestigious center for medicine, psychiatry, law, and international affairs.' },
+    { name: "King's College London", logo: 'KCL', rank: 40, cost: 34000, stream: 'Medicine', city: 'London', desc: 'Prestigious center for medicine, psychiatry, law, and international affairs.' },
     { name: 'University of Bristol', logo: 'BRI', rank: 55, cost: 28000, stream: 'STEM', city: 'Bristol', desc: 'Vibrant modern city university with highly ranked aerospace and computing fields.' },
     { name: 'University of Warwick', logo: 'WAR', rank: 67, cost: 27500, stream: 'Business', city: 'Coventry', desc: 'Warwick Business School is ranked among the finest in Europe.' },
     { name: 'University of Glasgow', logo: 'GLA', rank: 76, cost: 26000, stream: 'Medicine', city: 'Glasgow', desc: 'Beautiful gothic campus hosting pioneering medical research institutes.' }
@@ -101,6 +101,78 @@ const UNIVERSITIES_BY_COUNTRY = {
     { name: 'Tomsk State University', logo: 'TSU', rank: 272, cost: 3800, stream: 'STEM', city: 'Tomsk', desc: "Siberia's research crown jewel driving complex ecosystem and climate research." },
     { name: 'ITMO University', logo: 'ITM', rank: 359, cost: 4200, stream: 'STEM', city: 'St. Petersburg', desc: 'The multi-time programming world champions, stellar IT and optical studies.' },
     { name: 'Peter the Great St. Petersburg Polytech', logo: 'PET', rank: 382, cost: 4000, stream: 'STEM', city: 'St. Petersburg', desc: 'Exceptional legacy in metallurgy, energy system engineering, and mechanics.' }
+  ],
+  'India': [
+    { name: 'Indian Institute of Technology Bombay', logo: 'IITB', rank: 149, cost: 3500, stream: 'STEM', city: 'Mumbai', desc: 'Premier engineering powerhouse producing global tech founders and research leaders.' },
+    { name: 'Indian Institute of Technology Delhi', logo: 'IITD', rank: 197, cost: 3400, stream: 'STEM', city: 'New Delhi', desc: 'Hub for artificial intelligence, computer science innovation, and deep-tech startups.' },
+    { name: 'Indian Institute of Science Bangalore', logo: 'IISc', rank: 225, cost: 2500, stream: 'STEM', city: 'Bengaluru', desc: "India's premier pure science institute located in the Silicon Valley of Asia." },
+    { name: 'Indian Institute of Technology Madras', logo: 'IITM', rank: 285, cost: 3200, stream: 'STEM', city: 'Chennai', desc: 'National leader in patent filing, deep technology innovation, and robotics.' },
+    { name: 'University of Delhi', logo: 'DU', rank: 401, cost: 800, stream: 'Humanities', city: 'New Delhi', desc: 'Famed center for economic theory, literature, commerce, and political sciences.' },
+    { name: 'Indian Institute of Management Ahmedabad', logo: 'IIMA', rank: 50, cost: 28000, stream: 'Business', city: 'Ahmedabad', desc: "Asia's premier business school known for rigorous case method leadership." },
+    { name: 'All India Institute of Medical Sciences', logo: 'AIIMS', rank: 120, cost: 500, stream: 'Medicine', city: 'New Delhi', desc: 'Apex public medical research university delivering top clinical exposure.' },
+    { name: 'Birla Institute of Technology & Science', logo: 'BITS', rank: 801, cost: 6500, stream: 'STEM', city: 'Pilani', desc: 'Top private tech institute with strong practice schools and flexible merit pathways.' },
+    { name: 'Jawaharlal Nehru University', logo: 'JNU', rank: 601, cost: 400, stream: 'Humanities', city: 'New Delhi', desc: 'Renowned world center for international studies, foreign languages, and social science.' },
+    { name: 'Anna University', logo: 'AU', rank: 851, cost: 1800, stream: 'STEM', city: 'Chennai', desc: 'Major engineering hub providing strong industrial training and IT partnerships.' }
+  ],
+  'Poland': [
+    { name: 'University of Warsaw', logo: 'UW', rank: 262, cost: 4000, stream: 'Humanities', city: 'Warsaw', desc: "Poland's largest public university offering elite research in physics, law, and math." },
+    { name: 'Jagiellonian University', logo: 'JU', rank: 304, cost: 4500, stream: 'Medicine', city: 'Krakow', desc: 'One of Central Europe\'s oldest universities, world-famed for medicine and law.' },
+    { name: 'Warsaw University of Technology', logo: 'WUT', rank: 571, cost: 3800, stream: 'STEM', city: 'Warsaw', desc: 'The leading polytechnic in Central Europe for computer science and robotics.' },
+    { name: 'AGH University of Krakow', logo: 'AGH', rank: 801, cost: 3500, stream: 'STEM', city: 'Krakow', desc: 'Top tech university focusing on energy, materials science, and mining engineering.' },
+    { name: 'Adam Mickiewicz University', logo: 'AMU', rank: 730, cost: 3200, stream: 'Humanities', city: 'Poznań', desc: 'Rich tradition in foreign languages, international relations, and environmental science.' },
+    { name: 'Wrocław University of Science & Technology', logo: 'WUST', rank: 901, cost: 3400, stream: 'STEM', city: 'Wrocław', desc: 'Dynamic engineering institution tied closely to international tech corporations.' },
+    { name: 'Medical University of Warsaw', logo: 'MUW', rank: 850, cost: 11000, stream: 'Medicine', city: 'Warsaw', desc: 'Highly sought-after English medical program with international clinical accreditations.' },
+    { name: 'SGH Warsaw School of Economics', logo: 'SGH', rank: 501, cost: 4200, stream: 'Business', city: 'Warsaw', desc: "Poland's top business and finance university driving Eastern European commerce." },
+    { name: 'University of Wrocław', logo: 'UWR', rank: 950, cost: 3000, stream: 'Humanities', city: 'Wrocław', desc: 'Historical cultural center known for Nobel laureates and international exchange.' },
+    { name: 'Gdańsk University of Technology', logo: 'GUT', rank: 851, cost: 3300, stream: 'STEM', city: 'Gdańsk', desc: 'Coastal engineering leader specializing in naval architecture and green tech.' }
+  ],
+  'Finland': [
+    { name: 'University of Helsinki', logo: 'UH', rank: 115, cost: 13000, stream: 'Humanities', city: 'Helsinki', desc: "Finland's oldest institution, world-renowned for climate science and pedagogy." },
+    { name: 'Aalto University', logo: 'AALTO', rank: 109, cost: 15000, stream: 'STEM', city: 'Espoo', desc: 'Pioneering fusion of technology, business, and Nordic architectural design.' },
+    { name: 'Tampere University', logo: 'TAU', rank: 436, cost: 12000, stream: 'STEM', city: 'Tampere', desc: 'Leading Scandinavian center for game design, automation, and health tech.' },
+    { name: 'University of Oulu', logo: 'UO', rank: 313, cost: 10000, stream: 'STEM', city: 'Oulu', desc: 'Global 6G cellular tech hub working with top telecommunications leaders.' },
+    { name: 'University of Turku', logo: 'UTU', rank: 315, cost: 11000, stream: 'Medicine', city: 'Turku', desc: 'Multi-disciplinary powerhouse focusing on drug development and biotechnology.' },
+    { name: 'LUT University', logo: 'LUT', rank: 351, cost: 13500, stream: 'STEM', city: 'Lappeenranta', desc: 'Specialized focus on clean energy, water tech, and sustainable business.' },
+    { name: 'University of Eastern Finland', logo: 'UEF', rank: 541, cost: 9500, stream: 'Medicine', city: 'Kuopio', desc: 'Premier institution for forestry research, health sciences, and photonics.' },
+    { name: 'University of Jyväskylä', logo: 'JYU', rank: 446, cost: 10500, stream: 'Humanities', city: 'Jyväskylä', desc: 'Famous for sports science, psychology, and pioneer Finnish teacher education.' },
+    { name: 'Åbo Akademi University', logo: 'AAU', rank: 601, cost: 9000, stream: 'STEM', city: 'Turku', desc: 'Swedish-language research university renowned for chemical engineering.' },
+    { name: 'Haaga-Helia University of Applied Sciences', logo: 'HH', rank: 1200, cost: 8500, stream: 'Business', city: 'Helsinki', desc: 'Applied business management, hospitality, and practical software engineering.' }
+  ],
+  'Latvia': [
+    { name: 'University of Latvia', logo: 'UL', rank: 831, cost: 3800, stream: 'Humanities', city: 'Riga', desc: 'Largest national university driving Baltic research in life sciences and computer code.' },
+    { name: 'Riga Technical University', logo: 'RTU', rank: 751, cost: 4200, stream: 'STEM', city: 'Riga', desc: 'Oldest technical university in the Baltic states with deep engineering tracks.' },
+    { name: 'Riga Stradiņš University', logo: 'RSU', rank: 901, cost: 12000, stream: 'Medicine', city: 'Riga', desc: 'International hub for medical and dental studies with state-of-the-art labs.' },
+    { name: 'Latvia University of Life Sciences', logo: 'LBTU', rank: 1201, cost: 3500, stream: 'STEM', city: 'Jelgava', desc: 'Focused on sustainable forestry, veterinary medicine, and food tech.' },
+    { name: 'SSE Riga (Stockholm School of Economics)', logo: 'SSE', rank: 450, cost: 7200, stream: 'Business', city: 'Riga', desc: 'Elite business school in the Baltics producing regional financial leaders.' },
+    { name: 'Transport and Telecommunication Institute', logo: 'TSI', rank: 1250, cost: 3900, stream: 'STEM', city: 'Riga', desc: 'Specialized applied research in logistics, aviation engineering, and robotics.' },
+    { name: 'Daugavpils University', logo: 'DU', rank: 1301, cost: 2800, stream: 'Humanities', city: 'Daugavpils', desc: 'Regional eastern educational hub with strong biological and language studies.' },
+    { name: 'Ventspils University of Applied Sciences', logo: 'VUAS', rank: 1400, cost: 3000, stream: 'STEM', city: 'Ventspils', desc: 'Specialized programs in IT, space technologies, and translation studies.' },
+    { name: 'EKA University of Applied Sciences', logo: 'EKA', rank: 1500, cost: 2900, stream: 'Business', city: 'Riga', desc: 'Dynamic, modern center for creative business design and digital marketing.' },
+    { name: 'Art Academy of Latvia', logo: 'AAL', rank: 1450, cost: 3200, stream: 'Humanities', city: 'Riga', desc: 'Premier institution for visual arts, design, and cultural heritage preservation.' }
+  ],
+  'Lithuania': [
+    { name: 'Vilnius University', logo: 'VU', rank: 473, cost: 4500, stream: 'STEM', city: 'Vilnius', desc: 'Historic university renowned for quantum laser tech and medical research.' },
+    { name: 'Kaunas University of Technology', logo: 'KTU', rank: 801, cost: 4100, stream: 'STEM', city: 'Kaunas', desc: 'Leader in Baltic engineering, digital hardware, and industrial design.' },
+    { name: 'Vilnius Tech (VGTU)', logo: 'VGTU', rank: 851, cost: 3800, stream: 'STEM', city: 'Vilnius', desc: 'Specialized in civil engineering, architecture, and aviation management.' },
+    { name: 'Vytautas Magnus University', logo: 'VMU', rank: 801, cost: 3600, stream: 'Humanities', city: 'Kaunas', desc: 'Liberal arts school known for international relations and political science.' },
+    { name: 'Lithuanian University of Health Sciences', logo: 'LSMU', rank: 751, cost: 11500, stream: 'Medicine', city: 'Kaunas', desc: 'Largest Lithuanian institution for veterinary and clinical medical degrees.' },
+    { name: 'ISM University of Management & Economics', logo: 'ISM', rank: 601, cost: 5800, stream: 'Business', city: 'Vilnius', desc: 'Top-tier private business school established in partnership with BI Norwegian.' },
+    { name: 'Mykolas Romeris University', logo: 'MRU', rank: 1001, cost: 3200, stream: 'Humanities', city: 'Vilnius', desc: 'Social sciences hub specializing in law, public security, and psychology.' },
+    { name: 'Klaipėda University', logo: 'KU', rank: 1201, cost: 3000, stream: 'STEM', city: 'Klaipėda', desc: 'Unique marine technology, coastal hydrology, and port engineering tracks.' },
+    { name: 'LCC International University', logo: 'LCC', rank: 1301, cost: 4200, stream: 'Humanities', city: 'Klaipėda', desc: 'North American-style liberal arts university taught entirely in English.' },
+    { name: 'Vilnius College (VIKO)', logo: 'VIKO', rank: 1400, cost: 2700, stream: 'Business', city: 'Vilnius', desc: 'Practical professional education in software development and electronics.' }
+  ],
+  'Greece': [
+    { name: 'National & Kapodistrian University of Athens', logo: 'NKUA', rank: 447, cost: 1500, stream: 'Humanities', city: 'Athens', desc: 'Oldest university in modern Greece, world leader in classics and medicine.' },
+    { name: 'National Technical University of Athens', logo: 'NTUA', rank: 347, cost: 1500, stream: 'STEM', city: 'Athens', desc: 'Greece\'s prestigious polytechnic, famous for civil engineering and math.' },
+    { name: 'Aristotle University of Thessaloniki', logo: 'AUTH', rank: 530, cost: 1500, stream: 'Medicine', city: 'Thessaloniki', desc: 'Largest university in the Balkans, offering broad research programs.' },
+    { name: 'University of Crete', logo: 'UOC', rank: 501, cost: 1500, stream: 'STEM', city: 'Heraklion', desc: 'Top-ranked for scientific citations, physics research, and computer science.' },
+    { name: 'University of Patras', logo: 'UPATRAS', rank: 791, cost: 1500, stream: 'STEM', city: 'Patras', desc: 'Strong focus on chemical engineering, pharmaceuticals, and robotics.' },
+    { name: 'Athens University of Economics and Business', logo: 'AUEB', rank: 651, cost: 2000, stream: 'Business', city: 'Athens', desc: "Greece's premier destination for economics, international trade, and MBAs." },
+    { name: 'University of Ioannina', logo: 'UOI', rank: 851, cost: 1200, stream: 'Medicine', city: 'Ioannina', desc: 'Highly regarded medical school and materials science research institute.' },
+    { name: 'Technical University of Crete', logo: 'TUC', rank: 901, cost: 1500, stream: 'STEM', city: 'Chania', desc: 'Specialized engineering school in environmental tech and architectural design.' },
+    { name: 'University of Thessaly', logo: 'UTH', rank: 1001, cost: 1200, stream: 'STEM', city: 'Volos', desc: 'Pioneering agricultural science, veterinary, and biomedical studies.' },
+    { name: 'University of the Aegean', logo: 'UAEGEAN', rank: 1201, cost: 1200, stream: 'Humanities', city: 'Mytilene', desc: 'Unique island network institution focusing on shipping, geography, and ecology.' }
   ]
 };
 
@@ -109,10 +181,16 @@ const COUNTRIES = [
   { id: 2, name: 'United Kingdom', code: 'UK', description: 'Home to some of the oldest, most prestigious academic institutions on Earth.', image: 'https://wallpapers.com/images/hd/aerial-view-cambridge-university-with-blue-sky-mly3dd8rvzxvbtxa.jpg', accent: 'Exceptional academic legacy and direct career pathways.' },
   { id: 3, name: 'Germany', code: 'DE', description: 'A globally leading hub for innovation and engineering with tuition-free public options.', image: 'https://fastlagos.com/wp-content/uploads/2022/11/730.jpg', accent: 'Industry-integrated learning with minimal tuition fees.' },
   { id: 4, name: 'Australia', code: 'AU', description: 'Study in a paradise of warm beaches and modern cities with globally recognized degrees.', image: 'https://i.pinimg.com/originals/d3/77/e2/d377e2f19a8e16e6cb1c8110fd2e640b.jpg', accent: 'Generous post-study working visas and premium lifestyle.' },
-  { id: 5, name: 'United States', code: 'US', description: 'The absolute frontier of innovation, offering unparalleled academic research scope.', image: './usauniversities.png', accent: 'Massive networking index and world-leading faculty teams.' },
-  { id: 6, name: 'Canada', code: 'CA', description: 'Acclaimed for its safety, welcoming multiculturalism, and direct immigration paths.', image: './canadauniversities.png', accent: 'Most welcoming post-grad permanent residency tracks.' },
-  { id: 7, name: 'New Zealand', code: 'NZ', description: 'Safe, beautiful, peaceful country emphasizing highly supportive and hands-on teaching.', image: './newzealand.png', accent: 'Spectacular wilderness paired with personalized care.' },
-  { id: 8, name: 'Russia', code: 'RU', description: 'Immersive historical foundations with unrivaled rigor in math, space sciences, and code.', image: './russia.png', accent: 'Legendary scientific rigor at very affordable costs.' },
+  { id: 5, name: 'United States', code: 'US', description: 'The absolute frontier of innovation, offering unparalleled academic research scope.', image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200&auto=format&fit=crop', accent: 'Massive networking index and world-leading faculty teams.' },
+  { id: 6, name: 'Canada', code: 'CA', description: 'Acclaimed for its safety, welcoming multiculturalism, and direct immigration paths.', image: 'https://images.unsplash.com/photo-1517935706615-2717063c2225?q=80&w=1200&auto=format&fit=crop', accent: 'Most welcoming post-grad permanent residency tracks.' },
+  { id: 7, name: 'New Zealand', code: 'NZ', description: 'Safe, beautiful, peaceful country emphasizing highly supportive and hands-on teaching.', image: 'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?q=80&w=1200&auto=format&fit=crop', accent: 'Spectacular wilderness paired with personalized care.' },
+  { id: 8, name: 'Russia', code: 'RU', description: 'Immersive historical foundations with unrivaled rigor in math, space sciences, and code.', image: 'https://images.unsplash.com/photo-1513326738677-b964603b136d?q=80&w=1200&auto=format&fit=crop', accent: 'Legendary scientific rigor at very affordable costs.' },
+  { id: 9, name: 'India', code: 'IN', description: 'Rapidly growing education powerhouse with top technical and management institutes.', image: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=1200&auto=format&fit=crop', accent: 'Unmatched innovation ecosystem and affordable quality education.' },
+  { id: 10, name: 'Poland', code: 'PL', description: 'Rich academic tradition in the heart of Europe with low living costs and English degrees.', image: 'https://images.unsplash.com/photo-1617639049011-6279d46cdb21?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', accent: 'Gateway to Europe with high safety and modern study facilities.' },
+  { id: 11, name: 'Finland', code: 'FI', description: 'World leader in educational quality, high technology, and pristine natural beauty.', image: 'https://images.unsplash.com/photo-1538332576228-eb5b4c4de6f5?q=80&w=1200&auto=format&fit=crop', accent: 'Ranked #1 happiest nation with cutting-edge student innovation.' },
+  { id: 12, name: 'Latvia', code: 'LV', description: 'Affordable European degrees, vibrant tech scenes, and stunning Baltic architecture.', image: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=1200&auto=format&fit=crop', accent: 'Highly accessible medical & engineering programs in English.' },
+  { id: 13, name: 'Lithuania', code: 'LT', description: 'Booming startup and fintech nation with ancient universities and rich culture.', image: 'https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?q=80&w=1200&auto=format&fit=crop', accent: 'World-renowned laser technology & digital health hubs.' },
+  { id: 14, name: 'Greece', code: 'GR', description: 'Study at the birthplace of Western philosophy, mathematics, and democratic thought.', image: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1200&auto=format&fit=crop', accent: 'Incredible historical heritage paired with low Mediterranean costs.' }
 ];
 
 export default function App() {
@@ -161,6 +239,13 @@ export default function App() {
         .animate-infinite-slide:hover {
           animation-play-state: paused;
         }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
       `}</style>
 
       {/* Dynamic Ambient Background Elements */}
@@ -169,7 +254,7 @@ export default function App() {
       </div>
 
       {/* Main Full-Width Container */}
-      <main className="w-full flex-grow relative z-10">
+      <main className="w-full grow relative z-10">
         
         <div className="w-full py-10 lg:py-16 flex flex-col items-center px-4 md:px-8 lg:px-16">
           
@@ -186,7 +271,7 @@ export default function App() {
               </span>
             </h1>
             <p className="text-slate-600 text-lg md:text-xl pt-4 font-normal max-w-2xl mx-auto leading-relaxed">
-              Embark on your personal academic adventure. Explore top universities across the UK, USA, Germany, Australia, Canada, Ireland, and beyond!
+              Embark on your personal academic adventure. Explore top universities across Europe, Asia, the Americas, and beyond!
             </p>
           </div>
 
@@ -196,16 +281,13 @@ export default function App() {
               key={selectedCountry.id}
               src={selectedCountry.image} 
               alt={selectedCountry.name}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity  duration-500 ${isAnimating ? 'opacity-40' : 'opacity-85'}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isAnimating ? 'opacity-40' : 'opacity-85'}`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
             
             {/* Featured card text overlay */}
             <div className="absolute inset-0 flex flex-col justify-between p-8 md:p-14 z-10">
               <div className="flex justify-between items-start">
-                <span className="bg-white/15 backdrop-blur-md border border-white/25 px-5 py-2 rounded-full text-white font-bold text-sm tracking-wide shadow-sm">
-                  Destination Highlight
-                </span>
                 <span className="text-white/60 font-mono text-3xl font-extrabold tracking-widest">{selectedCountry.code}</span>
               </div>
 
@@ -225,7 +307,7 @@ export default function App() {
 
                 <div className="flex flex-wrap gap-4 pt-2">
                   <Link
-                    to="/university"
+                    to={`/university/${selectedCountry.name.toLowerCase().replace(/\s+/g, '-')}`}
                     className="group relative cursor-pointer inline-flex items-center gap-2.5 px-8 py-4 bg-[#0B7707] hover:bg-emerald-800 rounded-full text-white font-bold text-base transition-all duration-300 hover:scale-[1.03] shadow-lg active:scale-95"
                   >
                     Explore Top Universities
@@ -247,8 +329,7 @@ export default function App() {
                     className="group flex flex-col items-center gap-3 cursor-pointer"
                   >
                     <div 
-                      className={`relative w-24 h-24 md:w-28 md:h-28 rounded-3xl overflow-hidden transition-all duration-300 ease-out shadow-md ${isSelected ? 'ring-4 ring-offset-2 scale-110 shadow-xl' : 'hover:scale-105 hover:shadow-lg opacity-85 hover:opacity-100'}`}
-                      style={{ ringColor: isSelected ? PRIMARY_COLOR : 'transparent', '--tw-ring-color': PRIMARY_COLOR }}
+                      className={`relative w-24 h-24 md:w-28 md:h-28 rounded-3xl overflow-hidden transition-all duration-300 ease-out shadow-md ${isSelected ? 'ring-4 ring-emerald-600 ring-offset-2 scale-110 shadow-xl' : 'hover:scale-105 hover:shadow-lg opacity-85 hover:opacity-100'}`}
                     >
                       <img src={country.image} alt={country.name} className="w-full h-full object-cover" />
                       {!isSelected && <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-transparent transition-colors duration-300" />}
@@ -302,7 +383,7 @@ export default function App() {
                         </span>
                         <button 
                           onClick={() => toggleShortlist(uni)}
-                          className="text-slate-300 hover:text-red-500 transition-colors"
+                          className="text-slate-300 hover:text-red-500 transition-colors cursor-pointer"
                         >
                           <Heart size={16} className={shortlist.some(s => s.name === uni.name) ? "fill-red-500 text-red-500" : ""} />
                         </button>
